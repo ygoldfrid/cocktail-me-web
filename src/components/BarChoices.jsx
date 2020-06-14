@@ -1,5 +1,5 @@
 import React from "react";
-import DropDownList from "./DropDownList";
+import DropDownList from "./common/DropDownList";
 
 function BarChoices({ spirits, mixers, others, onSelect }) {
   return (

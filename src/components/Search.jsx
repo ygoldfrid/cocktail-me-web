@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Cookies from "universal-cookie";
 import { Form } from "react-bootstrap";
 import cocktailService from "../services/cocktailService";
-import CocktailList from "./common/CocktailList";
+import CocktailList from "./CocktailList";
 import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
 

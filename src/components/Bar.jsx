@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
+import moment from "moment";
 import cocktailService from "../services/cocktailService";
 import BottomBox from "./common/BottomBox";
-import BarChoices from "./common/BarChoices";
+import BarChoices from "./BarChoices";
 
 class Bar extends Component {
   state = {
@@ -46,7 +47,9 @@ class Bar extends Component {
       bar.push(item);
 
       this.setState({ bar });
-      this.cookies.set("bar", bar);
+      this.cookies.set("bar", bar, {
+        expires: moment().add(30, "days").toDate(),
+      });
     } else {
       toast(`You already have ${item.name} in you bar`);
     }
@@ -59,7 +62,9 @@ class Bar extends Component {
     bar.splice(index, 1);
 
     this.setState({ bar });
-    this.cookies.set("bar", bar);
+    this.cookies.set("bar", bar, {
+      expires: moment().add(30, "days").toDate(),
+    });
   };
 
   render() {
