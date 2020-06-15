@@ -1,11 +1,12 @@
 import React from "react";
 import Thumbnail from "./Thumbnail";
 
-function BottomBox({ type, title, body, items, onRemove, history }) {
+function BottomBox({ type, title, subtitle, body, items, onRemove, history }) {
   return (
     <div className="box px-4">
       <h2>{title}</h2>
-      <div className="d-flex flex-row">
+      {subtitle}
+      <div className="row">
         {items &&
           items.map((item) => (
             <div key={item._id} className="p-2">

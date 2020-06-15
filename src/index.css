@@ -120,3 +120,10 @@ a.btn-bar:hover {
   border-left-style: solid;
   background-color: var(--light-green);
 }
+
+p.subtitle {
+  color: red;
+}
+p.subtitle > a {
+  color: var(--dark-green);
+}

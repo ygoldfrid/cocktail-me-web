@@ -16,6 +16,7 @@ class Bar extends Component {
   };
 
   cookies = new Cookies();
+  barLimit = 20;
 
   componentDidMount = () => {
     this.getMenuIngredients();
@@ -43,16 +44,24 @@ class Bar extends Component {
   handleSelect = (item) => {
     const { bar } = this.state;
 
-    if (!bar.includes(item)) {
-      bar.push(item);
+    if (bar.length >= this.barLimit)
+      return toast.info(
+        `Log In to add more than ${this.barLimit} items to your Bar`
+      );
 
-      this.setState({ bar });
-      this.cookies.set("bar", bar, {
-        expires: moment().add(30, "days").toDate(),
-      });
-    } else {
-      toast(`You already have ${item.name} in you bar`);
-    }
+    if (bar.some((ing) => ing._id === item._id))
+      return toast(`You already have ${item.name} in you bar`);
+
+    const barItem = { ...item };
+    delete barItem.type;
+    delete barItem.measure;
+    delete barItem.__v;
+    bar.push(barItem);
+
+    this.setState({ bar });
+    this.cookies.set("bar", bar, {
+      expires: moment().add(30, "days").toDate(),
+    });
   };
 
   handleRemove = (item) => {
@@ -65,6 +74,18 @@ class Bar extends Component {
     this.cookies.set("bar", bar, {
       expires: moment().add(30, "days").toDate(),
     });
+  };
+
+  getSubtitle = () => {
+    return this.state.bar.length === this.barLimit ? (
+      <p className="subtitle">
+        You've reached the limit of items for anonymous users.{" "}
+        <Link to="/login">
+          <b>Log in</b>
+        </Link>{" "}
+        to add more!
+      </p>
+    ) : null;
   };
 
   render() {
@@ -81,6 +102,7 @@ class Bar extends Component {
         <BottomBox
           type="ingredients"
           title="My Bar"
+          subtitle={this.getSubtitle()}
           body="Start adding some ingredients to your bar!"
           items={bar}
           onRemove={this.handleRemove}
