@@ -19,40 +19,33 @@
 }
 
 /* GENERAL */
-
 div > h1 {
   margin-bottom: 20px;
 }
 div > p {
   margin-bottom: 0px;
 }
-
 li > a {
   color: var(--dark-green);
 }
 li > a:hover {
   color: var(--dark-green);
 }
-
 h5 > b {
   color: var(--dark-green);
 }
-
 a > b {
   color: var(--dark-green);
 }
-
 .clickable {
   cursor: pointer;
 }
 
 /* NAVBAR */
-
 .navbar {
   background-color: var(--dark-green);
   margin-bottom: 30px;
 }
-
 .navbar-link {
   font-size: 18px;
   color: white;
@@ -65,23 +58,19 @@ a > b {
 }
 
 /* CONTAINERS */
-
 .container {
   margin-bottom: 40px;
 }
-
 .box {
   padding: 10px;
   border-radius: 5px;
   background-color: var(--light-green);
   width: 100%;
 }
-
 .image-container {
   position: relative;
   text-align: center;
 }
-
 .top-right {
   background-color: white;
   color: var(--darker-green);
@@ -94,7 +83,6 @@ a > b {
   top: 8px;
   right: 8px;
 }
-
 .remove-top-right {
   background-color: var(--transparent-grey);
   border-radius: 50%;
@@ -104,13 +92,11 @@ a > b {
   top: 8px;
   right: 8px;
 }
-
 .remove-top-right > i {
   color: white;
 }
 
 /* BUTTONS */
-
 a.btn-bar {
   background-color: var(--dark-green);
   color: white;
@@ -120,7 +106,6 @@ a.btn-bar:hover {
   background-color: var(--darker-green);
   color: white;
 }
-
 .ingredient-list {
   height: 200px;
   border-width: 5px;
@@ -128,10 +113,36 @@ a.btn-bar:hover {
   border-left-style: solid;
   background-color: var(--light-green);
 }
-
 p.subtitle {
   color: red;
 }
 p.subtitle > a {
   color: var(--dark-green);
+}
+
+/* PAGINATION */
+.pagination > li > button,
+.pagination > li > button > i {
+  background-color: white;
+  color: var(--dark-green);
+}
+.pagination > li.disabled > button > i {
+  color: var(--transparent-grey);
+}
+.pagination > li > button:focus,
+.pagination > li > button:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+  color: #5a5a5a;
+  background-color: #eee;
+  border-color: #ddd;
+}
+.pagination > .active > button {
+  color: white;
+  background-color: var(--dark-green) !important;
+  border: solid 1px var(--dark-green) !important;
+}
+.pagination > .active > button:hover {
+  background-color: var(--dark-green) !important;
+  border: solid 1px var(--dark-green);
 }

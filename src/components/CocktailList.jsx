@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 function CocktailList({ cocktails, history }) {
   return (
-    <Fragment>
+    <div className="row">
       {cocktails.map((cocktail) => (
         <div
           key={cocktail._id}
@@ -40,7 +40,7 @@ function CocktailList({ cocktails, history }) {
           </div>
         </div>
       ))}
-    </Fragment>
+    </div>
   );
 }
 
