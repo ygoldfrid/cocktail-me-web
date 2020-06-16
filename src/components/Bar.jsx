@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
-import moment from "moment";
 import cocktailService from "../services/cocktailService";
+import cookie from "../services/cookieService";
 import BottomBox from "./common/BottomBox";
 import BarChoices from "./BarChoices";
 
@@ -16,7 +15,6 @@ class Bar extends Component {
     bar: [],
   };
 
-  cookies = new Cookies();
   barLimit = 20;
 
   componentDidMount = () => {
@@ -41,7 +39,7 @@ class Bar extends Component {
   };
 
   getCookieIngredients = () => {
-    const bar = this.cookies.get("bar");
+    const bar = cookie.getBar();
     if (bar) this.setState({ bar });
   };
 
@@ -63,9 +61,7 @@ class Bar extends Component {
     bar.push(barItem);
 
     this.setState({ bar });
-    this.cookies.set("bar", bar, {
-      expires: moment().add(30, "days").toDate(),
-    });
+    cookie.setBar(bar);
   };
 
   handleRemove = (item) => {
@@ -75,9 +71,7 @@ class Bar extends Component {
     bar.splice(index, 1);
 
     this.setState({ bar });
-    this.cookies.set("bar", bar, {
-      expires: moment().add(30, "days").toDate(),
-    });
+    cookie.setBar(bar);
   };
 
   getSubtitle = () => {

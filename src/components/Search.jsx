@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
-import Cookies from "universal-cookie";
 import { Form } from "react-bootstrap";
 import cocktailService from "../services/cocktailService";
+import cookie from "../services/cookieService";
 import CocktailList from "./CocktailList";
 import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
@@ -17,8 +17,6 @@ class Search extends Component {
     currentPage: 1,
     pageSize: 6,
   };
-
-  cookies = new Cookies();
 
   async componentDidMount() {
     const { state: barIsSelected } = this.props.location;
@@ -45,7 +43,7 @@ class Search extends Component {
   };
 
   getBarFromCookies = () => {
-    return this.cookies.get("bar").map((ing) => ing._id);
+    return cookie.getBar().map((ing) => ing._id);
   };
 
   getCocktailsChecked = () => {
