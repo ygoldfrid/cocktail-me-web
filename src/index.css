@@ -34,6 +34,14 @@ li > a:hover {
   color: var(--dark-green);
 }
 
+h5 > b {
+  color: var(--dark-green);
+}
+
+a > b {
+  color: var(--dark-green);
+}
+
 .clickable {
   cursor: pointer;
 }

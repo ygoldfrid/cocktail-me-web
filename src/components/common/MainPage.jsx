@@ -29,7 +29,7 @@ function MainPage({ type, element, items, history }) {
 
   const getSecondaryBoxContent = () => {
     if (type === "cocktail")
-      return <BottomBox title="Recipe" body={element.recipe} />;
+      return <BottomBox title="Preparation" body={element.preparation} />;
     if (type === "ingredient")
       return (
         <BottomBox

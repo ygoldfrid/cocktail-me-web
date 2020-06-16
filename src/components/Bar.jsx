@@ -10,6 +10,7 @@ import BarChoices from "./BarChoices";
 class Bar extends Component {
   state = {
     spirits: [],
+    liqueurs: [],
     mixers: [],
     others: [],
     bar: [],
@@ -27,13 +28,16 @@ class Bar extends Component {
     const { data: spirits } = await cocktailService.getIngredientsByType(
       "Spirits"
     );
+    const { data: liqueurs } = await cocktailService.getIngredientsByType(
+      "Liqueurs"
+    );
     const { data: mixers } = await cocktailService.getIngredientsByType(
       "Mixers"
     );
     const { data: others } = await cocktailService.getIngredientsByType(
       "Others"
     );
-    this.setState({ spirits, mixers, others });
+    this.setState({ spirits, liqueurs, mixers, others });
   };
 
   getCookieIngredients = () => {
@@ -89,12 +93,13 @@ class Bar extends Component {
   };
 
   render() {
-    const { spirits, mixers, others, bar } = this.state;
+    const { spirits, liqueurs, mixers, others, bar } = this.state;
 
     return (
       <div className="my-bar">
         <BarChoices
           spirits={spirits}
+          liqueurs={liqueurs}
           mixers={mixers}
           others={others}
           onSelect={this.handleSelect}
@@ -103,7 +108,7 @@ class Bar extends Component {
           type="ingredients"
           title="My Bar"
           subtitle={this.getSubtitle()}
-          body="Start adding some ingredients to your bar!"
+          body={["Start adding some ingredients to your bar!"]}
           items={bar}
           onRemove={this.handleRemove}
           history={this.props.history}

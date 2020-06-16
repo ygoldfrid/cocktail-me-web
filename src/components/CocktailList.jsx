@@ -30,11 +30,13 @@ function CocktailList({ cocktails, history }) {
             )}
           </div>
           <div className="card-body">
-            <h5 className="card-title">{cocktail.name}</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+            <h5 className="card-title">
+              <b>{cocktail.name}</b>
+            </h5>
+            <p className="card-title">
+              {cocktail.components.length} ingredients
             </p>
+            <p className="card-text">{cocktail.preparation[0]}</p>
           </div>
         </div>
       ))}
