@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Cookies from "universal-cookie";
 import { Form } from "react-bootstrap";
 import cocktailService from "../services/cocktailService";
@@ -21,11 +21,19 @@ class Search extends Component {
   cookies = new Cookies();
 
   async componentDidMount() {
-    const { state } = this.props.location;
+    const { state: barIsSelected } = this.props.location;
+    this.setChecked(barIsSelected);
     await this.getSpirits();
-    await this.getCocktails(state, this.state.currentPage);
-    this.setChecked(state);
+    await this.getCocktails(barIsSelected);
   }
+
+  setChecked = (barIsSelected) => {
+    document.getElementById("barIsSelected").checked = barIsSelected;
+  };
+
+  getChecked = () => {
+    return document.getElementById("barIsSelected").checked;
+  };
 
   getSpirits = async () => {
     const { data: ingredients } = await cocktailService.getAllIngredients();
@@ -36,10 +44,20 @@ class Search extends Component {
     this.setState({ spirits });
   };
 
-  getCocktails = async (bar, page) => {
+  getBarFromCookies = () => {
+    return this.cookies.get("bar").map((ing) => ing._id);
+  };
+
+  getCocktailsChecked = () => {
+    this.getCocktails(this.getChecked());
+  };
+
+  getCocktails = async (barIsSelected) => {
     let { data: cocktails } = await cocktailService.getAllCocktails();
 
-    if (bar) {
+    if (barIsSelected) {
+      const bar = this.getBarFromCookies();
+
       cocktails = cocktails.filter((cocktail) => {
         cocktail.missing = 0;
         const size = cocktail.components.length;
@@ -52,17 +70,11 @@ class Search extends Component {
         if (cocktail.missing < 4) return true;
         return false;
       });
+
+      cocktails.sort((x, y) => x.missing - y.missing);
     }
 
-    cocktails.sort((x, y) => {
-      return x.missing - y.missing;
-    });
-
     this.setState({ cocktails });
-  };
-
-  getBarFromCookies = () => {
-    return this.cookies.get("bar").map((ing) => ing._id);
   };
 
   handleSpiritSelect = (spirit) => {
@@ -81,27 +93,17 @@ class Search extends Component {
     });
   };
 
-  handleCheck = (checkbox) => {
-    const bar = checkbox.checked ? this.getBarFromCookies() : null;
-    this.getCocktails(bar, this.state.currentPage);
-  };
-
   handlePageChange = (page) => {
     if (page === "previous") page = this.state.currentPage - 1;
     if (page === "next") page = this.state.currentPage + 1;
 
-    const bar = this.getChecked() ? this.getBarFromCookies() : null;
-    this.getCocktails(bar, page);
-
+    this.getCocktailsChecked();
     this.setState({ currentPage: page });
   };
 
-  getChecked = () => {
-    return document.getElementById("checkbox").checked;
-  };
-
-  setChecked = (state) => {
-    if (state) document.getElementById("checkbox").checked = true;
+  handleCheck = () => {
+    this.getCocktailsChecked();
+    this.setState({ currentPage: 1 });
   };
 
   getPagedData = () => {
@@ -146,10 +148,10 @@ class Search extends Component {
         <div className="col-2">
           <Form.Check
             className="box mb-2 pl-4"
-            id="checkbox"
+            id="barIsSelected"
             type="checkbox"
             label="Use ingredients from My Bar"
-            onChange={({ currentTarget }) => this.handleCheck(currentTarget)}
+            onChange={this.handleCheck}
           />
           <ListGroup
             title="Spirits"
@@ -160,19 +162,26 @@ class Search extends Component {
         </div>
         <div className="col">
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
-          <p className="mb-2">
-            Showing {pagedCocktails.length} out of {totalCount} results
-          </p>
-          <CocktailList
-            cocktails={pagedCocktails}
-            history={this.props.history}
-          />
-          <Pagination
-            itemsCount={totalCount}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={this.handlePageChange}
-          />
+          {pagedCocktails.length > 0 && (
+            <Fragment>
+              <p className="mb-2">
+                Showing {pagedCocktails.length} out of {totalCount} results
+              </p>
+              <CocktailList
+                cocktails={pagedCocktails}
+                history={this.props.history}
+              />
+              <Pagination
+                itemsCount={totalCount}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChange={this.handlePageChange}
+              />
+            </Fragment>
+          )}
+          {pagedCocktails.length === 0 && (
+            <p>Oops! No results found. Try removing some filters</p>
+          )}
         </div>
       </div>
     );

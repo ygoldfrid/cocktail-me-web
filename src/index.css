@@ -97,12 +97,11 @@ a > b {
 }
 
 /* BUTTONS */
-a.btn-bar {
+.btn-cocktailme {
   background-color: var(--dark-green);
   color: white;
-  width: 200px;
 }
-a.btn-bar:hover {
+.btn-cocktailme:hover {
   background-color: var(--darker-green);
   color: white;
 }

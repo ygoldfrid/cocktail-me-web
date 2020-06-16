@@ -9,6 +9,8 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "font-awesome": "^4.7.0",
+    "joi-browser": "^13.4.0",
+    "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
     "moment": "^2.26.0",
     "react": "^16.13.1",

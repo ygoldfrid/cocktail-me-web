@@ -115,11 +115,8 @@ class Bar extends Component {
         />
         <div className="row justify-content-center m-3">
           <Link
-            className="btn btn-bar"
-            to={{
-              pathname: "/search",
-              state: bar.map((ing) => ing._id),
-            }}
+            className="btn btn-cocktailme"
+            to={{ pathname: "/search", state: true }}
           >
             Cocktail Me!
           </Link>
