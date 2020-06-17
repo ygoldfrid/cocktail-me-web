@@ -24,11 +24,7 @@ function TopBox({
                   <Thumbnail
                     type="ingredients"
                     element={item.ingredient ? item.ingredient : item}
-                    caption={
-                      showCaption
-                        ? `(${item.quantity} ${item.ingredient.measure})`
-                        : ""
-                    }
+                    caption={showCaption ? `(${item.measure})` : ""}
                     history={history}
                   />
                 </div>

@@ -71,7 +71,7 @@ class Search extends Component {
         const size = cocktail.components.length;
 
         const match = cocktail.components.filter((component) =>
-          bar.includes(component.ingredient._id)
+          bar.includes(component.ingredient)
         ).length;
 
         cocktail.missing = size - match;
@@ -132,8 +132,8 @@ class Search extends Component {
       filtered = allCocktails.filter((cocktail) =>
         cocktail.components.some(
           (component) =>
-            component.ingredient._id === selectedSpirit._id ||
-            component.ingredient._id === selectedSpirit.alternatives[0]
+            component.ingredient === selectedSpirit._id ||
+            component.ingredient === selectedSpirit.alternatives[0]
         )
       );
     }

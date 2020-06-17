@@ -13,9 +13,6 @@ function getAllCocktails() {
 function getCocktailById(cocktailId) {
   return http.get(`${cocktailsEndpoint}${cocktailId}`);
 }
-function getCocktailIngredients(cocktailId) {
-  return http.get(`${cocktailsEndpoint}${cocktailId}/ingredients`);
-}
 
 // Ingredients
 function getAllIngredients() {
@@ -53,7 +50,6 @@ function removeFromToBar(user, bar, ingredientId) {
 export default {
   getAllCocktails,
   getCocktailById,
-  getCocktailIngredients,
   getAllIngredients,
   getIngredientById,
   getIngredientsByType,

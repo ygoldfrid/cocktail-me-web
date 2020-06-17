@@ -8,22 +8,13 @@ function CocktailPage({ match, history }) {
   const id = match.params.id;
 
   useEffect(() => {
-    //Getting Cocktails
-    async function getCocktail() {
+    async function getData() {
       const { data: cocktail } = await cocktailService.getCocktailById(id);
       setCocktail(cocktail);
+      setIngredients(cocktail.components);
     }
 
-    //Getting Ingredients
-    async function getIngredients() {
-      const {
-        data: ingredients,
-      } = await cocktailService.getCocktailIngredients(id);
-      setIngredients(ingredients);
-    }
-
-    getCocktail();
-    getIngredients();
+    getData();
   }, [id]);
 
   return (
