@@ -1,9 +1,10 @@
 import http from "./httpService";
-import cookie from "../services/cookieService";
 
 const cocktailsEndpoint = "cocktails/";
 const ingredientsEndpoint = "ingredients";
 const barEndpoint = "bar/";
+
+const barKey = "bar";
 
 // Cocktails
 function getAllCocktails() {
@@ -34,17 +35,19 @@ function getIngredientCocktails(ingredientId) {
 
 // Bar
 function getBar(user) {
-  return user ? http.get(barEndpoint) : { data: cookie.getBar() };
+  return user
+    ? http.get(barEndpoint)
+    : { data: JSON.parse(localStorage.getItem(barKey)) };
 }
 function addToBar(user, bar, ingredientId) {
   return user
     ? http.post(barEndpoint, { _id: ingredientId })
-    : { data: cookie.setBar(bar) };
+    : { data: localStorage.setItem(barKey, JSON.stringify(bar)) };
 }
 function removeFromToBar(user, bar, ingredientId) {
   return user
     ? http.delete(`${barEndpoint}${ingredientId}`)
-    : { data: cookie.setBar(bar) };
+    : { data: localStorage.setItem(barKey, JSON.stringify(bar)) };
 }
 
 export default {

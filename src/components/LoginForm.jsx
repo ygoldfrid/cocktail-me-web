@@ -3,7 +3,6 @@ import Joi from "joi-browser";
 import { Redirect } from "react-router-dom";
 import Form from "./common/Form";
 import auth from "../services/authService";
-import cookie from "../services/cookieService";
 
 class LoginForm extends Form {
   state = {
@@ -23,8 +22,6 @@ class LoginForm extends Form {
     try {
       const { username, password } = this.state.data;
       await auth.login(username, password);
-
-      cookie.removeBar();
 
       const { state } = this.props.location;
       window.location = state ? state.from.pathname : "/";
