@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Thumbnail from "./Thumbnail";
 
 function BottomBox({ type, title, subtitle, body, items, onRemove, history }) {
   return (
-    <div className="box px-4">
+    <Fragment>
       <h2>{title}</h2>
       {subtitle}
       {items && items.length > 0 && (
@@ -29,7 +29,7 @@ function BottomBox({ type, title, subtitle, body, items, onRemove, history }) {
           ))}
         </ol>
       )}
-    </div>
+    </Fragment>
   );
 }
 

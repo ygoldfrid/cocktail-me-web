@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import cocktailService from "../services/cocktailService";
 import MainPage from "./common/MainPage";
 
-function CocktailPage({ match, history }) {
+function IngredientPage({ user, match, history }) {
   const [ingredient, setIngredient] = useState({});
   const [cocktails, setCocktails] = useState(null);
+  const [isInMyBar, setIsInMyBar] = useState(false);
   const id = match.params.id;
 
   useEffect(() => {
@@ -12,6 +13,9 @@ function CocktailPage({ match, history }) {
     async function getIngredient() {
       const { data: ingredient } = await cocktailService.getIngredientById(id);
       setIngredient(ingredient);
+
+      const { data: bar } = await cocktailService.getBar(user);
+      setIsInMyBar(bar.some((ing) => ing._id === ingredient._id));
     }
 
     //Getting Cocktails
@@ -24,16 +28,17 @@ function CocktailPage({ match, history }) {
 
     getIngredient();
     getCocktails();
-  }, [id]);
+  }, [id, user]);
 
   return (
     <MainPage
       type="ingredient"
       element={ingredient}
       items={cocktails}
+      isInMyBar={isInMyBar}
       history={history}
     />
   );
 }
 
-export default CocktailPage;
+export default IngredientPage;

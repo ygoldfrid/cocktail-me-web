@@ -43,7 +43,17 @@ class Search extends Component {
 
   getBarIngredients = async () => {
     const { data: bar } = await cocktailService.getBar(this.props.user);
-    return bar.map((ing) => ing._id);
+    return this.getFullBar(bar);
+  };
+
+  getFullBar = (bar) => {
+    const fullBar = [];
+    for (let ing of bar) {
+      fullBar.push(ing._id);
+      for (let alt of ing.alternatives)
+        if (!fullBar.includes(alt)) fullBar.push(alt);
+    }
+    return fullBar;
   };
 
   getCocktailsChecked = () => {
@@ -118,12 +128,15 @@ class Search extends Component {
       filtered = allCocktails.filter((cocktail) =>
         cocktail.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
-    else if (selectedSpirit && selectedSpirit._id)
+    else if (selectedSpirit && selectedSpirit._id) {
       filtered = allCocktails.filter((cocktail) =>
         cocktail.components.some(
-          (component) => component.ingredient._id === selectedSpirit._id
+          (component) =>
+            component.ingredient._id === selectedSpirit._id ||
+            component.ingredient._id === selectedSpirit.alternatives[0]
         )
       );
+    }
 
     const pagedCocktails = paginate(filtered, currentPage, pageSize);
 

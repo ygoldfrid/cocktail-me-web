@@ -62,9 +62,9 @@ class Bar extends Component {
       _id: item._id,
       name: item.name,
       image: item.image,
+      alternatives: item.alternatives,
     };
     bar.push(barItem);
-
     await cocktailService.addToBar(user, bar, item._id);
 
     this.setState({ bar });

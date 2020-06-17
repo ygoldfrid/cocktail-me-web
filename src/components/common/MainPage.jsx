@@ -1,30 +1,47 @@
 import React, { Fragment } from "react";
 import BottomBox from "./BottomBox";
-import Thumbnail from "./Thumbnail";
+import TopBox from "./TopBox";
 
-function MainPage({ type, element, items, history }) {
+function MainPage({ type, element, items, history, isInMyBar }) {
   const getPrimaryBoxContent = () => {
     if (type === "cocktail")
       return (
+        <TopBox
+          title={element.name}
+          subtitle="Ingredients:"
+          showContent={true}
+          items={items}
+          showCaption={true}
+          history={history}
+        />
+      );
+
+    if (type === "ingredient") {
+      const pills = (
         <Fragment>
-          <h1>{element.name}</h1>
-          <h5>Ingredients:</h5>
-          <div className="d-flex flex-row">
-            {items &&
-              items.map((item) => (
-                <div key={item._id} className="p-2">
-                  <Thumbnail
-                    type="ingredients"
-                    element={item.ingredient}
-                    caption={`(${item.quantity} ${item.ingredient.measure})`}
-                    history={history}
-                  />
-                </div>
-              ))}
-          </div>
+          {isInMyBar && (
+            <span className="badge badge-pill badge-success">In My Bar</span>
+          )}
+          {!isInMyBar && (
+            <span className="badge badge-pill badge-danger">Not in My Bar</span>
+          )}
+          <span className="badge badge-pill badge-primary mb-3 ml-1">
+            {element.type}
+          </span>
         </Fragment>
       );
-    if (type === "ingredient") return <h1>{element.name}</h1>;
+      return (
+        <TopBox
+          title={element.name}
+          pills={pills}
+          subtitle="You can replace it with:"
+          showContent={element.alternatives && element.alternatives.length > 0}
+          items={element.alternatives}
+          showCaption={false}
+          history={history}
+        />
+      );
+    }
   };
 
   const getSecondaryBoxContent = () => {
@@ -55,7 +72,7 @@ function MainPage({ type, element, items, history }) {
         </div>
         <div className="col box primary-box">{getPrimaryBoxContent()}</div>
       </div>
-      <div className="secondary-box text-justify">
+      <div className="box secondary-box text-justify px-4">
         {getSecondaryBoxContent()}
       </div>
     </Fragment>
