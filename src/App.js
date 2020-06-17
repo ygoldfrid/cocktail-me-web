@@ -36,8 +36,14 @@ class App extends Component {
             <Route path="/logout" component={Logout} />
             <Route path="/cocktails/:id" component={CocktailPage} />
             <Route path="/ingredients/:id" component={IngredientPage} />
-            <Route path="/search" component={Search} />
-            <Route path="/bar" component={Bar} />
+            <Route
+              path="/search"
+              render={(props) => <Search {...props} user={user} />}
+            />
+            <Route
+              path="/bar"
+              render={(props) => <Bar {...props} user={user} />}
+            />
             <Redirect from="/" exact to="/bar" />
           </Switch>
         </main>

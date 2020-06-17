@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Form } from "react-bootstrap";
 import cocktailService from "../services/cocktailService";
-import cookie from "../services/cookieService";
 import CocktailList from "./CocktailList";
 import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
@@ -42,8 +41,9 @@ class Search extends Component {
     this.setState({ spirits });
   };
 
-  getBarFromCookies = () => {
-    return cookie.getBar().map((ing) => ing._id);
+  getBarIngredients = async () => {
+    const { data: bar } = await cocktailService.getBar(this.props.user);
+    return bar.map((ing) => ing._id);
   };
 
   getCocktailsChecked = () => {
@@ -54,7 +54,7 @@ class Search extends Component {
     let { data: cocktails } = await cocktailService.getAllCocktails();
 
     if (barIsSelected) {
-      const bar = this.getBarFromCookies();
+      const bar = await this.getBarIngredients();
 
       cocktails = cocktails.filter((cocktail) => {
         cocktail.missing = 0;

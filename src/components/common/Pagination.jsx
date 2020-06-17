@@ -24,7 +24,7 @@ function Pagination({ itemsCount, pageSize, currentPage, onPageChange }) {
               className="page-link"
               onClick={() => onPageChange("previous")}
             >
-              <i class="fa fa-chevron-left" aria-hidden="true" />
+              <i className="fa fa-chevron-left" aria-hidden="true" />
             </button>
           </li>
           {pages.map((page) => (
@@ -41,7 +41,7 @@ function Pagination({ itemsCount, pageSize, currentPage, onPageChange }) {
           ))}
           <li className={getNextClasses()}>
             <button className="page-link" onClick={() => onPageChange("next")}>
-              <i class="fa fa-chevron-right" aria-hidden="true" />
+              <i className="fa fa-chevron-right" aria-hidden="true" />
             </button>
           </li>
         </ul>
