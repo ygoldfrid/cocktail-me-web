@@ -19,6 +19,7 @@ async function login(email, password) {
 
 function loginWithJwt(jwt) {
   localStorage.setItem(tokenKey, jwt);
+  localStorage.removeItem(barKey);
 }
 
 function logout() {

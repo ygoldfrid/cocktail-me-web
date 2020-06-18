@@ -21,8 +21,8 @@ function getAllIngredients() {
 function getIngredientById(ingredientId) {
   return http.get(`${ingredientsEndpoint}/${ingredientId}`);
 }
-function getIngredientsByType(type) {
-  return http.get(`${ingredientsEndpoint}?type=${type}`);
+function getIngredientsByCategory(query) {
+  return http.get(`${ingredientsEndpoint}?${query}`);
 }
 function getIngredientCocktails(ingredientId) {
   return http.get(
@@ -52,7 +52,7 @@ export default {
   getCocktailById,
   getAllIngredients,
   getIngredientById,
-  getIngredientsByType,
+  getIngredientsByCategory,
   getIngredientCocktails,
   getBar,
   addToBar,

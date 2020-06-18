@@ -26,16 +26,16 @@ class Bar extends Component {
   };
 
   getMenuIngredients = async () => {
-    const { data: spirits } = await cocktailService.getIngredientsByType(
+    const { data: spirits } = await cocktailService.getIngredientsByCategory(
       "Spirits"
     );
-    const { data: liqueurs } = await cocktailService.getIngredientsByType(
-      "Liqueurs"
+    const { data: liqueurs } = await cocktailService.getIngredientsByCategory(
+      "Liqueurs&Wines&Beers"
     );
-    const { data: mixers } = await cocktailService.getIngredientsByType(
-      "Mixers"
+    const { data: mixers } = await cocktailService.getIngredientsByCategory(
+      "Mixers&Syrups"
     );
-    const { data: others } = await cocktailService.getIngredientsByType(
+    const { data: others } = await cocktailService.getIngredientsByCategory(
       "Others"
     );
     this.setState({ spirits, liqueurs, mixers, others });

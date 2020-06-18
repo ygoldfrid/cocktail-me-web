@@ -26,7 +26,7 @@ function MainPage({ type, element, items, history, isInMyBar }) {
             <span className="badge badge-pill badge-danger">Not in My Bar</span>
           )}
           <span className="badge badge-pill badge-primary mb-3 ml-1">
-            {element.type}
+            {element.category}
           </span>
         </Fragment>
       );

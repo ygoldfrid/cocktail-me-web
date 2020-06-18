@@ -36,7 +36,7 @@ class Search extends Component {
     const { data: ingredients } = await cocktailService.getAllIngredients();
     const spirits = [
       { _id: "", name: "All of them!" },
-      ...ingredients.filter((ing) => ing.type === "Spirits"),
+      ...ingredients.filter((ing) => ing.category === "Spirits"),
     ];
     this.setState({ spirits });
   };
