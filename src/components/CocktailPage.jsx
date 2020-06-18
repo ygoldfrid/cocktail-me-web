@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import cocktailService from "../services/cocktailService";
 import MainPage from "./common/MainPage";
-import { getFullBar, getMissingLength } from "./../utils/bar";
+import { getMissingLength, replaceComponents } from "./../utils/bar";
 
 function CocktailPage({ user, match, history }) {
   const [cocktail, setCocktail] = useState({});
   const [ingredients, setIngredients] = useState(null);
   const [missing, setMissing] = useState(0);
+  const [useMyBar, setUseMyBar] = useState(false);
   const id = match.params.id;
 
   useEffect(() => {
@@ -14,25 +15,37 @@ function CocktailPage({ user, match, history }) {
       const { data: cocktail } = await cocktailService.getCocktailById(id);
       setCocktail(cocktail);
 
-      const { data: bar } = await cocktailService.getBar(user);
-      const fullBar = getFullBar(bar);
-      const missing = getMissingLength(cocktail, fullBar);
+      const { data } = await cocktailService.getBar(user);
+      const barIds = data.map((ing) => ing._id);
+
+      const components = useMyBar
+        ? replaceComponents(cocktail, barIds)
+        : cocktail.components;
+
+      const missing = getMissingLength(components, barIds);
       setMissing(missing);
 
-      setIngredients(cocktail.components);
+      setIngredients(components);
     }
 
     getData();
-  }, [id, user]);
+  }, [id, user, useMyBar]);
+
+  const handleCheck = () => {
+    setUseMyBar(!useMyBar);
+  };
 
   return (
-    <MainPage
-      type="cocktail"
-      element={cocktail}
-      missing={missing}
-      items={ingredients}
-      history={history}
-    />
+    <Fragment>
+      <MainPage
+        type="cocktail"
+        element={cocktail}
+        missing={missing}
+        items={ingredients}
+        onCheckChange={handleCheck}
+        history={history}
+      />
+    </Fragment>
   );
 }
 

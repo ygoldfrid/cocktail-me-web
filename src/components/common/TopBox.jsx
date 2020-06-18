@@ -4,9 +4,11 @@ import Thumbnail from "./Thumbnail";
 function TopBox({
   title,
   pills,
+  checkbox,
   subtitle,
   items,
   history,
+  showAlternatives,
   showIngredients = true,
   showCaption = true,
 }) {
@@ -25,8 +27,11 @@ function TopBox({
                     type="ingredients"
                     size={80}
                     missing={item.missing}
+                    showAlternatives={showAlternatives}
                     element={item.ingredient ? item.ingredient : item}
-                    caption={showCaption ? `(${item.measure})` : ""}
+                    caption={
+                      showCaption && item.measure ? `(${item.measure})` : ""
+                    }
                     history={history}
                   />
                 </div>

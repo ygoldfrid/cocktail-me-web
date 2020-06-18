@@ -1,8 +1,17 @@
 import React, { Fragment } from "react";
 import BottomBox from "./BottomBox";
 import TopBox from "./TopBox";
+import { Form } from "react-bootstrap";
 
-function MainPage({ type, missing, element, items, history, isInMyBar }) {
+function MainPage({
+  type,
+  missing,
+  onCheckChange,
+  element,
+  items,
+  history,
+  isInMyBar,
+}) {
   const getPrimaryBoxContent = () => {
     if (type === "cocktail") {
       const pills = (
@@ -17,13 +26,20 @@ function MainPage({ type, missing, element, items, history, isInMyBar }) {
               Missing {missing} from My Bar
             </span>
           )}
+          <Form.Check
+            id="useMyBar"
+            type="checkbox"
+            label="Replace ingredients with My Bar"
+            onChange={onCheckChange}
+          />
         </Fragment>
       );
+
       return (
         <TopBox
           title={element.name}
-          subtitle="Ingredients:"
           items={items}
+          showAlternatives={true}
           pills={pills}
           showCaption={true}
           history={history}

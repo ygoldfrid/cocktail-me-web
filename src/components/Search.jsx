@@ -58,7 +58,7 @@ class Search extends Component {
       const bar = await this.getBarIngredients();
 
       cocktails = cocktails.filter((cocktail) => {
-        cocktail.missing = getMissingLength(cocktail, bar);
+        cocktail.missing = getMissingLength(cocktail.components, bar);
         if (cocktail.missing < 4) return true;
         return false;
       });
