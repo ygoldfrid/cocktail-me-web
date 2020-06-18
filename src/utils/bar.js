@@ -11,9 +11,13 @@ export function getFullBar(bar) {
 export function getMissingLength(cocktail, fullBar) {
   const size = cocktail.components.length;
 
-  const match = cocktail.components.filter((component) =>
-    fullBar.includes(component.ingredient._id)
-  ).length;
+  const match = cocktail.components.filter((component) => {
+    if (fullBar.includes(component.ingredient._id)) {
+      return true;
+    }
+    component.missing = true;
+    return false;
+  }).length;
 
   return size - match;
 }

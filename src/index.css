@@ -41,6 +41,10 @@ a > b {
   cursor: pointer;
 }
 
+img.disabled {
+  opacity: 0.3;
+}
+
 /* NAVBAR */
 .navbar {
   background-color: var(--dark-green);

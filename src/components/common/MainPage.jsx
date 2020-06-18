@@ -14,9 +14,9 @@ function MainPage({ type, missing, element, items, history, isInMyBar }) {
           )}
           {missing > 0 && (
             <span className="badge badge-pill badge-danger mb-3">
-              Missing {missing} ingredients from My Bar
+              Missing {missing} from My Bar
             </span>
-          )}{" "}
+          )}
         </Fragment>
       );
       return (

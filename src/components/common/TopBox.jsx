@@ -24,6 +24,7 @@ function TopBox({
                   <Thumbnail
                     type="ingredients"
                     size={80}
+                    missing={item.missing}
                     element={item.ingredient ? item.ingredient : item}
                     caption={showCaption ? `(${item.measure})` : ""}
                     history={history}

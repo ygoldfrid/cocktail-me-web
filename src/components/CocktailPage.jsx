@@ -13,12 +13,13 @@ function CocktailPage({ user, match, history }) {
     async function getData() {
       const { data: cocktail } = await cocktailService.getCocktailById(id);
       setCocktail(cocktail);
-      setIngredients(cocktail.components);
 
       const { data: bar } = await cocktailService.getBar(user);
       const fullBar = getFullBar(bar);
       const missing = getMissingLength(cocktail, fullBar);
       setMissing(missing);
+
+      setIngredients(cocktail.components);
     }
 
     getData();
