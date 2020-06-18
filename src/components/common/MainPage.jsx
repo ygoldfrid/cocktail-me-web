@@ -2,18 +2,34 @@ import React, { Fragment } from "react";
 import BottomBox from "./BottomBox";
 import TopBox from "./TopBox";
 
-function MainPage({ type, element, items, history, isInMyBar }) {
+function MainPage({ type, missing, element, items, history, isInMyBar }) {
   const getPrimaryBoxContent = () => {
-    if (type === "cocktail")
+    if (type === "cocktail") {
+      const pills = (
+        <Fragment>
+          {missing === 0 && (
+            <span className="badge badge-pill badge-success mb-3">
+              You have all the ingredients in My Bar
+            </span>
+          )}
+          {missing > 0 && (
+            <span className="badge badge-pill badge-danger mb-3">
+              Missing {missing} ingredients from My Bar
+            </span>
+          )}{" "}
+        </Fragment>
+      );
       return (
         <TopBox
           title={element.name}
           subtitle="Ingredients:"
           items={items}
+          pills={pills}
           showCaption={true}
           history={history}
         />
       );
+    }
 
     if (type === "ingredient") {
       const pills = (

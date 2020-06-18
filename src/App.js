@@ -34,7 +34,10 @@ class App extends Component {
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
-            <Route path="/cocktails/:id" component={CocktailPage} />
+            <Route
+              path="/cocktails/:id"
+              render={(props) => <CocktailPage {...props} user={user} />}
+            />
             <Route
               path="/ingredients/:id"
               render={(props) => <IngredientPage {...props} user={user} />}

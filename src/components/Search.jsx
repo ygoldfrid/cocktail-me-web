@@ -6,6 +6,7 @@ import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
 import Pagination from "./common/Pagination";
 import { paginate } from "./../utils/paginate";
+import { getFullBar, getMissingLength } from "./../utils/bar";
 
 class Search extends Component {
   state = {
@@ -43,17 +44,7 @@ class Search extends Component {
 
   getBarIngredients = async () => {
     const { data: bar } = await cocktailService.getBar(this.props.user);
-    return this.getFullBar(bar);
-  };
-
-  getFullBar = (bar) => {
-    const fullBar = [];
-    for (let ing of bar) {
-      fullBar.push(ing._id);
-      for (let alt of ing.alternatives)
-        if (!fullBar.includes(alt)) fullBar.push(alt);
-    }
-    return fullBar;
+    return getFullBar(bar);
   };
 
   getCocktailsChecked = () => {
@@ -67,14 +58,7 @@ class Search extends Component {
       const bar = await this.getBarIngredients();
 
       cocktails = cocktails.filter((cocktail) => {
-        cocktail.missing = 0;
-        const size = cocktail.components.length;
-
-        const match = cocktail.components.filter((component) =>
-          bar.includes(component.ingredient)
-        ).length;
-
-        cocktail.missing = size - match;
+        cocktail.missing = getMissingLength(cocktail, bar);
         if (cocktail.missing < 4) return true;
         return false;
       });
@@ -132,8 +116,8 @@ class Search extends Component {
       filtered = allCocktails.filter((cocktail) =>
         cocktail.components.some(
           (component) =>
-            component.ingredient === selectedSpirit._id ||
-            component.ingredient === selectedSpirit.alternatives[0]
+            component.ingredient._id === selectedSpirit._id ||
+            component.ingredient._id === selectedSpirit.alternatives[0]
         )
       );
     }
