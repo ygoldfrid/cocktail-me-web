@@ -3,7 +3,7 @@ import Thumbnail from "./Thumbnail";
 
 function BottomBox({ type, title, subtitle, body, items, onRemove, history }) {
   return (
-    <div className="box px-4">
+    <div className="box">
       <h2>{title}</h2>
       {subtitle}
       {items && items.length > 0 && (
@@ -12,6 +12,7 @@ function BottomBox({ type, title, subtitle, body, items, onRemove, history }) {
             <div key={item._id} className="p-2">
               <Thumbnail
                 type={type}
+                size={100}
                 element={item}
                 onRemove={onRemove}
                 history={history}

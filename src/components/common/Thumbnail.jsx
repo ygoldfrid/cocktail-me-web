@@ -1,6 +1,6 @@
 import React from "react";
 
-function Thumbnail({ type, element, history, onRemove, caption }) {
+function Thumbnail({ type, size, element, history, onRemove, caption }) {
   const handleClick = (e) => {
     if (e.target.id === "image") history.push(`/${type}/${e.currentTarget.id}`);
   };
@@ -13,8 +13,8 @@ function Thumbnail({ type, element, history, onRemove, caption }) {
           id="image"
           src={element.image}
           alt={element.name}
-          height="100"
-          width="100"
+          height={size}
+          width={size}
         />
         {onRemove && (
           <div className="remove-top-right" onClick={() => onRemove(element)}>

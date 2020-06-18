@@ -5,24 +5,25 @@ function TopBox({
   title,
   pills,
   subtitle,
-  showContent,
   items,
-  showCaption,
   history,
+  showIngredients = true,
+  showCaption = true,
 }) {
   return (
     <Fragment>
       <h1>{title}</h1>
       {pills}
-      {showContent && (
+      <h5>{subtitle}</h5>
+      {showIngredients && (
         <Fragment>
-          <h5>{subtitle}</h5>
-          <div className="d-flex flex-row">
+          <div className="row">
             {items &&
               items.map((item) => (
-                <div key={item._id} className="p-2">
+                <div key={item._id} className="px-1">
                   <Thumbnail
                     type="ingredients"
+                    size={80}
                     element={item.ingredient ? item.ingredient : item}
                     caption={showCaption ? `(${item.measure})` : ""}
                     history={history}

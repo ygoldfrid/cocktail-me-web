@@ -9,7 +9,6 @@ function MainPage({ type, element, items, history, isInMyBar }) {
         <TopBox
           title={element.name}
           subtitle="Ingredients:"
-          showContent={true}
           items={items}
           showCaption={true}
           history={history}
@@ -30,12 +29,18 @@ function MainPage({ type, element, items, history, isInMyBar }) {
           </span>
         </Fragment>
       );
+      const showIngredients =
+        element.alternatives && element.alternatives.length > 0;
       return (
         <TopBox
           title={element.name}
           pills={pills}
-          subtitle="You can replace it with:"
-          showContent={element.alternatives && element.alternatives.length > 0}
+          subtitle={
+            showIngredients
+              ? `You can replace it with:`
+              : "There are no replacements for this ingredient. It's one of a kind!"
+          }
+          showIngredients={showIngredients}
           items={element.alternatives}
           showCaption={false}
           history={history}
@@ -63,14 +68,14 @@ function MainPage({ type, element, items, history, isInMyBar }) {
       <div className="row mb-4">
         <div className="col-sm-12 col-md-6 col-lg-4">
           <img
-            className="rounded float-left"
+            className="rounded mb-1 mr-1"
             src={element.image}
             alt={element.name}
             height="300"
             width="300"
           />
         </div>
-        <div className="col box primary-box">{getPrimaryBoxContent()}</div>
+        <div className="col box primary-box mb-1">{getPrimaryBoxContent()}</div>
       </div>
       <div className="box secondary-box text-justify px-4">
         {getSecondaryBoxContent()}
