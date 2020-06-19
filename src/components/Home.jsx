@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { Form } from "react-bootstrap";
+import Media from "react-media";
+import { getFullBar, getMissingLength } from "../services/barService";
 import cocktailService from "../services/cocktailService";
-import CocktailList from "./CocktailList";
+import { paginate } from "../utils/paginate";
 import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
 import Pagination from "./common/Pagination";
-import { paginate } from "../utils/paginate";
-import { getFullBar, getMissingLength } from "../services/barService";
+import CocktailList from "./CocktailList";
 
 class Home extends Component {
   state = {
@@ -136,27 +137,37 @@ class Home extends Component {
     return (
       <div className="row">
         <div className="col-2">
+          <Media
+            queries={{
+              mobile: "(max-width: 991px)",
+              desktop: "(min-width: 992px)",
+            }}
+          >
+            {(matches) => (
+              <Fragment>
+                {matches.desktop && (
+                  <ListGroup
+                    title="Spirits"
+                    items={spirits}
+                    selectedItem={selectedSpirit}
+                    onItemSelect={this.handleSpiritSelect}
+                  />
+                )}
+              </Fragment>
+            )}
+          </Media>
+        </div>
+        <div className="col">
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <Form.Check
-            className="box mb-2 pl-4"
+            className="mb-3 pl-4"
             id="barIsSelected"
             type="checkbox"
             label="Use ingredients from My Bar"
             onChange={this.handleCheck}
           />
-          <ListGroup
-            title="Spirits"
-            items={spirits}
-            selectedItem={selectedSpirit}
-            onItemSelect={this.handleSpiritSelect}
-          />
-        </div>
-        <div className="col">
-          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           {pagedCocktails.length > 0 && (
             <Fragment>
-              <p className="mb-2">
-                Showing {pagedCocktails.length} out of {totalCount} results
-              </p>
               <CocktailList
                 cocktails={pagedCocktails}
                 history={this.props.history}

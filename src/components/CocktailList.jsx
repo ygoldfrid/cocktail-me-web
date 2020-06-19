@@ -2,7 +2,7 @@ import React from "react";
 
 function CocktailList({ cocktails, history }) {
   return (
-    <div className="row">
+    <div className="row justify-content-center">
       {cocktails.map((cocktail) => (
         <div
           key={cocktail._id}

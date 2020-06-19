@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
+import Media from "react-media";
+import { barLimit, addToBar, removeFromBar } from "../services/barService";
 import cocktailService from "../services/cocktailService";
 import BottomBox from "./common/BottomBox";
 import BarChoices from "./BarChoices";
 import BarChoicesMobile from "./BarChoicesMobile";
-import { barLimit, addToBar, removeFromBar } from "../services/barService";
-import Media from "react-media";
 
 class Bar extends Component {
   state = {
