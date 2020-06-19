@@ -32,10 +32,8 @@ function CocktailList({ cocktails, history }) {
               </div>
             )}
           </div>
-          <div className="card-body">
-            <h5 className="card-title">
-              <b>{cocktail.name}</b>
-            </h5>
+          <div className="card-body card-body-home">
+            <h4 className="card-title">{cocktail.name}</h4>
             <p className="card-title">
               {cocktail.components.length} ingredients
             </p>

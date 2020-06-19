@@ -31,7 +31,7 @@ li > a {
 li > a:hover {
   color: var(--dark-green);
 }
-h5 > b {
+h4 {
   color: var(--dark-green);
 }
 a > b {
@@ -102,6 +102,25 @@ img.disabled {
 .remove-top-right > i {
   color: white;
 }
+.ingredient-list {
+  height: 200px;
+  border-width: 5px;
+  border-color: var(--dark-green);
+  border-left-style: solid;
+  background-color: var(--light-green);
+}
+.ingredient-list-mobile {
+  height: 200px;
+}
+.card-header {
+  background-color: var(--light-green);
+}
+.card-body {
+  padding: 5px 0px 0px;
+}
+.card-body-home {
+  padding: 15px;
+}
 
 /* BUTTONS */
 .btn-cocktailme {
@@ -112,13 +131,6 @@ img.disabled {
 .btn-cocktailme:hover {
   background-color: var(--darker-green);
   color: white;
-}
-.ingredient-list {
-  height: 200px;
-  border-width: 5px;
-  border-color: var(--dark-green);
-  border-left-style: solid;
-  background-color: var(--light-green);
 }
 p.subtitle {
   color: red;

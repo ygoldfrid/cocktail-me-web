@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import cocktailService from "../services/cocktailService";
 import BottomBox from "./common/BottomBox";
 import BarChoices from "./BarChoices";
+import BarChoicesMobile from "./BarChoicesMobile";
 import { barLimit, addToBar, removeFromBar } from "../services/barService";
+import Media from "react-media";
 
 class Bar extends Component {
   state = {
@@ -78,13 +80,38 @@ class Bar extends Component {
 
     return (
       <div className="my-bar">
-        <BarChoices
-          spirits={spirits}
-          liqueurs={liqueurs}
-          mixers={mixers}
-          others={others}
-          onSelect={this.handleSelect}
-        />
+        <div className="row justify-content-center">
+          <h1 className="mb-4">Select your ingredients</h1>
+        </div>
+        <Media
+          queries={{
+            mobile: "(max-width: 769px)",
+            desktop: "(min-width: 770px)",
+          }}
+        >
+          {(matches) => (
+            <Fragment>
+              {matches.mobile && (
+                <BarChoicesMobile
+                  spirits={spirits}
+                  liqueurs={liqueurs}
+                  mixers={mixers}
+                  others={others}
+                  onSelect={this.handleSelect}
+                />
+              )}
+              {matches.desktop && (
+                <BarChoices
+                  spirits={spirits}
+                  liqueurs={liqueurs}
+                  mixers={mixers}
+                  others={others}
+                  onSelect={this.handleSelect}
+                />
+              )}
+            </Fragment>
+          )}
+        </Media>
         <BottomBox
           type="ingredients"
           title="My Bar"

@@ -4,11 +4,15 @@ import cocktailService from "./cocktailService";
 export const barLimit = 20;
 
 export async function addToBar(user, bar, ingredient) {
-  if (bar.some((ing) => ing._id === ingredient._id))
-    return toast(`You already have ${ingredient.name} in you bar`);
+  if (bar.some((ing) => ing._id === ingredient._id)) {
+    toast(`You already have ${ingredient.name} in you bar`);
+    return false;
+  }
 
-  if (!user && bar.length >= barLimit)
-    return toast.info(`Log In to add more than ${barLimit} items to your Bar`);
+  if (!user && bar.length >= barLimit) {
+    toast.info(`Log In to add more than ${barLimit} items to your Bar`);
+    return false;
+  }
 
   const barItem = {
     _id: ingredient._id,
@@ -19,6 +23,8 @@ export async function addToBar(user, bar, ingredient) {
 
   bar.push(barItem);
   await cocktailService.addToBar(user, bar, ingredient._id);
+
+  return true;
 }
 
 export async function removeFromBar(user, bar, ingredient) {

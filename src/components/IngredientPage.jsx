@@ -34,10 +34,13 @@ function IngredientPage({ user, match, history }) {
   const handleClick = async () => {
     const { data: bar } = await cocktailService.getBar(user);
 
-    if (isInMyBar) removeFromBar(user, bar, ingredient);
-    else await addToBar(user, bar, ingredient);
-
-    setIsInMyBar(!isInMyBar);
+    if (isInMyBar) {
+      removeFromBar(user, bar, ingredient);
+      setIsInMyBar(false);
+    } else {
+      const added = await addToBar(user, bar, ingredient);
+      setIsInMyBar(added);
+    }
   };
 
   return (

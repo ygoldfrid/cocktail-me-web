@@ -3,7 +3,7 @@ import { Dropdown } from "react-bootstrap";
 
 function DropDownList({ title, items, onSelect }) {
   return (
-    <div className="col">
+    <div className="col-md-6 col-xl-3 mb-1">
       <h3>{title}</h3>
       <Dropdown className="ingredient-list overflow-auto">
         {items.map((item) => (
