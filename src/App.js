@@ -3,7 +3,7 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import NavBar from "./components/Navbar";
 import Bar from "./components/Bar";
-import Search from "./components/Search";
+import Home from "./components/Home";
 import CocktailPage from "./components/CocktailPage";
 import IngredientPage from "./components/IngredientPage";
 import RegisterForm from "./components/RegisterForm";
@@ -43,14 +43,14 @@ class App extends Component {
               render={(props) => <IngredientPage {...props} user={user} />}
             />
             <Route
-              path="/search"
-              render={(props) => <Search {...props} user={user} />}
-            />
-            <Route
               path="/bar"
               render={(props) => <Bar {...props} user={user} />}
             />
-            <Redirect from="/" exact to="/bar" />
+            <Route
+              path="/home"
+              render={(props) => <Home {...props} user={user} />}
+            />
+            <Redirect from="/" exact to="/home" />
           </Switch>
         </main>
       </React.Fragment>

@@ -44,6 +44,9 @@ a > b {
 img.disabled {
   opacity: 0.3;
 }
+.figure {
+  margin-bottom: 10px;
+}
 
 /* NAVBAR */
 .navbar {
@@ -103,6 +106,7 @@ img.disabled {
 /* BUTTONS */
 .btn-cocktailme {
   background-color: var(--dark-green);
+  border-radius: 15px;
   color: white;
 }
 .btn-cocktailme:hover {

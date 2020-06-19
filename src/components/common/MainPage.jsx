@@ -1,89 +1,62 @@
 import React, { Fragment } from "react";
 import BottomBox from "./BottomBox";
 import TopBox from "./TopBox";
-import { Form } from "react-bootstrap";
 
 function MainPage({
   type,
-  missing,
-  onCheckChange,
-  element,
   items,
+  missing,
+  element,
   history,
+  onClick,
   isInMyBar,
+  onCheckChange,
 }) {
-  const getPrimaryBoxContent = () => {
+  const getTopBoxContent = () => {
     if (type === "cocktail") {
-      const pills = (
-        <Fragment>
-          {missing === 0 && (
-            <span className="badge badge-pill badge-success mb-3">
-              You have all the ingredients in My Bar
-            </span>
-          )}
-          {missing > 0 && (
-            <span className="badge badge-pill badge-danger mb-3">
-              Missing {missing} from My Bar
-            </span>
-          )}
-          <Form.Check
-            id="useMyBar"
-            type="checkbox"
-            label="Replace ingredients with My Bar"
-            onChange={onCheckChange}
-          />
-        </Fragment>
-      );
-
       return (
         <TopBox
-          title={element.name}
+          type={type}
           items={items}
-          showAlternatives={true}
-          pills={pills}
-          showCaption={true}
+          missing={missing}
           history={history}
+          showCaption={true}
+          title={element.name}
+          showAlternatives={true}
+          onCheckChange={onCheckChange}
         />
       );
     }
 
     if (type === "ingredient") {
-      const pills = (
-        <Fragment>
-          {isInMyBar && (
-            <span className="badge badge-pill badge-success">In My Bar</span>
-          )}
-          {!isInMyBar && (
-            <span className="badge badge-pill badge-danger">Not in My Bar</span>
-          )}
-          <span className="badge badge-pill badge-primary mb-3 ml-1">
-            {element.category}
-          </span>
-        </Fragment>
-      );
       const showIngredients =
         element.alternatives && element.alternatives.length > 0;
+
       return (
         <TopBox
+          type={type}
+          history={history}
+          element={element}
+          onClick={onClick}
+          showCaption={false}
           title={element.name}
-          pills={pills}
+          isInMyBar={isInMyBar}
+          items={element.alternatives}
+          showIngredients={showIngredients}
           subtitle={
             showIngredients
               ? `You can replace it with:`
               : "There are no replacements for this ingredient. It's one of a kind!"
           }
-          showIngredients={showIngredients}
-          items={element.alternatives}
-          showCaption={false}
-          history={history}
         />
       );
     }
   };
 
-  const getSecondaryBoxContent = () => {
+  const getBottomBoxContent = () => {
     if (type === "cocktail")
       return <BottomBox title="Preparation" body={element.preparation} />;
+
     if (type === "ingredient")
       return (
         <BottomBox
@@ -107,10 +80,10 @@ function MainPage({
             width="300"
           />
         </div>
-        <div className="col box primary-box mb-1">{getPrimaryBoxContent()}</div>
+        <div className="col box primary-box mb-1">{getTopBoxContent()}</div>
       </div>
       <div className="box secondary-box text-justify px-4">
-        {getSecondaryBoxContent()}
+        {getBottomBoxContent()}
       </div>
     </Fragment>
   );

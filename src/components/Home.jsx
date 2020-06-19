@@ -5,10 +5,10 @@ import CocktailList from "./CocktailList";
 import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
 import Pagination from "./common/Pagination";
-import { paginate } from "./../utils/paginate";
-import { getFullBar, getMissingLength } from "./../utils/bar";
+import { paginate } from "../utils/paginate";
+import { getFullBar, getMissingLength } from "../services/barService";
 
-class Search extends Component {
+class Home extends Component {
   state = {
     cocktails: [],
     spirits: [],
@@ -16,21 +16,20 @@ class Search extends Component {
     searchQuery: "",
     currentPage: 1,
     pageSize: 6,
+    barIsSelected: false,
   };
 
   async componentDidMount() {
     const { state: barIsSelected } = this.props.location;
     this.setChecked(barIsSelected);
+    this.setState({ barIsSelected });
+
     await this.getSpirits();
-    await this.getCocktails(barIsSelected);
+    await this.refreshCocktails();
   }
 
   setChecked = (barIsSelected) => {
     document.getElementById("barIsSelected").checked = barIsSelected;
-  };
-
-  getChecked = () => {
-    return document.getElementById("barIsSelected").checked;
   };
 
   getSpirits = async () => {
@@ -42,20 +41,16 @@ class Search extends Component {
     this.setState({ spirits });
   };
 
-  getBarIngredients = async () => {
+  getBar = async () => {
     const { data: bar } = await cocktailService.getBar(this.props.user);
     return getFullBar(bar);
   };
 
-  getCocktailsChecked = () => {
-    this.getCocktails(this.getChecked());
-  };
-
-  getCocktails = async (barIsSelected) => {
+  refreshCocktails = async () => {
     let { data: cocktails } = await cocktailService.getAllCocktails();
 
-    if (barIsSelected) {
-      const bar = await this.getBarIngredients();
+    if (this.state.barIsSelected) {
+      const bar = await this.getBar();
 
       cocktails = cocktails.filter((cocktail) => {
         cocktail.missing = getMissingLength(cocktail.components, bar);
@@ -89,13 +84,13 @@ class Search extends Component {
     if (page === "previous") page = this.state.currentPage - 1;
     if (page === "next") page = this.state.currentPage + 1;
 
-    this.getCocktailsChecked();
+    this.refreshCocktails();
     this.setState({ currentPage: page });
   };
 
   handleCheck = () => {
-    this.getCocktailsChecked();
-    this.setState({ currentPage: 1 });
+    this.refreshCocktails();
+    this.setState({ barIsSelected: !this.state.barIsSelected, currentPage: 1 });
   };
 
   getPagedData = () => {
@@ -183,4 +178,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default Home;

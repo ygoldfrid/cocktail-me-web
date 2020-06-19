@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import cocktailService from "../services/cocktailService";
 import MainPage from "./common/MainPage";
+import { addToBar, removeFromBar } from "../services/barService";
 
 function IngredientPage({ user, match, history }) {
   const [ingredient, setIngredient] = useState({});
@@ -30,13 +31,23 @@ function IngredientPage({ user, match, history }) {
     getCocktails();
   }, [id, user]);
 
+  const handleClick = async () => {
+    const { data: bar } = await cocktailService.getBar(user);
+
+    if (isInMyBar) removeFromBar(user, bar, ingredient);
+    else await addToBar(user, bar, ingredient);
+
+    setIsInMyBar(!isInMyBar);
+  };
+
   return (
     <MainPage
       type="ingredient"
-      element={ingredient}
       items={cocktails}
-      isInMyBar={isInMyBar}
       history={history}
+      element={ingredient}
+      isInMyBar={isInMyBar}
+      onClick={handleClick}
     />
   );
 }

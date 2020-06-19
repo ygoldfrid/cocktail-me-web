@@ -34,14 +34,16 @@ function getIngredientCocktails(ingredientId) {
 function getBar(user) {
   return user
     ? http.get(barEndpoint)
-    : { data: JSON.parse(localStorage.getItem(barKey)) };
+    : localStorage.getItem(barKey)
+    ? { data: JSON.parse(localStorage.getItem(barKey)) }
+    : { data: [] };
 }
 function addToBar(user, bar, ingredientId) {
   return user
     ? http.post(barEndpoint, { _id: ingredientId })
     : { data: localStorage.setItem(barKey, JSON.stringify(bar)) };
 }
-function removeFromToBar(user, bar, ingredientId) {
+function removeFromBar(user, bar, ingredientId) {
   return user
     ? http.delete(`${barEndpoint}${ingredientId}`)
     : { data: localStorage.setItem(barKey, JSON.stringify(bar)) };
@@ -56,5 +58,5 @@ export default {
   getIngredientCocktails,
   getBar,
   addToBar,
-  removeFromToBar,
+  removeFromBar,
 };

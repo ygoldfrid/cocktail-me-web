@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import cocktailService from "../services/cocktailService";
 import BottomBox from "./common/BottomBox";
 import BarChoices from "./BarChoices";
+import { barLimit, addToBar, removeFromBar } from "../services/barService";
 
 class Bar extends Component {
   state = {
@@ -13,8 +13,6 @@ class Bar extends Component {
     others: [],
     bar: [],
   };
-
-  barLimit = 20;
 
   componentDidMount = async () => {
     await this.getMenuIngredients();
@@ -46,43 +44,25 @@ class Bar extends Component {
     if (bar) this.setState({ bar });
   };
 
-  handleSelect = async (item) => {
+  handleSelect = async (ingredient) => {
     const { bar } = this.state;
     const { user } = this.props;
 
-    if (!user && bar.length >= this.barLimit)
-      return toast.info(
-        `Log In to add more than ${this.barLimit} items to your Bar`
-      );
-
-    if (bar.some((ing) => ing._id === item._id))
-      return toast(`You already have ${item.name} in you bar`);
-
-    const barItem = {
-      _id: item._id,
-      name: item.name,
-      image: item.image,
-      alternatives: item.alternatives,
-    };
-    bar.push(barItem);
-    await cocktailService.addToBar(user, bar, item._id);
+    await addToBar(user, bar, ingredient);
 
     this.setState({ bar });
   };
 
-  handleRemove = async (item) => {
+  handleRemove = async (ingredient) => {
     const { bar } = this.state;
 
-    const index = bar.indexOf(item);
-    bar.splice(index, 1);
-
-    await cocktailService.removeFromToBar(this.props.user, bar, item._id);
+    removeFromBar(this.props.user, bar, ingredient);
 
     this.setState({ bar });
   };
 
   getSubtitle = () => {
-    return !this.props.user && this.state.bar.length === this.barLimit ? (
+    return !this.props.user && this.state.bar.length === barLimit ? (
       <p className="subtitle">
         You've reached the limit of items for anonymous users.{" "}
         <Link to="/login">
@@ -117,7 +97,7 @@ class Bar extends Component {
         <div className="row justify-content-center m-3">
           <Link
             className="btn btn-cocktailme"
-            to={{ pathname: "/search", state: true }}
+            to={{ pathname: "/home", state: true }}
           >
             Cocktail Me!
           </Link>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import cocktailService from "../services/cocktailService";
 import MainPage from "./common/MainPage";
-import { getMissingLength, replaceComponents } from "./../utils/bar";
+import { getMissingLength, replaceComponents } from "./../services/barService";
 
 function CocktailPage({ user, match, history }) {
   const [cocktail, setCocktail] = useState({});
@@ -15,8 +15,8 @@ function CocktailPage({ user, match, history }) {
       const { data: cocktail } = await cocktailService.getCocktailById(id);
       setCocktail(cocktail);
 
-      const { data } = await cocktailService.getBar(user);
-      const barIds = data.map((ing) => ing._id);
+      const { data: bar } = await cocktailService.getBar(user);
+      const barIds = bar.map((ing) => ing._id);
 
       const components = useMyBar
         ? replaceComponents(cocktail, barIds)
@@ -39,11 +39,11 @@ function CocktailPage({ user, match, history }) {
     <Fragment>
       <MainPage
         type="cocktail"
-        element={cocktail}
         missing={missing}
+        history={history}
+        element={cocktail}
         items={ingredients}
         onCheckChange={handleCheck}
-        history={history}
       />
     </Fragment>
   );

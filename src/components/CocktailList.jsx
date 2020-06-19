@@ -21,6 +21,9 @@ function CocktailList({ cocktails, history }) {
               width="300"
               height="300"
             />
+            {cocktail.missing === 0 && (
+              <div className="top-right">You can make this</div>
+            )}
             {cocktail.missing > 0 && (
               <div className="top-right">
                 {cocktail.missing === 1

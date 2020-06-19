@@ -1,3 +1,35 @@
+import { toast } from "react-toastify";
+import cocktailService from "./cocktailService";
+
+export const barLimit = 20;
+
+export async function addToBar(user, bar, ingredient) {
+  if (bar.some((ing) => ing._id === ingredient._id))
+    return toast(`You already have ${ingredient.name} in you bar`);
+
+  if (!user && bar.length >= barLimit)
+    return toast.info(`Log In to add more than ${barLimit} items to your Bar`);
+
+  const barItem = {
+    _id: ingredient._id,
+    name: ingredient.name,
+    image: ingredient.image,
+    alternatives: ingredient.alternatives,
+  };
+
+  bar.push(barItem);
+  await cocktailService.addToBar(user, bar, ingredient._id);
+}
+
+export async function removeFromBar(user, bar, ingredient) {
+  const barIds = bar.map((ing) => ing._id);
+  const index = barIds.indexOf(ingredient._id);
+
+  bar.splice(index, 1);
+
+  await cocktailService.removeFromBar(user, bar, ingredient._id);
+}
+
 export function getFullBar(bar) {
   const fullBar = [];
 
