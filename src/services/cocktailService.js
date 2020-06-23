@@ -1,4 +1,5 @@
 import http from "./httpService";
+import _ from "lodash";
 
 const cocktailsEndpoint = "cocktails/";
 const ingredientsEndpoint = "ingredients";
@@ -40,7 +41,8 @@ async function getBar(user) {
     if (localBar && localBar.length > 0) {
       for (let ing of localBar) addToBar(user, ing._id);
 
-      const jointBar = localBar.concat(dbBar);
+      const jointBar = _.unionBy(localBar, dbBar, "_id");
+
       localStorage.removeItem(barKey);
       return jointBar;
     }

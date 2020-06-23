@@ -1,7 +1,7 @@
 import React from "react";
 import IngredientItem from "./IngredientItem";
 
-function IngredientCategory({ bar, title, items, onClick, history }) {
+function IngredientCategory({ bar, title, items, onAddRemove, history }) {
   return (
     <div className="category mb-3">
       <h3 className="category-title mb-3">{title}</h3>
@@ -12,7 +12,7 @@ function IngredientCategory({ bar, title, items, onClick, history }) {
               bar={bar}
               ing={ing}
               history={history}
-              onClick={onClick}
+              onAddRemove={onAddRemove}
             />
           </div>
         ))}

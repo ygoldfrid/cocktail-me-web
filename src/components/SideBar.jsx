@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import BarItem from "./BarItem";
 
-function SideBar({ bar, onRemove, history }) {
+function SideBar({ bar, onAddRemove, history }) {
   return (
     <nav className="col-md-3 col-lg-2 d-md-block sidebar collapse">
       <div className="row justify-content-center">
@@ -25,7 +25,7 @@ function SideBar({ bar, onRemove, history }) {
               <div key={ing._id}>
                 <BarItem
                   ing={ing}
-                  onRemove={() => onRemove(ing)}
+                  onRemove={() => onAddRemove(ing)}
                   history={history}
                 />
               </div>

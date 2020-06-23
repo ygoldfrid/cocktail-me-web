@@ -1,7 +1,7 @@
 import React from "react";
 import AddRemoveButton from "./common/AddRemoveButton";
 
-function IngredientItem({ bar, ing, history, onClick }) {
+function IngredientItem({ bar, ing, history, onAddRemove }) {
   return (
     <div className="card p-1 pb-3 h-100">
       <img
@@ -19,7 +19,7 @@ function IngredientItem({ bar, ing, history, onClick }) {
           <AddRemoveButton
             bar={bar}
             ingredient={ing}
-            onClick={onClick}
+            onAddRemove={onAddRemove}
             stickBottom={true}
           />
         </div>

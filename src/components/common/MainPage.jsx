@@ -6,18 +6,17 @@ import SideBar from "./../SideBar";
 function MainPage({
   history,
   bar,
-  onRemove,
   type,
   element,
   ingredients,
   missing,
-  onCheck,
-  onClick,
   cocktails,
+  onCheck,
+  onAddRemove,
 }) {
   return (
     <Fragment>
-      <SideBar bar={bar} onRemove={onRemove} history={history} />
+      <SideBar bar={bar} onAddRemove={onAddRemove} history={history} />
       <div className="row element col-md-9 mr-sm-auto col-lg-10 px-md-4">
         <div className="card mb-3">
           <div className="row no-gutters">
@@ -38,7 +37,7 @@ function MainPage({
                   ingredients={ingredients}
                   missing={missing}
                   onCheck={onCheck}
-                  onClick={onClick}
+                  onAddRemove={onAddRemove}
                 />
               </div>
             </div>

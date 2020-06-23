@@ -11,7 +11,7 @@ function TopBox({
   ingredients,
   missing,
   onCheck,
-  onClick,
+  onAddRemove,
 }) {
   return (
     <Fragment>
@@ -53,7 +53,11 @@ function TopBox({
         <Fragment>
           <div className="d-flex justify-content-between">
             <h5 className="card-title">{element.name}</h5>
-            <AddRemoveButton bar={bar} ingredient={element} onClick={onClick} />
+            <AddRemoveButton
+              bar={bar}
+              ingredient={element}
+              onAddRemove={onAddRemove}
+            />
           </div>
           <p className="card-text mb-3">
             <small className="text-muted">{element.category}</small>

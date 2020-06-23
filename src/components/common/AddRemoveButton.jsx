@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddRemoveButton({ bar, ingredient, onClick, stickBottom }) {
+function AddRemoveButton({ bar, ingredient, onAddRemove, stickBottom }) {
   const isInMyBar = bar ? bar.some((ing) => ing._id === ingredient._id) : false;
 
   const getClasses = () => {
@@ -14,7 +14,7 @@ function AddRemoveButton({ bar, ingredient, onClick, stickBottom }) {
   return (
     <button
       className={getClasses()}
-      onClick={() => onClick(ingredient, isInMyBar)}
+      onClick={() => onAddRemove(ingredient, isInMyBar)}
     >
       {isInMyBar ? "Remove" : "Add to My Bar"}
     </button>

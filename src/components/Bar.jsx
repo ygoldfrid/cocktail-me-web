@@ -31,46 +31,40 @@ class Bar extends Component {
     this.setState({ spirits, liqueurs, mixers, others });
   };
 
-  handleClick = async (ingredient, isInMyBar = true) => {
-    const { onAdd, onRemove } = this.props;
-    if (isInMyBar) await onRemove(ingredient);
-    else await onAdd(ingredient);
-  };
-
   render() {
     const { spirits, liqueurs, mixers, others } = this.state;
-    const { bar, onRemove, history } = this.props;
+    const { bar, onAddRemove, history } = this.props;
 
     return (
       <Fragment>
-        <SideBar bar={bar} onRemove={onRemove} history={history} />
+        <SideBar bar={bar} onAddRemove={onAddRemove} history={history} />
         <div className="categories col-md-9 mr-sm-auto col-lg-10 px-md-4">
           <IngredientCategory
             bar={bar}
             title={"Spirits"}
             items={spirits}
-            onClick={this.handleClick}
+            onAddRemove={onAddRemove}
             history={history}
           />
           <IngredientCategory
             bar={bar}
             title={"Liqueurs, Wines & Beers"}
             items={liqueurs}
-            onClick={this.handleClick}
+            onAddRemove={onAddRemove}
             history={history}
           />
           <IngredientCategory
             bar={bar}
             title={"Mixers"}
             items={mixers}
-            onClick={this.handleClick}
+            onAddRemove={onAddRemove}
             history={history}
           />
           <IngredientCategory
             bar={bar}
             title={"Others"}
             items={others}
-            onClick={this.handleClick}
+            onAddRemove={onAddRemove}
             history={history}
           />
         </div>

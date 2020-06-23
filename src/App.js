@@ -34,15 +34,10 @@ class App extends Component {
     this.setState({ user, bar });
   };
 
-  handleAddItem = async (ingredient) => {
+  handleAddRemoveItem = async (ingredient, isInMyBar = true) => {
     const { user, bar } = this.state;
-    this.setState({ bar });
-    return await addToBar(user, ingredient, bar);
-  };
-
-  handleRemoveItem = async (ingredient) => {
-    const { user, bar } = this.state;
-    await removeFromBar(user, ingredient, bar);
+    if (isInMyBar) await removeFromBar(user, ingredient, bar);
+    else await addToBar(user, ingredient, bar);
     this.setState({ bar });
   };
 
@@ -70,7 +65,7 @@ class App extends Component {
                     {...props}
                     user={user}
                     bar={bar}
-                    onRemove={this.handleRemoveItem}
+                    onAddRemove={this.handleAddRemoveItem}
                   />
                 )}
               />
@@ -81,8 +76,7 @@ class App extends Component {
                     {...props}
                     user={user}
                     bar={bar}
-                    onAdd={this.handleAddItem}
-                    onRemove={this.handleRemoveItem}
+                    onAddRemove={this.handleAddRemoveItem}
                   />
                 )}
               />
@@ -93,8 +87,7 @@ class App extends Component {
                     {...props}
                     user={user}
                     bar={bar}
-                    onAdd={this.handleAddItem}
-                    onRemove={this.handleRemoveItem}
+                    onAddRemove={this.handleAddRemoveItem}
                   />
                 )}
               />
@@ -105,7 +98,7 @@ class App extends Component {
                     {...props}
                     user={user}
                     bar={bar}
-                    onRemove={this.handleRemoveItem}
+                    onAddRemove={this.handleAddRemoveItem}
                   />
                 )}
               />
