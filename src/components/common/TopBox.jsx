@@ -4,7 +4,6 @@ import AddRemoveButton from "./AddRemoveButton";
 import Thumbnail from "./Thumbnail";
 
 function TopBox({
-  history,
   bar,
   type,
   element,
@@ -12,6 +11,7 @@ function TopBox({
   missing,
   onCheck,
   onAddRemove,
+  ...rest
 }) {
   return (
     <Fragment>
@@ -41,7 +41,7 @@ function TopBox({
                     missing={ing.missing}
                     item={ing.ingredient}
                     measure={ing.measure}
-                    history={history}
+                    {...rest}
                     size="70"
                   />
                 </Fragment>
@@ -67,7 +67,7 @@ function TopBox({
               <p className="card-text mb-2">You can replace it with:</p>
               {element.alternatives.map((ing) => (
                 <Fragment key={ing._id}>
-                  <Thumbnail type="ingredients" item={ing} history={history} />
+                  <Thumbnail type="ingredients" item={ing} {...rest} />
                 </Fragment>
               ))}
             </Fragment>

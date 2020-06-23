@@ -1,9 +1,9 @@
 import { toast } from "react-toastify";
 import cocktailService from "./cocktailService";
 
-export const barLimit = 20;
+const barLimit = 20;
 
-export async function addToBar(user, ingredient, bar) {
+async function addToBar(user, ingredient, bar) {
   if (bar.some((ing) => ing._id === ingredient._id)) {
     toast(`You already have ${ingredient.name} in you bar`);
     return false;
@@ -27,7 +27,7 @@ export async function addToBar(user, ingredient, bar) {
   return true;
 }
 
-export async function removeFromBar(user, ingredient, bar) {
+async function removeFromBar(user, ingredient, bar) {
   const barIds = bar.map((ing) => ing._id);
   const index = barIds.indexOf(ingredient._id);
 
@@ -36,7 +36,7 @@ export async function removeFromBar(user, ingredient, bar) {
   await cocktailService.removeFromBar(user, ingredient._id, bar);
 }
 
-export function getFullBar(bar) {
+function getFullBar(bar) {
   const fullBar = [];
 
   for (let ing of bar) {
@@ -49,7 +49,7 @@ export function getFullBar(bar) {
   return fullBar;
 }
 
-export function getMissingLength(components, barIds) {
+function getMissingLength(components, barIds) {
   const size = components.length;
 
   const match = components.filter((component) => {
@@ -63,7 +63,7 @@ export function getMissingLength(components, barIds) {
   return size - match;
 }
 
-export function replaceComponents(cocktail, bar) {
+function replaceComponents(cocktail, bar) {
   return cocktail.components.map((component) => {
     if (bar.includes(component.ingredient._id)) return component;
     for (let alt of component.ingredient.alternatives)
@@ -75,3 +75,11 @@ export function replaceComponents(cocktail, bar) {
     return component;
   });
 }
+
+export default {
+  addToBar,
+  removeFromBar,
+  getFullBar,
+  getMissingLength,
+  replaceComponents,
+};

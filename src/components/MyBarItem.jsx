@@ -1,6 +1,6 @@
 import React from "react";
 
-function BarItem({ ing, onRemove, history }) {
+function MyBarItem({ ing, onAddRemove, history }) {
   return (
     <li className="list-group-item">
       <div className="d-flex flex-row">
@@ -30,7 +30,7 @@ function BarItem({ ing, onRemove, history }) {
         </div>
         <div
           className="ml-auto align-self-center"
-          onClick={() => onRemove(ing)}
+          onClick={() => onAddRemove(ing)}
         >
           <i className="clickable fa fa-trash-o" aria-hidden="true" />
         </div>
@@ -39,4 +39,4 @@ function BarItem({ ing, onRemove, history }) {
   );
 }
 
-export default BarItem;
+export default MyBarItem;

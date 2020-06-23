@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import cocktailService from "../services/cocktailService";
 import MainPage from "./common/MainPage";
 
-function IngredientPage({ user, bar, onAddRemove, match, history }) {
+function IngredientPage({ user, bar, match, ...rest }) {
   const [ingredient, setIngredient] = useState({});
   const [cocktails, setCocktails] = useState(null);
   const id = match.params.id;
@@ -23,12 +23,11 @@ function IngredientPage({ user, bar, onAddRemove, match, history }) {
 
   return (
     <MainPage
-      history={history}
       bar={bar}
-      onAddRemove={onAddRemove}
       type={"ingredient"}
       element={ingredient}
       cocktails={cocktails}
+      {...rest}
     />
   );
 }

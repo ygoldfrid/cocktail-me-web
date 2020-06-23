@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getMissingLength, replaceComponents } from "./../services/barService";
 import cocktailService from "../services/cocktailService";
+import barService from "../services/barService";
 import MainPage from "./common/MainPage";
 
-function CocktailPage({ user, bar, onRemove, match, history }) {
+function CocktailPage({ user, bar, match, ...rest }) {
   const [cocktail, setCocktail] = useState({});
   const [ingredients, setIngredients] = useState(null);
   const [missing, setMissing] = useState(0);
@@ -19,10 +19,10 @@ function CocktailPage({ user, bar, onRemove, match, history }) {
         const barIds = bar.map((ing) => ing._id);
 
         const components = useMyBar
-          ? replaceComponents(cocktail, barIds)
+          ? barService.replaceComponents(cocktail, barIds)
           : cocktail.components;
 
-        const missing = getMissingLength(components, barIds);
+        const missing = barService.getMissingLength(components, barIds);
         setMissing(missing);
 
         setIngredients(components);
@@ -38,14 +38,13 @@ function CocktailPage({ user, bar, onRemove, match, history }) {
 
   return (
     <MainPage
-      history={history}
       bar={bar}
-      onRemove={onRemove}
       type={"cocktail"}
       element={cocktail}
       ingredients={ingredients}
       missing={missing}
       onCheck={handleCheck}
+      {...rest}
     />
   );
 }

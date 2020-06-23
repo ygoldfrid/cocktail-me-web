@@ -1,22 +1,12 @@
 import React, { Fragment } from "react";
 import TopBox from "./TopBox";
 import BottomBox from "./BottomBox";
-import SideBar from "./../SideBar";
+import SideBar from "./SideBar";
 
-function MainPage({
-  history,
-  bar,
-  type,
-  element,
-  ingredients,
-  missing,
-  cocktails,
-  onCheck,
-  onAddRemove,
-}) {
+function MainPage({ element, ...rest }) {
   return (
     <Fragment>
-      <SideBar bar={bar} onAddRemove={onAddRemove} history={history} />
+      <SideBar {...rest} />
       <div className="row element col-md-9 mr-sm-auto col-lg-10 px-md-4">
         <div className="card mb-3">
           <div className="row no-gutters">
@@ -29,28 +19,14 @@ function MainPage({
             </div>
             <div className="col-md-8">
               <div className="card-body">
-                <TopBox
-                  history={history}
-                  bar={bar}
-                  type={type}
-                  element={element}
-                  ingredients={ingredients}
-                  missing={missing}
-                  onCheck={onCheck}
-                  onAddRemove={onAddRemove}
-                />
+                <TopBox element={element} {...rest} />
               </div>
             </div>
           </div>
         </div>
         <div className="card">
           <div className="card-body">
-            <BottomBox
-              history={history}
-              type={type}
-              element={element}
-              cocktails={cocktails}
-            />
+            <BottomBox element={element} {...rest} />
           </div>
         </div>
       </div>

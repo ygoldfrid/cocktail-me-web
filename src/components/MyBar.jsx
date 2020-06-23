@@ -1,10 +1,16 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import BarItem from "./BarItem";
+import MyBarItem from "./MyBarItem";
 
-function SideBar({ bar, onAddRemove, history }) {
+function MyBar({ bar, onAddRemove, sidebar, ...rest }) {
+  const getButtonClasses = () => {
+    return sidebar
+      ? "sidebar-btn row justify-content-center"
+      : "my-bar-btn row justify-content-center";
+  };
+
   return (
-    <nav className="col-md-3 col-lg-2 d-md-block sidebar collapse">
+    <Fragment>
       <div className="row justify-content-center">
         <h4>
           My Bar{" "}
@@ -13,7 +19,7 @@ function SideBar({ bar, onAddRemove, history }) {
           </span>
         </h4>
       </div>
-      <div className="sidebar-sticky">
+      <div className={sidebar ? "sidebar-sticky" : ""}>
         {bar && bar.length === 0 && (
           <p className="empty-bar text-center">
             Your Bar is empty. Start adding some items!
@@ -23,16 +29,16 @@ function SideBar({ bar, onAddRemove, history }) {
           {bar &&
             bar.map((ing) => (
               <div key={ing._id}>
-                <BarItem
+                <MyBarItem
                   ing={ing}
-                  onRemove={() => onAddRemove(ing)}
-                  history={history}
+                  onAddRemove={() => onAddRemove(ing)}
+                  {...rest}
                 />
               </div>
             ))}
         </ul>
       </div>
-      <div className="my-bar-bottom row justify-content-center">
+      <div className={getButtonClasses()}>
         <Link
           className="btn btn-cocktailme"
           to={{ pathname: "/home", state: true }}
@@ -40,8 +46,8 @@ function SideBar({ bar, onAddRemove, history }) {
           Cocktail Me!
         </Link>
       </div>
-    </nav>
+    </Fragment>
   );
 }
 
-export default SideBar;
+export default MyBar;

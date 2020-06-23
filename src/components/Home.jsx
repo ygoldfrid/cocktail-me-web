@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { Form } from "react-bootstrap";
 import Media from "react-media";
-import { getFullBar, getMissingLength } from "../services/barService";
 import cocktailService from "../services/cocktailService";
+import barService from "../services/barService";
 import { paginate } from "../utils/paginate";
+import Pagination from "./common/Pagination";
 import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
-import Pagination from "./common/Pagination";
+import SideBar from "./common/SideBar";
 import CocktailList from "./CocktailList";
-import SideBar from "./SideBar";
 
 class Home extends Component {
   state = {
@@ -46,10 +46,13 @@ class Home extends Component {
     let { data: cocktails } = await cocktailService.getAllCocktails();
 
     if (this.state.barIsSelected) {
-      const fullBar = getFullBar(this.props.bar);
+      const fullBar = barService.getFullBar(this.props.bar);
 
       cocktails = cocktails.filter((cocktail) => {
-        cocktail.missing = getMissingLength(cocktail.components, fullBar);
+        cocktail.missing = barService.getMissingLength(
+          cocktail.components,
+          fullBar
+        );
         if (cocktail.missing < 4) return true;
         return false;
       });
@@ -127,13 +130,13 @@ class Home extends Component {
       searchQuery,
     } = this.state;
 
-    const { bar, onRemove, history } = this.props;
+    const { ...rest } = this.props;
 
     const { totalCount, pagedCocktails } = this.getPagedData();
 
     return (
       <Fragment>
-        <SideBar bar={bar} onRemove={onRemove} history={history} />
+        <SideBar {...rest} />
         <div className="row cocktails col-md-9 mr-sm-auto col-lg-10 px-md-4">
           <Media
             queries={{
@@ -166,7 +169,7 @@ class Home extends Component {
             />
             {pagedCocktails.length > 0 && (
               <Fragment>
-                <CocktailList cocktails={pagedCocktails} history={history} />
+                <CocktailList cocktails={pagedCocktails} {...rest} />
                 <Pagination
                   itemsCount={totalCount}
                   pageSize={pageSize}

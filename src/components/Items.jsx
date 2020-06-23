@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import cocktailService from "../services/cocktailService";
+import SideBar from "./common/SideBar";
 import IngredientCategory from "./IngredientCategory";
-import SideBar from "./SideBar";
 
 class Bar extends Component {
   state = {
@@ -33,40 +33,21 @@ class Bar extends Component {
 
   render() {
     const { spirits, liqueurs, mixers, others } = this.state;
-    const { bar, onAddRemove, history } = this.props;
+    const { ...rest } = this.props;
 
     return (
       <Fragment>
-        <SideBar bar={bar} onAddRemove={onAddRemove} history={history} />
+        <SideBar {...rest} />
         <div className="categories col-md-9 mr-sm-auto col-lg-10 px-md-4">
+          <h3 className="text-center mb-4">Select some items for Your Bar</h3>
+          <IngredientCategory title={"Spirits"} items={spirits} {...rest} />
           <IngredientCategory
-            bar={bar}
-            title={"Spirits"}
-            items={spirits}
-            onAddRemove={onAddRemove}
-            history={history}
-          />
-          <IngredientCategory
-            bar={bar}
             title={"Liqueurs, Wines & Beers"}
             items={liqueurs}
-            onAddRemove={onAddRemove}
-            history={history}
+            {...rest}
           />
-          <IngredientCategory
-            bar={bar}
-            title={"Mixers"}
-            items={mixers}
-            onAddRemove={onAddRemove}
-            history={history}
-          />
-          <IngredientCategory
-            bar={bar}
-            title={"Others"}
-            items={others}
-            onAddRemove={onAddRemove}
-            history={history}
-          />
+          <IngredientCategory title={"Mixers"} items={mixers} {...rest} />
+          <IngredientCategory title={"Others"} items={others} {...rest} />
         </div>
       </Fragment>
     );

@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 function Profile({ user }) {
   return (
     <div className="login row mt-5">
-      <div className="col" />
-      <div className="col">
+      <div className="auth-container">
         {user && (
           <div className="card text-center">
             <div className="card-header">Your Profile</div>
@@ -17,7 +16,6 @@ function Profile({ user }) {
           </div>
         )}
       </div>
-      <div className="col" />
     </div>
   );
 }

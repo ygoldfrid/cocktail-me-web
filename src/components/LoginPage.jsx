@@ -38,8 +38,7 @@ class LoginPage extends Form {
     if (auth.getCurrentUser()) return <Redirect to="/" />;
     return (
       <div className="login row mt-5">
-        <div className="col" />
-        <div className="col">
+        <div className="auth-container">
           <h4 className="mb-3">Login</h4>
           <form onSubmit={this.handleSubmit}>
             {this.renderInput("email", "Email")}
@@ -50,7 +49,6 @@ class LoginPage extends Form {
             Don't have an account? <Link to="/register">Register here</Link>
           </p>
         </div>
-        <div className="col" />
       </div>
     );
   }

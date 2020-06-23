@@ -1,6 +1,7 @@
 /* COLORS */
 :root {
   --light-green: #c3e6cb;
+  --light-yellow: #f9c126;
   --hover-green: #b1dfbb;
   --simple-green: #00ad28;
   --dark-green: #155724;
@@ -48,8 +49,17 @@ a:hover {
   color: white;
   text-decoration: none;
 }
-.fa-user-o {
-  color: #cccccc;
+.nav-item,
+.navbar-brand,
+.fa-user-o,
+.fa-glass {
+  color: white;
+}
+.nav-item:hover,
+.navbar-brand:hover,
+.fa-user-o:hover,
+.fa-glass:hover {
+  color: white;
 }
 
 /* CONTAINERS */
@@ -126,11 +136,29 @@ a:hover {
 p.empty-bar {
   margin: 20px;
 }
-.my-bar-bottom {
-  margin-top: 8px;
-}
 .badge-pill {
   background-color: var(--dark-green);
+}
+.sidebar-btn {
+  margin-top: 8px;
+}
+.sidebar-btn > a {
+  width: 50%;
+}
+.my-bar-btn {
+  margin: 20px 0px;
+}
+.my-bar-btn > a {
+  padding: 8px 0px;
+  font-size: 20px;
+  width: 100%;
+}
+.badge-bar {
+  border-radius: 10px;
+  position: relative;
+  bottom: 10px;
+  background-color: var(--light-yellow);
+  color: var(--darker-green);
 }
 
 /* BUTTONS */
@@ -201,6 +229,11 @@ p.empty-bar {
 .input-auth {
   height: 50px;
 }
+.auth-container {
+  width: calc(100% - 100px);
+  max-width: 500px;
+  margin: auto;
+}
 
 /*MAIN PAGE*/
 .element > div.card {
@@ -221,4 +254,7 @@ img.disabled {
 }
 .figure {
   margin-bottom: 10px;
+}
+.cocktails {
+  margin-left: 0px;
 }

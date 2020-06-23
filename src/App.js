@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import NavBar from "./components/Navbar";
-import Bar from "./components/Bar";
-import Home from "./components/Home";
-import CocktailPage from "./components/CocktailPage";
+import cocktailService from "./services/cocktailService";
+import barService from "./services/barService";
+import auth from "./services/authService";
 import IngredientPage from "./components/IngredientPage";
+import CocktailPage from "./components/CocktailPage";
 import RegisterPage from "./components/RegisterPage";
 import LoginPage from "./components/LoginPage";
+import Profile from "./components/Profile";
+import NavBar from "./components/Navbar";
 import Logout from "./components/Logout";
-import auth from "./services/authService";
+import MyBar from "./components/MyBar";
+import Home from "./components/Home";
+import Items from "./components/Items";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import cocktailService from "./services/cocktailService";
-import { removeFromBar, addToBar } from "./services/barService";
-import Profile from "./components/Profile";
 
 class App extends Component {
   state = {};
@@ -36,8 +37,8 @@ class App extends Component {
 
   handleAddRemoveItem = async (ingredient, isInMyBar = true) => {
     const { user, bar } = this.state;
-    if (isInMyBar) await removeFromBar(user, ingredient, bar);
-    else await addToBar(user, ingredient, bar);
+    if (isInMyBar) await barService.removeFromBar(user, ingredient, bar);
+    else await barService.addToBar(user, ingredient, bar);
     this.setState({ bar });
   };
 
@@ -81,9 +82,20 @@ class App extends Component {
                 )}
               />
               <Route
-                path="/bar"
+                path="/items"
                 render={(props) => (
-                  <Bar
+                  <Items
+                    {...props}
+                    user={user}
+                    bar={bar}
+                    onAddRemove={this.handleAddRemoveItem}
+                  />
+                )}
+              />
+              <Route
+                path="/mybar"
+                render={(props) => (
+                  <MyBar
                     {...props}
                     user={user}
                     bar={bar}
