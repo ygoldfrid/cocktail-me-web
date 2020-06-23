@@ -160,6 +160,9 @@ p.empty-bar {
   background-color: var(--light-yellow);
   color: var(--darker-green);
 }
+.category-title {
+  border-bottom: solid 1px var(--transparent-grey);
+}
 
 /* BUTTONS */
 .btn-cocktailme-red {
@@ -230,7 +233,7 @@ p.empty-bar {
   height: 50px;
 }
 .auth-container {
-  width: calc(100% - 100px);
+  width: calc(100% - 50px);
   max-width: 500px;
   margin: auto;
 }
@@ -244,7 +247,9 @@ p.empty-bar {
 h5.card-title {
   margin-bottom: 0px;
 }
-.caption {
+.caption,
+.nav-name {
+  max-width: 120px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

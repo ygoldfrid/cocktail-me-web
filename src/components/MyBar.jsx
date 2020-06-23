@@ -22,7 +22,8 @@ function MyBar({ bar, onAddRemove, sidebar, ...rest }) {
       <div className={sidebar ? "sidebar-sticky" : ""}>
         {bar && bar.length === 0 && (
           <p className="empty-bar text-center">
-            Your Bar is empty. Start adding some items!
+            Your Bar is empty. Start adding some items{" "}
+            <Link to={"/items"}>here!</Link>
           </p>
         )}
         <ul className="nav flex-column list-group list-group-flush">

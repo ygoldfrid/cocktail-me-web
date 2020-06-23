@@ -36,7 +36,10 @@ const NavBar = ({ user, bar }) => {
                     )}
                     {user && (
                       <div className="nav-container">
-                        <Link className="nav-item nav-link" to="/profile">
+                        <Link
+                          className="nav-item nav-link nav-name"
+                          to="/profile"
+                        >
                           <i
                             className="clickable fa fa-user-o"
                             aria-hidden="true"
