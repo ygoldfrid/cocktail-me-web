@@ -30,19 +30,19 @@ class App extends Component {
 
   getMainData = async () => {
     const user = auth.getCurrentUser();
-    const { data: bar } = await cocktailService.getBar(user);
+    const bar = await cocktailService.getBar(user);
     this.setState({ user, bar });
   };
 
   handleAddItem = async (ingredient) => {
     const { user, bar } = this.state;
     this.setState({ bar });
-    return await addToBar(user, bar, ingredient);
+    return await addToBar(user, ingredient, bar);
   };
 
   handleRemoveItem = async (ingredient) => {
     const { user, bar } = this.state;
-    await removeFromBar(user, bar, ingredient);
+    await removeFromBar(user, ingredient, bar);
     this.setState({ bar });
   };
 

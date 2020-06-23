@@ -7,11 +7,11 @@ function Profile({ user }) {
       <div className="col" />
       <div className="col">
         {user && (
-          <div class="card text-center">
-            <div class="card-header">Your Profile</div>
-            <div class="card-body">
-              <h5 class="card-title">{user.name}</h5>
-              <p class="card-text mb-2">{user.email}</p>
+          <div className="card text-center">
+            <div className="card-header">Your Profile</div>
+            <div className="card-body">
+              <h5 className="card-title">{user.name}</h5>
+              <p className="card-text mb-2">{user.email}</p>
               <Link to="logout">Sign out</Link>
             </div>
           </div>

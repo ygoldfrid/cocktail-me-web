@@ -1,7 +1,6 @@
 import React from "react";
 
 function Thumbnail({ type, item, history, missing, measure, size = 70 }) {
-  console.log(item);
   return (
     <figure
       style={{ width: `${size}px` }}

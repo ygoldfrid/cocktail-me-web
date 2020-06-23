@@ -6,26 +6,30 @@ function BottomBox({ history, type, element, cocktails }) {
     <Fragment>
       {type === "cocktail" && (
         <Fragment>
-          <h5 class="card-title mb-3">Preparation</h5>
+          <h5 className="card-title mb-3">Preparation</h5>
           <ol>
             {element.preparation &&
-              element.preparation.map((step) => <li>{step}</li>)}
+              element.preparation.map((step) => (
+                <li key={element.preparation.indexOf(step)}>{step}</li>
+              ))}
           </ol>
         </Fragment>
       )}
       {type === "ingredient" && (
         <Fragment>
-          <h5 class="card-title mb-3">
+          <h5 className="card-title mb-3">
             Cocktails you can make with {element.name}
           </h5>
           {cocktails &&
             cocktails.map((cocktail) => (
-              <Thumbnail
-                type="cocktails"
-                item={cocktail}
-                history={history}
-                size="100"
-              />
+              <Fragment key={cocktail._id}>
+                <Thumbnail
+                  type="cocktails"
+                  item={cocktail}
+                  history={history}
+                  size="100"
+                />
+              </Fragment>
             ))}
         </Fragment>
       )}

@@ -31,23 +31,35 @@ function getIngredientCocktails(ingredientId) {
 }
 
 // Bar
-function getBar(user) {
-  return user
-    ? http.get(barEndpoint)
-    : localStorage.getItem(barKey)
-    ? { data: JSON.parse(localStorage.getItem(barKey)) }
-    : { data: [] };
+async function getBar(user) {
+  const localBar = JSON.parse(localStorage.getItem(barKey));
+
+  if (user) {
+    const { data: dbBar } = await http.get(barEndpoint);
+
+    if (localBar && localBar.length > 0) {
+      for (let ing of localBar) addToBar(user, ing._id);
+
+      const jointBar = localBar.concat(dbBar);
+      localStorage.removeItem(barKey);
+      return jointBar;
+    }
+
+    return dbBar;
+  }
+  return localBar || [];
 }
-function addToBar(user, bar, ingredientId) {
+function addToBar(user, ingredientId, bar) {
   return user
     ? http.post(barEndpoint, { _id: ingredientId })
     : { data: localStorage.setItem(barKey, JSON.stringify(bar)) };
 }
-function removeFromBar(user, bar, ingredientId) {
+function removeFromBar(user, ingredientId, bar) {
   return user
     ? http.delete(`${barEndpoint}${ingredientId}`)
     : { data: localStorage.setItem(barKey, JSON.stringify(bar)) };
 }
+export async function concatBar(bar) {}
 
 export default {
   getAllCocktails,

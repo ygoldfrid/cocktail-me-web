@@ -44,8 +44,8 @@ function MainPage({
             </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-body">
+        <div className="card">
+          <div className="card-body">
             <BottomBox
               history={history}
               type={type}

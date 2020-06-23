@@ -35,14 +35,16 @@ function TopBox({
           <div className="row ml-1">
             {ingredients &&
               ingredients.map((ing) => (
-                <Thumbnail
-                  type="ingredients"
-                  missing={ing.missing}
-                  item={ing.ingredient}
-                  measure={ing.measure}
-                  history={history}
-                  size="70"
-                />
+                <Fragment key={ing._id}>
+                  <Thumbnail
+                    type="ingredients"
+                    missing={ing.missing}
+                    item={ing.ingredient}
+                    measure={ing.measure}
+                    history={history}
+                    size="70"
+                  />
+                </Fragment>
               ))}
           </div>
         </Fragment>
@@ -60,7 +62,9 @@ function TopBox({
             <Fragment>
               <p className="card-text mb-2">You can replace it with:</p>
               {element.alternatives.map((ing) => (
-                <Thumbnail type="ingredients" item={ing} history={history} />
+                <Fragment key={ing._id}>
+                  <Thumbnail type="ingredients" item={ing} history={history} />
+                </Fragment>
               ))}
             </Fragment>
           )}

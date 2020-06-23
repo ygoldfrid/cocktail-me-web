@@ -1,9 +1,9 @@
 import React from "react";
-import Form from "./common/Form";
+import { Redirect, Link } from "react-router-dom";
 import Joi from "joi-browser";
-import userService from "../services/userService";
 import auth from "../services/authService";
-import { Link } from "react-router-dom";
+import userService from "../services/userService";
+import Form from "./common/Form";
 
 class RegisterPage extends Form {
   state = {
@@ -36,6 +36,7 @@ class RegisterPage extends Form {
   };
 
   render() {
+    if (auth.getCurrentUser()) return <Redirect to="/" />;
     return (
       <div className="login row mt-5">
         <div className="col" />

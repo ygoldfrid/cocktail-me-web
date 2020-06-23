@@ -3,7 +3,7 @@ import cocktailService from "./cocktailService";
 
 export const barLimit = 20;
 
-export async function addToBar(user, bar, ingredient) {
+export async function addToBar(user, ingredient, bar) {
   if (bar.some((ing) => ing._id === ingredient._id)) {
     toast(`You already have ${ingredient.name} in you bar`);
     return false;
@@ -22,18 +22,18 @@ export async function addToBar(user, bar, ingredient) {
   };
 
   bar.unshift(barItem);
-  await cocktailService.addToBar(user, bar, ingredient._id);
+  await cocktailService.addToBar(user, ingredient._id, bar);
 
   return true;
 }
 
-export async function removeFromBar(user, bar, ingredient) {
+export async function removeFromBar(user, ingredient, bar) {
   const barIds = bar.map((ing) => ing._id);
   const index = barIds.indexOf(ingredient._id);
 
   bar.splice(index, 1);
 
-  await cocktailService.removeFromBar(user, bar, ingredient._id);
+  await cocktailService.removeFromBar(user, ingredient._id, bar);
 }
 
 export function getFullBar(bar) {

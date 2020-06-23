@@ -3,7 +3,6 @@ import http from "./httpService";
 
 const authEndpoint = "/auth";
 const tokenKey = "token";
-const barKey = "bar";
 
 http.setJwt(getJwt());
 
@@ -14,12 +13,10 @@ function getJwt() {
 async function login(email, password) {
   const { data: jwt } = await http.post(authEndpoint, { email, password });
   localStorage.setItem(tokenKey, jwt);
-  localStorage.removeItem(barKey);
 }
 
 function loginWithJwt(jwt) {
   localStorage.setItem(tokenKey, jwt);
-  localStorage.removeItem(barKey);
 }
 
 function logout() {
