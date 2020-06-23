@@ -1,89 +1,75 @@
 import React, { Fragment } from "react";
 import { Form } from "react-bootstrap";
+import AddRemoveButton from "./AddRemoveButton";
 import Thumbnail from "./Thumbnail";
 
 function TopBox({
-  type,
-  title,
-  items,
   history,
+  bar,
+  type,
   element,
+  ingredients,
   missing,
+  onCheck,
   onClick,
-  subtitle,
-  isInMyBar,
-  onCheckChange,
-  showAlternatives,
-  showCaption = true,
-  showIngredients = true,
 }) {
   return (
     <Fragment>
-      <h1>{title}</h1>
       {type === "cocktail" && (
         <Fragment>
-          {missing === 0 && (
-            <span className="badge badge-pill badge-success mb-3">
-              You have all the ingredients in My Bar
-            </span>
-          )}
-          {missing > 0 && (
-            <span className="badge badge-pill badge-danger mb-3">
-              Missing {missing} from My Bar
-            </span>
-          )}
+          <h5 className="card-title">{element.name}</h5>
+          <p className="card-text mb-2">
+            <small className="text-muted">
+              {missing === 0
+                ? "You have all the ingredients in My Bar"
+                : `Missing ${missing} from My Bar`}
+            </small>
+          </p>
           <Form.Check
             id="useMyBar"
             type="checkbox"
             label="Replace ingredients with My Bar"
-            onChange={onCheckChange}
+            onChange={onCheck}
           />
-        </Fragment>
-      )}
-      {type === "ingredient" && (
-        <Fragment>
-          {isInMyBar && (
-            <span className="badge badge-pill badge-success">In My Bar</span>
-          )}
-          {!isInMyBar && (
-            <span className="badge badge-pill badge-danger">Not in My Bar</span>
-          )}
-          <span className="badge badge-pill badge-primary mb-3 ml-1">
-            {element.category}
-          </span>
-        </Fragment>
-      )}
-      <h5>{subtitle}</h5>
-      {showIngredients && (
-        <Fragment>
-          <div className="row">
-            {items &&
-              items.map((item) => (
-                <div key={item._id} className="px-1">
-                  <Thumbnail
-                    type="ingredients"
-                    size={80}
-                    missing={item.missing}
-                    showAlternatives={showAlternatives}
-                    element={item.ingredient ? item.ingredient : item}
-                    caption={
-                      showCaption && item.measure ? `(${item.measure})` : ""
-                    }
-                    history={history}
-                  />
-                </div>
+          <p className="card-text my-2">Ingredients:</p>
+          <div className="row ml-1">
+            {ingredients &&
+              ingredients.map((ing) => (
+                <Thumbnail
+                  type="ingredients"
+                  missing={ing.missing}
+                  item={ing.ingredient}
+                  measure={ing.measure}
+                  history={history}
+                  size="70"
+                />
               ))}
           </div>
         </Fragment>
       )}
       {type === "ingredient" && (
-        <button
-          className="btn btn-sm btn-cocktailme"
-          id={element._id}
-          onClick={onClick}
-        >
-          {isInMyBar ? "Remove from My Bar" : "Add to My Bar"}
-        </button>
+        <Fragment>
+          <div className="d-flex justify-content-between">
+            <h5 className="card-title">{element.name}</h5>
+            <AddRemoveButton bar={bar} ingredient={element} onClick={onClick} />
+          </div>
+          <p className="card-text mb-3">
+            <small className="text-muted">{element.category}</small>
+          </p>
+          {element.alternatives && element.alternatives.length > 0 && (
+            <Fragment>
+              <p className="card-text mb-2">You can replace it with:</p>
+              {element.alternatives.map((ing) => (
+                <Thumbnail type="ingredients" item={ing} history={history} />
+              ))}
+            </Fragment>
+          )}
+          {element.alternatives && element.alternatives.length === 0 && (
+            <p className="card-text">
+              There are no replacements for this ingredient. It's one of a kind!
+            </p>
+          )}
+        </Fragment>
       )}
     </Fragment>
   );

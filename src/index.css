@@ -2,7 +2,10 @@
 :root {
   --light-green: #c3e6cb;
   --hover-green: #b1dfbb;
+  --simple-green: #00ad28;
   --dark-green: #155724;
+  --dark-red: #bd0000;
+  --darker-red: #810000;
   --darker-green: #07200d;
   --transparent-grey: #00000079;
 }
@@ -10,7 +13,6 @@
 /* MAIN */
 * {
   color: var(--darker-green);
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Raleway", "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
@@ -19,39 +21,22 @@
 }
 
 /* GENERAL */
-div > h1 {
-  margin-bottom: 10px;
-}
 div > p {
   margin-bottom: 0px;
 }
-li > a {
-  color: var(--dark-green);
+a {
+  color: var(--simple-green);
 }
-li > a:hover {
-  color: var(--dark-green);
-}
-h4 {
-  color: var(--dark-green);
-}
-a > b {
+a:hover {
   color: var(--dark-green);
 }
 .clickable {
   cursor: pointer;
 }
 
-img.disabled {
-  opacity: 0.3;
-}
-.figure {
-  margin-bottom: 10px;
-}
-
 /* NAVBAR */
 .navbar {
   background-color: var(--dark-green);
-  margin-bottom: 30px;
 }
 .navbar-link {
   font-size: 18px;
@@ -63,10 +48,13 @@ img.disabled {
   color: white;
   text-decoration: none;
 }
+.fa-user-o {
+  color: #cccccc;
+}
 
 /* CONTAINERS */
-.container {
-  margin-bottom: 40px;
+.container-fluid {
+  margin-top: 20px;
 }
 .box {
   padding: 10px 20px; /*top-bottom, right-left,*/
@@ -82,25 +70,11 @@ img.disabled {
   background-color: white;
   color: var(--darker-green);
   border-radius: 5px;
-  border-color: var(--transparent-grey);
-  border-width: 1px;
-  border-style: solid;
+  border: solid 1px var(--transparent-grey);
   padding: 2px;
   position: absolute;
   top: 8px;
   right: 8px;
-}
-.remove-top-right {
-  background-color: var(--transparent-grey);
-  border-radius: 50%;
-  padding-left: 5px;
-  padding-right: 5px;
-  position: absolute;
-  top: 8px;
-  right: 8px;
-}
-.remove-top-right > i {
-  color: white;
 }
 .ingredient-list {
   height: 200px;
@@ -112,31 +86,84 @@ img.disabled {
 .ingredient-list-mobile {
   height: 200px;
 }
-.card-header {
-  background-color: var(--light-green);
+
+/* SIDEBAR */
+.sidebar {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding: 70px 0px 50px 0px; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  border-left: solid 1px var(--transparent-grey);
 }
-.card-body {
-  padding: 5px 0px 0px;
+.sidebar-sticky {
+  border-top: solid 1px var(--transparent-grey);
+  position: relative;
+  top: 0;
+  height: 93%;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
-.card-body-home {
-  padding: 15px;
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+@media (max-width: 575px) {
+  .sidebar {
+    top: 5rem;
+  }
+}
+
+/* BAR */
+.stick-bottom {
+  position: absolute;
+  bottom: 5px;
+}
+p.empty-bar {
+  margin: 20px;
+}
+.my-bar-bottom {
+  margin-top: 8px;
+}
+.badge-pill {
+  background-color: var(--dark-green);
 }
 
 /* BUTTONS */
+.btn-cocktailme-red {
+  background-color: var(--dark-red);
+  border-radius: 3px;
+  color: white;
+  font-size: 12px;
+}
+.btn-cocktailme-red:hover {
+  background-color: var(--darker-red);
+  color: white;
+}
 .btn-cocktailme {
   background-color: var(--dark-green);
-  border-radius: 15px;
+  border-radius: 3px;
   color: white;
+  font-size: 12px;
 }
 .btn-cocktailme:hover {
-  background-color: var(--darker-green);
   color: white;
+  background-color: var(--darker-green);
 }
-p.subtitle {
-  color: red;
-}
-p.subtitle > a {
+.btn-cocktailme-clear {
+  background-color: white;
   color: var(--dark-green);
+  border: 1px solid var(--transparent-grey);
+  border-radius: 3px;
+  font-size: 12px;
+}
+.btn-cocktailme-clear:hover {
+  background-color: var(--dark-green);
+  color: white;
 }
 
 /* PAGINATION */
@@ -164,4 +191,34 @@ p.subtitle > a {
 .pagination > .active > button:hover {
   background-color: var(--dark-green) !important;
   border: solid 1px var(--dark-green);
+}
+
+/* AUTH */
+.btn-auth {
+  width: 100%;
+  height: 50px;
+}
+.input-auth {
+  height: 50px;
+}
+
+/*MAIN PAGE*/
+.element > div.card {
+  background-color: var(--light-green);
+  width: 100%;
+  margin: auto;
+}
+h5.card-title {
+  margin-bottom: 0px;
+}
+.caption {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+img.disabled {
+  opacity: 0.3;
+}
+.figure {
+  margin-bottom: 10px;
 }

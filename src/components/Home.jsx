@@ -8,6 +8,7 @@ import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
 import Pagination from "./common/Pagination";
 import CocktailList from "./CocktailList";
+import SideBar from "./SideBar";
 
 class Home extends Component {
   state = {
@@ -21,16 +22,15 @@ class Home extends Component {
   };
 
   async componentDidMount() {
-    const { state: barIsSelected } = this.props.location;
-    this.setChecked(barIsSelected);
-    this.setState({ barIsSelected });
-
+    this.setChecked();
     await this.getSpirits();
     await this.refreshCocktails();
   }
 
-  setChecked = (barIsSelected) => {
+  setChecked = () => {
+    const { state: barIsSelected } = this.props.location;
     document.getElementById("barIsSelected").checked = barIsSelected;
+    this.setState({ barIsSelected });
   };
 
   getSpirits = async () => {
@@ -42,19 +42,14 @@ class Home extends Component {
     this.setState({ spirits });
   };
 
-  getBar = async () => {
-    const { data: bar } = await cocktailService.getBar(this.props.user);
-    return getFullBar(bar);
-  };
-
   refreshCocktails = async () => {
     let { data: cocktails } = await cocktailService.getAllCocktails();
 
     if (this.state.barIsSelected) {
-      const bar = await this.getBar();
+      const fullBar = getFullBar(this.props.bar);
 
       cocktails = cocktails.filter((cocktail) => {
-        cocktail.missing = getMissingLength(cocktail.components, bar);
+        cocktail.missing = getMissingLength(cocktail.components, fullBar);
         if (cocktail.missing < 4) return true;
         return false;
       });
@@ -132,11 +127,14 @@ class Home extends Component {
       searchQuery,
     } = this.state;
 
+    const { bar, onRemove, history } = this.props;
+
     const { totalCount, pagedCocktails } = this.getPagedData();
 
     return (
-      <div className="row">
-        <div className="col-2">
+      <Fragment>
+        <SideBar bar={bar} onRemove={onRemove} history={history} />
+        <div className="row cocktails col-md-9 mr-sm-auto col-lg-10 px-md-4">
           <Media
             queries={{
               mobile: "(max-width: 991px)",
@@ -156,35 +154,33 @@ class Home extends Component {
               </Fragment>
             )}
           </Media>
+
+          <div className="col">
+            <SearchBox value={searchQuery} onChange={this.handleSearch} />
+            <Form.Check
+              className="mb-3 pl-4"
+              id="barIsSelected"
+              type="checkbox"
+              label="Use ingredients from My Bar"
+              onChange={this.handleCheck}
+            />
+            {pagedCocktails.length > 0 && (
+              <Fragment>
+                <CocktailList cocktails={pagedCocktails} history={history} />
+                <Pagination
+                  itemsCount={totalCount}
+                  pageSize={pageSize}
+                  currentPage={currentPage}
+                  onPageChange={this.handlePageChange}
+                />
+              </Fragment>
+            )}
+            {pagedCocktails.length === 0 && (
+              <p>Oops! No results found. Try removing some filters</p>
+            )}
+          </div>
         </div>
-        <div className="col">
-          <SearchBox value={searchQuery} onChange={this.handleSearch} />
-          <Form.Check
-            className="mb-3 pl-4"
-            id="barIsSelected"
-            type="checkbox"
-            label="Use ingredients from My Bar"
-            onChange={this.handleCheck}
-          />
-          {pagedCocktails.length > 0 && (
-            <Fragment>
-              <CocktailList
-                cocktails={pagedCocktails}
-                history={this.props.history}
-              />
-              <Pagination
-                itemsCount={totalCount}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChange={this.handlePageChange}
-              />
-            </Fragment>
-          )}
-          {pagedCocktails.length === 0 && (
-            <p>Oops! No results found. Try removing some filters</p>
-          )}
-        </div>
-      </div>
+      </Fragment>
     );
   }
 }

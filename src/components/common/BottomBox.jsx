@@ -1,36 +1,35 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Thumbnail from "./Thumbnail";
 
-function BottomBox({ type, title, subtitle, body, items, onRemove, history }) {
+function BottomBox({ history, type, element, cocktails }) {
   return (
-    <div className="box">
-      <h2>{title}</h2>
-      {subtitle}
-      {items && items.length > 0 && (
-        <div className="row">
-          {items.map((item) => (
-            <div key={item._id} className="p-2">
+    <Fragment>
+      {type === "cocktail" && (
+        <Fragment>
+          <h5 class="card-title mb-3">Preparation</h5>
+          <ol>
+            {element.preparation &&
+              element.preparation.map((step) => <li>{step}</li>)}
+          </ol>
+        </Fragment>
+      )}
+      {type === "ingredient" && (
+        <Fragment>
+          <h5 class="card-title mb-3">
+            Cocktails you can make with {element.name}
+          </h5>
+          {cocktails &&
+            cocktails.map((cocktail) => (
               <Thumbnail
-                type={type}
-                size={100}
-                element={item}
-                onRemove={onRemove}
+                type="cocktails"
+                item={cocktail}
                 history={history}
+                size="100"
               />
-            </div>
-          ))}
-        </div>
+            ))}
+        </Fragment>
       )}
-      {(!items || items.length === 0) && body && (
-        <ol>
-          {body.map((paragraph) => (
-            <li key={body.indexOf(paragraph)} className="lead">
-              {paragraph}
-            </li>
-          ))}
-        </ol>
-      )}
-    </div>
+    </Fragment>
   );
 }
 

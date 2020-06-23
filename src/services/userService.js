@@ -4,7 +4,7 @@ const usersEndpoint = "/users";
 
 function register(user) {
   return http.post(usersEndpoint, {
-    email: user.username,
+    email: user.email,
     password: user.password,
     name: user.name,
   });

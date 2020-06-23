@@ -21,7 +21,7 @@ export async function addToBar(user, bar, ingredient) {
     alternatives: ingredient.alternatives,
   };
 
-  bar.push(barItem);
+  bar.unshift(barItem);
   await cocktailService.addToBar(user, bar, ingredient._id);
 
   return true;

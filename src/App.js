@@ -6,53 +6,113 @@ import Bar from "./components/Bar";
 import Home from "./components/Home";
 import CocktailPage from "./components/CocktailPage";
 import IngredientPage from "./components/IngredientPage";
-import RegisterForm from "./components/RegisterForm";
-import LoginForm from "./components/LoginForm";
+import RegisterPage from "./components/RegisterPage";
+import LoginPage from "./components/LoginPage";
 import Logout from "./components/Logout";
 import auth from "./services/authService";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import cocktailService from "./services/cocktailService";
+import { removeFromBar, addToBar } from "./services/barService";
+import Profile from "./components/Profile";
 
 class App extends Component {
   state = {};
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    this.setAppTitle();
+    await this.getMainData();
+  };
+
+  setAppTitle = () => {
     document.title = process.env.REACT_APP_NAME;
+  };
+
+  getMainData = async () => {
     const user = auth.getCurrentUser();
-    this.setState({ user });
-  }
+    const { data: bar } = await cocktailService.getBar(user);
+    this.setState({ user, bar });
+  };
+
+  handleAddItem = async (ingredient) => {
+    const { user, bar } = this.state;
+    this.setState({ bar });
+    return await addToBar(user, bar, ingredient);
+  };
+
+  handleRemoveItem = async (ingredient) => {
+    const { user, bar } = this.state;
+    await removeFromBar(user, bar, ingredient);
+    this.setState({ bar });
+  };
 
   render() {
-    const { user } = this.state;
+    const { user, bar } = this.state;
 
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar user={user} />
-        <main role="main" className="container">
-          <Switch>
-            <Route path="/register" component={RegisterForm} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/logout" component={Logout} />
-            <Route
-              path="/cocktails/:id"
-              render={(props) => <CocktailPage {...props} user={user} />}
-            />
-            <Route
-              path="/ingredients/:id"
-              render={(props) => <IngredientPage {...props} user={user} />}
-            />
-            <Route
-              path="/bar"
-              render={(props) => <Bar {...props} user={user} />}
-            />
-            <Route
-              path="/home"
-              render={(props) => <Home {...props} user={user} />}
-            />
-            <Redirect from="/" exact to="/home" />
-          </Switch>
-        </main>
+        <NavBar user={user} bar={bar} />
+        <div className="container-fluid">
+          <main role="main">
+            <Switch>
+              <Route path="/register" component={RegisterPage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/logout" component={Logout} />
+              <Route
+                path="/profile"
+                render={(props) => <Profile {...props} user={user} />}
+              />
+              <Route
+                path="/cocktails/:id"
+                render={(props) => (
+                  <CocktailPage
+                    {...props}
+                    user={user}
+                    bar={bar}
+                    onRemove={this.handleRemoveItem}
+                  />
+                )}
+              />
+              <Route
+                path="/ingredients/:id"
+                render={(props) => (
+                  <IngredientPage
+                    {...props}
+                    user={user}
+                    bar={bar}
+                    onAdd={this.handleAddItem}
+                    onRemove={this.handleRemoveItem}
+                  />
+                )}
+              />
+              <Route
+                path="/bar"
+                render={(props) => (
+                  <Bar
+                    {...props}
+                    user={user}
+                    bar={bar}
+                    onAdd={this.handleAddItem}
+                    onRemove={this.handleRemoveItem}
+                  />
+                )}
+              />
+              <Route
+                path="/home"
+                render={(props) => (
+                  <Home
+                    {...props}
+                    user={user}
+                    bar={bar}
+                    onRemove={this.handleRemoveItem}
+                  />
+                )}
+              />
+              <Redirect from="/" exact to="/home" />
+            </Switch>
+          </main>
+        </div>
       </React.Fragment>
     );
   }

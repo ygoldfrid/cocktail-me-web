@@ -1,11 +1,7 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
-import Media from "react-media";
-import { barLimit, addToBar, removeFromBar } from "../services/barService";
 import cocktailService from "../services/cocktailService";
-import BottomBox from "./common/BottomBox";
-import BarChoices from "./BarChoices";
-import BarChoicesMobile from "./BarChoicesMobile";
+import IngredientCategory from "./IngredientCategory";
+import SideBar from "./SideBar";
 
 class Bar extends Component {
   state = {
@@ -13,16 +9,10 @@ class Bar extends Component {
     liqueurs: [],
     mixers: [],
     others: [],
-    bar: [],
   };
 
   componentDidMount = async () => {
     await this.getMenuIngredients();
-    await this.getBarIngredients();
-  };
-
-  componentDidUpdate = async (prevProps) => {
-    if (prevProps.user !== this.props.user) await this.getBarIngredients();
   };
 
   getMenuIngredients = async () => {
@@ -41,95 +31,50 @@ class Bar extends Component {
     this.setState({ spirits, liqueurs, mixers, others });
   };
 
-  getBarIngredients = async () => {
-    const { data: bar } = await cocktailService.getBar(this.props.user);
-    if (bar) this.setState({ bar });
-  };
-
-  handleSelect = async (ingredient) => {
-    const { bar } = this.state;
-    const { user } = this.props;
-
-    await addToBar(user, bar, ingredient);
-
-    this.setState({ bar });
-  };
-
-  handleRemove = async (ingredient) => {
-    const { bar } = this.state;
-
-    removeFromBar(this.props.user, bar, ingredient);
-
-    this.setState({ bar });
-  };
-
-  getSubtitle = () => {
-    return !this.props.user && this.state.bar.length === barLimit ? (
-      <p className="subtitle">
-        You've reached the limit of items for anonymous users.{" "}
-        <Link to="/login">
-          <b>Log in</b>
-        </Link>{" "}
-        to add more!
-      </p>
-    ) : null;
+  handleClick = async (ingredient, isInMyBar = true) => {
+    const { onAdd, onRemove } = this.props;
+    if (isInMyBar) await onRemove(ingredient);
+    else await onAdd(ingredient);
   };
 
   render() {
-    const { spirits, liqueurs, mixers, others, bar } = this.state;
+    const { spirits, liqueurs, mixers, others } = this.state;
+    const { bar, onRemove, history } = this.props;
 
     return (
-      <div className="my-bar">
-        <div className="row justify-content-center">
-          <h1 className="mb-4">Select your ingredients</h1>
+      <Fragment>
+        <SideBar bar={bar} onRemove={onRemove} history={history} />
+        <div className="categories col-md-9 mr-sm-auto col-lg-10 px-md-4">
+          <IngredientCategory
+            bar={bar}
+            title={"Spirits"}
+            items={spirits}
+            onClick={this.handleClick}
+            history={history}
+          />
+          <IngredientCategory
+            bar={bar}
+            title={"Liqueurs, Wines & Beers"}
+            items={liqueurs}
+            onClick={this.handleClick}
+            history={history}
+          />
+          <IngredientCategory
+            bar={bar}
+            title={"Mixers"}
+            items={mixers}
+            onClick={this.handleClick}
+            history={history}
+          />
+          <IngredientCategory
+            bar={bar}
+            title={"Others"}
+            items={others}
+            onClick={this.handleClick}
+            history={history}
+          />
         </div>
-        <Media
-          queries={{
-            mobile: "(max-width: 769px)",
-            desktop: "(min-width: 770px)",
-          }}
-        >
-          {(matches) => (
-            <Fragment>
-              {matches.mobile && (
-                <BarChoicesMobile
-                  spirits={spirits}
-                  liqueurs={liqueurs}
-                  mixers={mixers}
-                  others={others}
-                  onSelect={this.handleSelect}
-                />
-              )}
-              {matches.desktop && (
-                <BarChoices
-                  spirits={spirits}
-                  liqueurs={liqueurs}
-                  mixers={mixers}
-                  others={others}
-                  onSelect={this.handleSelect}
-                />
-              )}
-            </Fragment>
-          )}
-        </Media>
-        <BottomBox
-          type="ingredients"
-          title="My Bar"
-          subtitle={this.getSubtitle()}
-          body={["Start adding some ingredients to your bar!"]}
-          items={bar}
-          onRemove={this.handleRemove}
-          history={this.props.history}
-        />
-        <div className="row justify-content-center m-3">
-          <Link
-            className="btn btn-cocktailme"
-            to={{ pathname: "/home", state: true }}
-          >
-            Cocktail Me!
-          </Link>
-        </div>
-      </div>
+      </Fragment>
     );
   }
 }

@@ -1,41 +1,35 @@
 import React from "react";
 
-function Thumbnail({
-  type,
-  size,
-  element,
-  history,
-  onRemove,
-  caption,
-  missing,
-}) {
-  const handleClick = (e) => {
-    if (e.target.id === "image") history.push(`/${type}/${e.currentTarget.id}`);
-  };
-
+function Thumbnail({ type, item, history, missing, measure, size = 70 }) {
+  console.log(item);
   return (
-    <figure className="figure clickable" id={element._id} onClick={handleClick}>
-      <div className="image-container">
-        <img
-          className={
-            missing
-              ? "figure-img img-fluid rounded disabled"
-              : "figure-img img-fluid rounded"
-          }
-          id="image"
-          src={element.image}
-          alt={element.name}
-          height={size}
-          width={size}
-        />
-        {onRemove && (
-          <div className="remove-top-right" onClick={() => onRemove(element)}>
-            <i className="fa fa-times" aria-hidden="true" />
-          </div>
-        )}
-      </div>
-      <figcaption className="text-center">{element.name}</figcaption>
-      <figcaption className="text-center">{caption}</figcaption>
+    <figure
+      style={{ width: `${size}px` }}
+      className="figure clickable mr-2"
+      id={item._id}
+      onClick={({ currentTarget }) => {
+        history.push(`/${type}/${currentTarget.id}`);
+      }}
+    >
+      <img
+        src={item.image}
+        className={
+          missing
+            ? "figure-img img-fluid rounded disabled"
+            : "figure-img img-fluid rounded"
+        }
+        alt={item.name}
+        height={size}
+        width={size}
+      />
+      <figcaption className="text-center">
+        <small className="text-muted">
+          <div className="caption">{item.name}</div>
+        </small>
+      </figcaption>
+      <figcaption className="text-center">
+        <small>{measure ? `(${measure})` : ""}</small>
+      </figcaption>
     </figure>
   );
 }

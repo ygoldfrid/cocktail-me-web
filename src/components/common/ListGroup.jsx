@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 const ListGroup = ({
   items,
@@ -8,7 +8,7 @@ const ListGroup = ({
   selectedItem,
 }) => {
   return (
-    <Fragment>
+    <div className="col-2">
       <ul className="list-group clickable mb-4">
         {items.map((item) => (
           <li
@@ -24,7 +24,7 @@ const ListGroup = ({
           </li>
         ))}
       </ul>
-    </Fragment>
+    </div>
   );
 };
 

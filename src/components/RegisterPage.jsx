@@ -3,11 +3,12 @@ import Form from "./common/Form";
 import Joi from "joi-browser";
 import userService from "../services/userService";
 import auth from "../services/authService";
+import { Link } from "react-router-dom";
 
-class RegisterForm extends Form {
+class RegisterPage extends Form {
   state = {
     data: {
-      username: "",
+      email: "",
       password: "",
       name: "",
     },
@@ -15,7 +16,7 @@ class RegisterForm extends Form {
   };
 
   schema = {
-    username: Joi.string().email().required().label("Username"),
+    email: Joi.string().email().required().label("Email"),
     password: Joi.string().min(5).required().label("Password"),
     name: Joi.string().required().label("Name"),
   };
@@ -28,7 +29,7 @@ class RegisterForm extends Form {
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
-        errors.username = ex.response.data;
+        errors.email = ex.response.data;
         this.setState({ errors });
       }
     }
@@ -36,17 +37,24 @@ class RegisterForm extends Form {
 
   render() {
     return (
-      <div>
-        <h1>Register</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("username", "Username")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderInput("name", "Name")}
-          {this.renderButton("Register")}
-        </form>
+      <div className="login row mt-5">
+        <div className="col" />
+        <div className="col">
+          <h4 className="mb-3">Create your Account</h4>
+          <form onSubmit={this.handleSubmit}>
+            {this.renderInput("email", "Email")}
+            {this.renderInput("password", "Password", "password")}
+            {this.renderInput("name", "Name")}
+            {this.renderButton("Register")}
+          </form>
+          <p className="text-center mt-3">
+            Already registered? <Link to="/login">Login here</Link>
+          </p>
+        </div>
+        <div className="col" />
       </div>
     );
   }
 }
 
-export default RegisterForm;
+export default RegisterPage;
