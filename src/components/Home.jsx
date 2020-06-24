@@ -46,12 +46,12 @@ class Home extends Component {
     let { data: cocktails } = await cocktailService.getAllCocktails();
 
     if (this.state.barIsSelected) {
-      const fullBar = barService.getFullBar(this.props.bar);
+      const barIds = this.props.bar.map((ing) => ing._id);
 
       cocktails = cocktails.filter((cocktail) => {
         cocktail.missing = barService.getMissingLength(
           cocktail.components,
-          fullBar
+          barIds
         );
         if (cocktail.missing < 4) return true;
         return false;

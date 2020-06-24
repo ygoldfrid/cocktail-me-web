@@ -36,30 +36,17 @@ async function removeFromBar(user, ingredient, bar) {
   await cocktailService.removeFromBar(user, ingredient._id, bar);
 }
 
-function getFullBar(bar) {
-  const fullBar = [];
-
-  for (let ing of bar) {
-    fullBar.push(ing._id);
-
-    for (let alt of ing.alternatives)
-      if (!fullBar.includes(alt)) fullBar.push(alt);
-  }
-
-  return fullBar;
-}
-
 function getMissingLength(components, barIds) {
   const size = components.length;
 
   const match = components.filter((component) => {
-    if (barIds.includes(component.ingredient._id)) {
-      return true;
-    }
+    if (barIds.includes(component.ingredient._id)) return true;
+    for (let alt of component.ingredient.alternatives)
+      if (barIds.includes(alt)) return true;
+
     component.missing = true;
     return false;
   }).length;
-
   return size - match;
 }
 
@@ -79,7 +66,6 @@ function replaceComponents(cocktail, bar) {
 export default {
   addToBar,
   removeFromBar,
-  getFullBar,
   getMissingLength,
   replaceComponents,
 };
