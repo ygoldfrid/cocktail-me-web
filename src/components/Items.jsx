@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import cocktailService from "../services/cocktailService";
 import SideBar from "./common/SideBar";
 import IngredientCategory from "./IngredientCategory";
+import Loader from "./common/Loader";
 
 class Bar extends Component {
   state = {
@@ -40,14 +41,31 @@ class Bar extends Component {
         <SideBar {...rest} />
         <div className="categories col-md-9 mr-sm-auto col-lg-10 px-md-4">
           <h3 className="text-center mb-4">Select some items for Your Bar</h3>
-          <IngredientCategory title={"Spirits"} items={spirits} {...rest} />
-          <IngredientCategory
-            title={"Liqueurs, Wines & Beers"}
-            items={liqueurs}
-            {...rest}
-          />
-          <IngredientCategory title={"Mixers"} items={mixers} {...rest} />
-          <IngredientCategory title={"Others"} items={others} {...rest} />
+          {(spirits.length === 0 ||
+            liqueurs.length === 0 ||
+            mixers.length === 0 ||
+            others.length === 0) && (
+            <Loader text="Loading some delicious items" />
+          )}
+          {spirits.length !== 0 &&
+            liqueurs.length !== 0 &&
+            mixers.length !== 0 &&
+            others.length !== 0 && (
+              <Fragment>
+                <IngredientCategory
+                  title={"Spirits"}
+                  items={spirits}
+                  {...rest}
+                />
+                <IngredientCategory
+                  title={"Liqueurs, Wines & Beers"}
+                  items={liqueurs}
+                  {...rest}
+                />
+                <IngredientCategory title={"Mixers"} items={mixers} {...rest} />
+                <IngredientCategory title={"Others"} items={others} {...rest} />
+              </Fragment>
+            )}
         </div>
       </Fragment>
     );

@@ -9,6 +9,7 @@ import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
 import SideBar from "./common/SideBar";
 import CocktailList from "./CocktailList";
+import Loader from "./common/Loader";
 
 class Home extends Component {
   state = {
@@ -128,11 +129,12 @@ class Home extends Component {
       spirits,
       selectedSpirit,
       searchQuery,
+      cocktails: allCocktails,
     } = this.state;
 
     const { ...rest } = this.props;
 
-    const { totalCount, pagedCocktails } = this.getPagedData();
+    let { totalCount, pagedCocktails } = this.getPagedData();
 
     return (
       <Fragment>
@@ -178,7 +180,10 @@ class Home extends Component {
                 />
               </Fragment>
             )}
-            {pagedCocktails.length === 0 && (
+            {allCocktails.length === 0 && (
+              <Loader text="Loading some delicious cocktails..." />
+            )}
+            {allCocktails.length !== 0 && pagedCocktails.length === 0 && (
               <p>Oops! No results found. Try removing some filters</p>
             )}
           </div>
