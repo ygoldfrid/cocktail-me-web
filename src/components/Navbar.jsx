@@ -11,8 +11,8 @@ const NavBar = ({ user, bar }) => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <Media
           queries={{
-            mobile: "(max-width: 509px)",
-            desktop: "(min-width: 510px)",
+            mobile: "(max-width: 767px)",
+            desktop: "(min-width: 768px)",
           }}
         >
           {(matches) => (

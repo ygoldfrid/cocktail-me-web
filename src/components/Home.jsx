@@ -181,7 +181,7 @@ class Home extends Component {
               </Fragment>
             )}
             {allCocktails.length === 0 && (
-              <Loader text="Loading some delicious cocktails..." />
+              <Loader text="Loading delicious cocktails..." />
             )}
             {allCocktails.length !== 0 && pagedCocktails.length === 0 && (
               <p>Oops! No results found. Try removing some filters</p>

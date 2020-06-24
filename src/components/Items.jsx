@@ -45,7 +45,7 @@ class Bar extends Component {
             liqueurs.length === 0 ||
             mixers.length === 0 ||
             others.length === 0) && (
-            <Loader text="Loading some delicious items" />
+            <Loader text="Loading delicious items..." />
           )}
           {spirits.length !== 0 &&
             liqueurs.length !== 0 &&
