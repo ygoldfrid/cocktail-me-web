@@ -21,12 +21,7 @@ class App extends Component {
   state = {};
 
   componentDidMount = async () => {
-    this.setAppTitle();
     await this.getMainData();
-  };
-
-  setAppTitle = () => {
-    document.title = process.env.REACT_APP_NAME;
   };
 
   getMainData = async () => {

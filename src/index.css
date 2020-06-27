@@ -264,3 +264,8 @@ img.disabled {
 .element {
   margin-left: 0px;
 }
+
+/* TOAST */
+.Toastify__toast-body {
+  color: white;
+}

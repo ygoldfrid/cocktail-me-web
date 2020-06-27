@@ -12,7 +12,7 @@ function MyBarItem({ ing, onAddRemove, history }) {
           }}
         >
           <img
-            className="mr-1"
+            className="rounded mr-2"
             height="50"
             width="50"
             src={ing.image}

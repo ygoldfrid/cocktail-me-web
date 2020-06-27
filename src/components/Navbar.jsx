@@ -53,7 +53,7 @@ const NavBar = ({ user, bar }) => {
                         className="clickable fa fa-glass 3x"
                         aria-hidden="true"
                       />
-                      <span class="badge badge-light badge-bar">
+                      <span className="badge badge-light badge-bar">
                         {bar && bar.length}
                       </span>
                     </Link>
