@@ -2,11 +2,15 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import MyBarItem from "./MyBarItem";
 
-function MyBar({ bar, onAddRemove, sidebar, ...rest }) {
+function MyBar({ bar, onClick, onAddRemove, sidebar, history, ...rest }) {
   const getButtonClasses = () => {
     return sidebar
       ? "sidebar-btn row justify-content-center"
       : "my-bar-btn row justify-content-center";
+  };
+
+  const handleClick = () => {
+    history.push({ pathname: "/home", state: true });
   };
 
   return (
@@ -40,12 +44,12 @@ function MyBar({ bar, onAddRemove, sidebar, ...rest }) {
         </ul>
       </div>
       <div className={getButtonClasses()}>
-        <Link
+        <button
           className="btn btn-cocktailme"
-          to={{ pathname: "/home", state: true }}
+          onClick={onClick ? onClick : handleClick}
         >
           Cocktail Me!
-        </Link>
+        </button>
       </div>
     </Fragment>
   );

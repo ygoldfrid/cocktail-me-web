@@ -31,7 +31,8 @@ class App extends Component {
   };
 
   handleAddRemoveItem = async (ingredient, isInMyBar = true) => {
-    const { user, bar } = this.state;
+    const { user } = this.state;
+    const bar = [...this.state.bar];
     if (isInMyBar) await barService.removeFromBar(user, ingredient, bar);
     else await barService.addToBar(user, ingredient, bar);
     this.setState({ bar });

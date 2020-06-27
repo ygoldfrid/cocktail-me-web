@@ -23,13 +23,16 @@ class Home extends Component {
   };
 
   async componentDidMount() {
-    this.setChecked();
+    this.setChecked(this.props.location);
     await this.getSpirits();
     await this.refreshCocktails();
   }
 
-  setChecked = () => {
-    const { state: barIsSelected } = this.props.location;
+  async componentDidUpdate(prevProps) {
+    if (prevProps.bar !== this.props.bar) await this.refreshCocktails();
+  }
+
+  setChecked = (barIsSelected = true) => {
     document.getElementById("barIsSelected").checked = barIsSelected;
     this.setState({ barIsSelected });
   };
@@ -93,6 +96,11 @@ class Home extends Component {
     this.setState({ barIsSelected: !this.state.barIsSelected, currentPage: 1 });
   };
 
+  handleClick = () => {
+    this.refreshCocktails();
+    this.setChecked();
+  };
+
   getPagedData = () => {
     const {
       pageSize,
@@ -138,7 +146,7 @@ class Home extends Component {
 
     return (
       <Fragment>
-        <SideBar {...rest} />
+        <SideBar onClick={this.handleClick} {...rest} />
         <div className="row cocktails col-md-9 mr-sm-auto col-lg-10 px-md-4">
           <Media
             queries={{
