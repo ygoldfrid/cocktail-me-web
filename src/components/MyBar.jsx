@@ -36,6 +36,7 @@ function MyBar({ bar, onClick, onAddRemove, sidebar, history, ...rest }) {
               <div key={ing._id}>
                 <MyBarItem
                   ing={ing}
+                  history={history}
                   onAddRemove={() => onAddRemove(ing)}
                   {...rest}
                 />
