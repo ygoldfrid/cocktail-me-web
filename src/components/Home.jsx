@@ -23,7 +23,7 @@ class Home extends Component {
   };
 
   async componentDidMount() {
-    this.setChecked(this.props.location);
+    this.setChecked(this.props.location.state);
     await this.getSpirits();
     await this.refreshCocktails();
   }
@@ -32,7 +32,7 @@ class Home extends Component {
     if (prevProps.bar !== this.props.bar) await this.refreshCocktails();
   }
 
-  setChecked = (barIsSelected = true) => {
+  setChecked = (barIsSelected) => {
     document.getElementById("barIsSelected").checked = barIsSelected;
     this.setState({ barIsSelected });
   };
@@ -98,7 +98,7 @@ class Home extends Component {
 
   handleClick = () => {
     this.refreshCocktails();
-    this.setChecked();
+    this.setChecked(true);
   };
 
   getPagedData = () => {
