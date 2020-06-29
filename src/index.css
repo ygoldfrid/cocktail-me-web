@@ -142,13 +142,13 @@ p.empty-bar {
 .sidebar-btn {
   margin-top: 8px;
 }
-.sidebar-btn > a {
+.sidebar-btn > button {
   width: 50%;
 }
 .my-bar-btn {
   margin: 20px 0px;
 }
-.my-bar-btn > a {
+.my-bar-btn > button {
   padding: 8px 0px;
   font-size: 20px;
   width: 100%;
