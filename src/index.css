@@ -96,6 +96,9 @@ a:hover {
 .ingredient-list-mobile {
   height: 200px;
 }
+.category-title {
+  border-bottom: solid 1px var(--transparent-grey);
+}
 
 /* SIDEBAR */
 .sidebar {
@@ -160,8 +163,8 @@ p.empty-bar {
   background-color: var(--light-yellow);
   color: var(--darker-green);
 }
-.category-title {
-  border-bottom: solid 1px var(--transparent-grey);
+.plus-sign > i {
+  color: var(--dark-green);
 }
 
 /* BUTTONS */

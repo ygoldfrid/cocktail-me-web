@@ -10,7 +10,7 @@ async function addToBar(user, ingredient, bar) {
   }
 
   if (!user && bar.length >= barLimit) {
-    toast.info(`Log In to add more than ${barLimit} items to your Bar`);
+    toast.info(`Log In to add more than ${barLimit} items to My Bar`);
     return false;
   }
 

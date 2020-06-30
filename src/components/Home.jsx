@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Form } from "react-bootstrap";
+import { toast } from "react-toastify";
 import Media from "react-media";
 import cocktailService from "../services/cocktailService";
 import barService from "../services/barService";
@@ -8,8 +9,8 @@ import Pagination from "./common/Pagination";
 import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
 import SideBar from "./common/SideBar";
-import CocktailList from "./CocktailList";
 import Loader from "./common/Loader";
+import CocktailList from "./CocktailList";
 
 class Home extends Component {
   state = {
@@ -33,8 +34,11 @@ class Home extends Component {
   }
 
   setChecked = (barIsSelected) => {
-    document.getElementById("barIsSelected").checked = barIsSelected;
-    this.setState({ barIsSelected });
+    const checkbox = document.getElementById("barIsSelected");
+    if (checkbox) {
+      checkbox.checked = barIsSelected;
+      this.setState({ barIsSelected });
+    }
   };
 
   getSpirits = async () => {
@@ -49,7 +53,7 @@ class Home extends Component {
   refreshCocktails = async () => {
     let { data: cocktails } = await cocktailService.getAllCocktails();
 
-    if (this.state.barIsSelected) {
+    if (this.props.bar.length > 0 && this.state.barIsSelected) {
       const barIds = this.props.bar.map((ing) => ing._id);
 
       cocktails = cocktails.filter((cocktail) => {
@@ -97,6 +101,8 @@ class Home extends Component {
   };
 
   handleClick = () => {
+    if (this.props.bar.length < 3)
+      return toast.info(`You need at least 3 items in My Bar`);
     this.refreshCocktails();
     this.setChecked(true);
   };
@@ -170,13 +176,15 @@ class Home extends Component {
 
           <div className="col">
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
-            <Form.Check
-              className="mb-3 pl-4"
-              id="barIsSelected"
-              type="checkbox"
-              label="Use ingredients from My Bar"
-              onChange={this.handleCheck}
-            />
+            {this.props.bar && this.props.bar.length > 0 && (
+              <Form.Check
+                className="mb-3 pl-4"
+                id="barIsSelected"
+                type="checkbox"
+                label="Use ingredients from My Bar"
+                onChange={this.handleCheck}
+              />
+            )}
             {pagedCocktails.length > 0 && (
               <Fragment>
                 <CocktailList cocktails={pagedCocktails} {...rest} />
