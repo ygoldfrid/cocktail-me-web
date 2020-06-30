@@ -176,7 +176,7 @@ class Home extends Component {
 
           <div className="col">
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
-            {this.props.bar && this.props.bar.length > 0 && (
+            {this.props.bar && this.props.bar.length >= 3 && (
               <Form.Check
                 className="mb-3 pl-4"
                 id="barIsSelected"
