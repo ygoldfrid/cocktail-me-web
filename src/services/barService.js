@@ -17,7 +17,7 @@ async function addToBar(user, ingredient, bar) {
   const barItem = {
     _id: ingredient._id,
     name: ingredient.name,
-    image: ingredient.image,
+    images: ingredient.images,
     alternatives: ingredient.alternatives,
   };
 

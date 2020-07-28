@@ -1,5 +1,7 @@
 import React from "react";
 
+import Image from "./common/Image";
+
 function MyBarItem({ ing, onAddRemove, history }) {
   return (
     <li className="list-group-item">
@@ -11,12 +13,12 @@ function MyBarItem({ ing, onAddRemove, history }) {
             history.push(`/ingredients/${currentTarget.id}`);
           }}
         >
-          <img
+          <Image
+            images={ing.images}
+            alt={ing.name}
             className="rounded mr-2"
             height="50"
             width="50"
-            src={ing.image}
-            alt={ing.name}
           />
         </div>
         <div

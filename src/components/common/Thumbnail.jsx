@@ -1,5 +1,7 @@
 import React from "react";
 
+import Image from "./Image";
+
 function Thumbnail({ type, item, history, missing, measure, size = 70 }) {
   return (
     <figure
@@ -10,14 +12,14 @@ function Thumbnail({ type, item, history, missing, measure, size = 70 }) {
         history.push(`/${type}/${currentTarget.id}`);
       }}
     >
-      <img
-        src={item.image}
+      <Image
+        images={item.images}
+        alt={item.name}
         className={
           missing
             ? "figure-img img-fluid rounded disabled"
             : "figure-img img-fluid rounded"
         }
-        alt={item.name}
         height={size}
         width={size}
       />

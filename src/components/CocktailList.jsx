@@ -1,5 +1,7 @@
 import React from "react";
 
+import Image from "./common/Image";
+
 function CocktailList({ cocktails, history }) {
   return (
     <div className="row row-cols-1 row-cols-sm-3 row-cols-md-2 row-cols-lg-3">
@@ -13,10 +15,10 @@ function CocktailList({ cocktails, history }) {
             }}
           >
             <div className="image-container">
-              <img
-                src={cocktail.image}
+              <Image
+                images={cocktail.images}
+                alt={cocktail.name}
                 className="card-img-top"
-                alt="cocktail"
               />
               {cocktail.missing === 0 && (
                 <div className="top-right">You can make this</div>

@@ -1,13 +1,15 @@
 import React from "react";
 import AddRemoveButton from "./common/AddRemoveButton";
 
+import Image from "./common/Image";
+
 function IngredientItem({ bar, ing, history, onAddRemove }) {
   return (
     <div className="card p-1 pb-3 h-100">
-      <img
-        src={ing.image}
-        className="clickable card-img-top"
+      <Image
+        images={ing.images}
         alt={ing.name}
+        className="clickable card-img-top"
         id={ing._id}
         onClick={({ currentTarget }) => {
           history.push(`/ingredients/${currentTarget.id}`);
