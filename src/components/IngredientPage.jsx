@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+
+import BarContext from "../contexts/barContext";
 import cocktailService from "../services/cocktailService";
 import MainPage from "./common/MainPage";
 
-function IngredientPage({ user, bar, match, ...rest }) {
+function IngredientPage({ match }) {
+  const { bar } = useContext(BarContext);
+
   const [ingredient, setIngredient] = useState({});
   const [cocktails, setCocktails] = useState(null);
   const id = match.params.id;
@@ -19,16 +23,10 @@ function IngredientPage({ user, bar, match, ...rest }) {
     }
 
     getData();
-  }, [id, user, bar]);
+  }, [id, bar]);
 
   return (
-    <MainPage
-      bar={bar}
-      type={"ingredient"}
-      element={ingredient}
-      cocktails={cocktails}
-      {...rest}
-    />
+    <MainPage cocktails={cocktails} element={ingredient} type={"ingredient"} />
   );
 }
 

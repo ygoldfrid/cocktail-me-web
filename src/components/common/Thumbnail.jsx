@@ -1,8 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 import Image from "./Image";
 
-function Thumbnail({ type, item, history, missing, measure, size = 70 }) {
+function Thumbnail({ item, measure, missing, size = 70, type }) {
+  const history = useHistory();
+
   return (
     <figure
       style={{ width: `${size}px` }}

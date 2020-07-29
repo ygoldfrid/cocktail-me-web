@@ -1,8 +1,14 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import Media from "react-media";
 
-const NavBar = ({ user, bar }) => {
+import AuthContext from "../contexts/authContext";
+import BarContext from "../contexts/barContext";
+
+const NavBar = () => {
+  const { user } = useContext(AuthContext);
+  const { bar } = useContext(BarContext);
+
   return (
     <nav className="navbar navbar-expand sticky-top">
       <Link className="navbar-brand" to="/">
@@ -20,8 +26,8 @@ const NavBar = ({ user, bar }) => {
               {matches.mobile && (
                 <Fragment>
                   <ul className="navbar-nav mr-auto">
-                    <Link className="nav-item nav-link" to="/items">
-                      Items
+                    <Link className="nav-item nav-link" to="/market">
+                      Market
                     </Link>
                   </ul>
                   <ul className="navbar-nav ml-auto">
@@ -63,8 +69,8 @@ const NavBar = ({ user, bar }) => {
               {matches.desktop && (
                 <Fragment>
                   <ul className="navbar-nav mr-auto">
-                    <Link className="nav-item nav-link" to="/items">
-                      Items
+                    <Link className="nav-item nav-link" to="/market">
+                      Market
                     </Link>
                   </ul>
                   <ul className="navbar-nav ml-auto">

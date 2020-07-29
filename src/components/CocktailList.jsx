@@ -1,8 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 import Image from "./common/Image";
 
-function CocktailList({ cocktails, history }) {
+function CocktailList({ cocktails }) {
+  const history = useHistory();
+
   return (
     <div className="row row-cols-1 row-cols-sm-3 row-cols-md-2 row-cols-lg-3">
       {cocktails.map((cocktail) => (

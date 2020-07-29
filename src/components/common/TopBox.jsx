@@ -1,18 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Form } from "react-bootstrap";
-import AddRemoveButton from "./AddRemoveButton";
+
+import AddOrRemoveButton from "./AddOrRemoveButton";
 import Thumbnail from "./Thumbnail";
 
-function TopBox({
-  bar,
-  type,
-  element,
-  ingredients,
-  missing,
-  onCheck,
-  onAddRemove,
-  ...rest
-}) {
+function TopBox({ element, ingredients, missing, onCheck, type }) {
   return (
     <Fragment>
       {type === "cocktail" && (
@@ -37,11 +29,10 @@ function TopBox({
               ingredients.map((ing) => (
                 <Fragment key={ing._id}>
                   <Thumbnail
-                    type="ingredients"
-                    missing={ing.missing}
                     item={ing.ingredient}
                     measure={ing.measure}
-                    {...rest}
+                    missing={ing.missing}
+                    type="ingredients"
                     size="70"
                   />
                 </Fragment>
@@ -53,11 +44,7 @@ function TopBox({
         <Fragment>
           <div className="d-flex justify-content-between">
             <h5 className="card-title">{element.name}</h5>
-            <AddRemoveButton
-              bar={bar}
-              ingredient={element}
-              onAddRemove={onAddRemove}
-            />
+            <AddOrRemoveButton ingredient={element} />
           </div>
           <p className="card-text mb-3">
             <small className="text-muted">{element.category}</small>
@@ -67,7 +54,7 @@ function TopBox({
               <p className="card-text mb-2">You can replace it with:</p>
               {element.alternatives.map((ing) => (
                 <Fragment key={ing._id}>
-                  <Thumbnail type="ingredients" item={ing} {...rest} />
+                  <Thumbnail item={ing} type="ingredients" />
                 </Fragment>
               ))}
             </Fragment>

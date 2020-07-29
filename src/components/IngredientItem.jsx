@@ -1,9 +1,12 @@
 import React from "react";
-import AddRemoveButton from "./common/AddRemoveButton";
+import { useHistory } from "react-router-dom";
 
+import AddOrRemoveButton from "./common/AddOrRemoveButton";
 import Image from "./common/Image";
 
-function IngredientItem({ bar, ing, history, onAddRemove }) {
+function IngredientItem({ bar, ing }) {
+  const history = useHistory();
+
   return (
     <div className="card p-1 pb-3 h-100">
       <Image
@@ -18,12 +21,7 @@ function IngredientItem({ bar, ing, history, onAddRemove }) {
       <div className="card-body">
         <h6 className="card-title text-center">{ing.name}</h6>
         <div className="row justify-content-center">
-          <AddRemoveButton
-            bar={bar}
-            ingredient={ing}
-            onAddRemove={onAddRemove}
-            stickBottom={true}
-          />
+          <AddOrRemoveButton ingredient={ing} stickBottom={true} />
         </div>
       </div>
     </div>

@@ -1,9 +1,14 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import BarContext from "../contexts/barContext";
 import MyBarItem from "./MyBarItem";
 
-function MyBar({ bar, onClick, onAddRemove, sidebar, history, ...rest }) {
+function MyBar({ onClick, sidebar }) {
+  const history = useHistory();
+  const { bar } = useContext(BarContext);
+
   const getButtonClasses = () => {
     return sidebar
       ? "sidebar-btn row justify-content-center"
@@ -17,7 +22,7 @@ function MyBar({ bar, onClick, onAddRemove, sidebar, history, ...rest }) {
   };
 
   const handlePlusClick = () => {
-    history.push("/items");
+    history.push("/market");
   };
 
   return (
@@ -40,19 +45,14 @@ function MyBar({ bar, onClick, onAddRemove, sidebar, history, ...rest }) {
         {bar && bar.length === 0 && (
           <p className="empty-bar text-center">
             My Bar is empty. Start adding some items{" "}
-            <Link to={"/items"}>here!</Link>
+            <Link to={"/market"}>here!</Link>
           </p>
         )}
         <ul className="nav flex-column list-group list-group-flush">
           {bar &&
             bar.map((ing) => (
               <div key={ing._id}>
-                <MyBarItem
-                  ing={ing}
-                  history={history}
-                  onAddRemove={() => onAddRemove(ing)}
-                  {...rest}
-                />
+                <MyBarItem ing={ing} />
               </div>
             ))}
         </ul>

@@ -1,7 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 
-function Profile({ user }) {
+import AuthContext from "../contexts/authContext";
+import auth from "../services/authService";
+
+function Profile() {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="login row mt-5">
       <div className="auth-container">
@@ -11,7 +15,9 @@ function Profile({ user }) {
             <div className="card-body">
               <h5 className="card-title">{user.name}</h5>
               <p className="card-text mb-2">{user.email}</p>
-              <Link to="logout">Sign out</Link>
+              <button className="link" onClick={auth.logout}>
+                Sign out
+              </button>
             </div>
           </div>
         )}

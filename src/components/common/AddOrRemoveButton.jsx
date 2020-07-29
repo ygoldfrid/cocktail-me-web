@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
-function AddRemoveButton({ bar, ingredient, onAddRemove, stickBottom }) {
+import BarContext from "../../contexts/barContext";
+
+function AddRemoveButton({ ingredient, stickBottom }) {
+  const { bar, addOrRemoveItem } = useContext(BarContext);
+
   const isInMyBar = bar ? bar.some((ing) => ing._id === ingredient._id) : false;
 
   const getClasses = () => {
@@ -14,7 +18,7 @@ function AddRemoveButton({ bar, ingredient, onAddRemove, stickBottom }) {
   return (
     <button
       className={getClasses()}
-      onClick={() => onAddRemove(ingredient, isInMyBar)}
+      onClick={() => addOrRemoveItem(ingredient, isInMyBar)}
     >
       {isInMyBar ? "Remove" : "Add to My Bar"}
     </button>

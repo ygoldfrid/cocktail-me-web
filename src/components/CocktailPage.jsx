@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
-import cocktailService from "../services/cocktailService";
+import React, { useEffect, useState, useContext } from "react";
+
+import BarContext from "../contexts/barContext";
 import barService from "../services/barService";
+import cocktailService from "../services/cocktailService";
 import MainPage from "./common/MainPage";
 
-function CocktailPage({ user, bar, match, ...rest }) {
+function CocktailPage({ match }) {
+  const { bar } = useContext(BarContext);
+
   const [cocktail, setCocktail] = useState({});
   const [ingredients, setIngredients] = useState(null);
   const [missing, setMissing] = useState(0);
@@ -30,7 +34,7 @@ function CocktailPage({ user, bar, match, ...rest }) {
     }
 
     getData();
-  }, [id, user, bar, useMyBar]);
+  }, [id, bar, useMyBar]);
 
   const handleCheck = () => {
     setUseMyBar(!useMyBar);
@@ -38,13 +42,11 @@ function CocktailPage({ user, bar, match, ...rest }) {
 
   return (
     <MainPage
-      bar={bar}
-      type={"cocktail"}
       element={cocktail}
       ingredients={ingredients}
       missing={missing}
       onCheck={handleCheck}
-      {...rest}
+      type={"cocktail"}
     />
   );
 }

@@ -8,7 +8,7 @@ import TopBox from "./TopBox";
 function MainPage({ element, ...rest }) {
   return (
     <Fragment>
-      <SideBar {...rest} />
+      <SideBar />
       <div className="row element col-md-9 mr-sm-auto col-lg-10 px-md-4">
         <div className="card mb-3">
           <div className="row no-gutters">

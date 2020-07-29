@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 
+import BarContext from "../contexts/barContext";
 import Image from "./common/Image";
 
-function MyBarItem({ ing, onAddRemove, history }) {
+function MyBarItem({ ing }) {
+  const history = useHistory();
+  const { addOrRemoveItem } = useContext(BarContext);
+
   return (
     <li className="list-group-item">
       <div className="d-flex flex-row">
@@ -32,7 +37,7 @@ function MyBarItem({ ing, onAddRemove, history }) {
         </div>
         <div
           className="ml-auto align-self-center"
-          onClick={() => onAddRemove(ing)}
+          onClick={() => addOrRemoveItem(ing)}
         >
           <i className="clickable fa fa-trash-o" aria-hidden="true" />
         </div>

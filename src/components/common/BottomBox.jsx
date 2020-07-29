@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Thumbnail from "./Thumbnail";
 
-function BottomBox({ history, type, element, cocktails }) {
+function BottomBox({ element, cocktails, type }) {
   return (
     <Fragment>
       {type === "cocktail" && (
@@ -23,12 +23,7 @@ function BottomBox({ history, type, element, cocktails }) {
           {cocktails &&
             cocktails.map((cocktail) => (
               <Fragment key={cocktail._id}>
-                <Thumbnail
-                  type="cocktails"
-                  item={cocktail}
-                  history={history}
-                  size="100"
-                />
+                <Thumbnail type="cocktails" item={cocktail} size="100" />
               </Fragment>
             ))}
         </Fragment>

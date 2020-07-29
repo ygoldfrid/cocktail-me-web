@@ -2,9 +2,14 @@ import React, { Component, Fragment } from "react";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Media from "react-media";
+
+import BarContext from "../contexts/barContext";
+
 import cocktailService from "../services/cocktailService";
 import barService from "../services/barService";
+
 import { paginate } from "../utils/paginate";
+
 import Pagination from "./common/Pagination";
 import SearchBox from "./common/SearchBox";
 import ListGroup from "./common/ListGroup";
@@ -30,7 +35,7 @@ class Home extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    if (prevProps.bar !== this.props.bar) await this.refreshCocktails();
+    if (prevProps.bar !== this.context.bar) await this.refreshCocktails();
   }
 
   setChecked = (barIsSelected) => {
@@ -53,8 +58,8 @@ class Home extends Component {
   refreshCocktails = async () => {
     let { data: cocktails } = await cocktailService.getAllCocktails();
 
-    if (this.props.bar.length > 0 && this.state.barIsSelected) {
-      const barIds = this.props.bar.map((ing) => ing._id);
+    if (this.context.bar.length > 0 && this.state.barIsSelected) {
+      const barIds = this.context.bar.map((ing) => ing._id);
 
       cocktails = cocktails.filter((cocktail) => {
         cocktail.missing = barService.getMissingLength(
@@ -101,7 +106,7 @@ class Home extends Component {
   };
 
   handleClick = () => {
-    if (this.props.bar.length < 3)
+    if (this.context.bar.length < 3)
       return toast.info(`You need at least 3 items in My Bar`);
     this.refreshCocktails();
     this.setChecked(true);
@@ -146,13 +151,11 @@ class Home extends Component {
       cocktails: allCocktails,
     } = this.state;
 
-    const { ...rest } = this.props;
-
     let { totalCount, pagedCocktails } = this.getPagedData();
 
     return (
       <Fragment>
-        <SideBar onClick={this.handleClick} {...rest} />
+        <SideBar onClick={this.handleClick} />
         <div className="row cocktails col-md-9 mr-sm-auto col-lg-10 px-md-4">
           <Media
             queries={{
@@ -176,7 +179,7 @@ class Home extends Component {
 
           <div className="col">
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
-            {this.props.bar && this.props.bar.length >= 3 && (
+            {this.context.bar && this.context.bar.length >= 3 && (
               <Form.Check
                 className="mb-3 pl-4"
                 id="barIsSelected"
@@ -187,7 +190,7 @@ class Home extends Component {
             )}
             {pagedCocktails.length > 0 && (
               <Fragment>
-                <CocktailList cocktails={pagedCocktails} {...rest} />
+                <CocktailList cocktails={pagedCocktails} />
                 <Pagination
                   itemsCount={totalCount}
                   pageSize={pageSize}
@@ -208,5 +211,7 @@ class Home extends Component {
     );
   }
 }
+
+Home.contextType = BarContext;
 
 export default Home;

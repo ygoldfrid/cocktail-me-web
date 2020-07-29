@@ -25,11 +25,20 @@
 div > p {
   margin-bottom: 0px;
 }
-a {
+a,
+button.link {
   color: var(--simple-green);
+  background: none !important;
+  border: none;
+  padding: 0 !important;
 }
-a:hover {
+a:hover,
+button.link:hover {
   color: var(--dark-green);
+  background: none !important;
+  border: none;
+  text-decoration: underline;
+  padding: 0 !important;
 }
 .clickable {
   cursor: pointer;
