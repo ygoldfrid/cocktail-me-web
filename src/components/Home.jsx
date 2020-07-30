@@ -25,7 +25,6 @@ class Home extends Component {
     searchQuery: "",
     currentPage: 1,
     pageSize: 6,
-    barIsSelected: false,
   };
 
   async componentDidMount() {
@@ -38,11 +37,11 @@ class Home extends Component {
     if (prevProps.bar !== this.context.bar) await this.refreshCocktails();
   }
 
-  setChecked = (barIsSelected) => {
-    const checkbox = document.getElementById("barIsSelected");
+  setChecked = (useMyBar) => {
+    const checkbox = document.getElementById("useMyBar");
     if (checkbox) {
-      checkbox.checked = barIsSelected;
-      this.setState({ barIsSelected });
+      checkbox.checked = useMyBar;
+      this.context.setUseMyBar(useMyBar);
     }
   };
 
@@ -58,13 +57,14 @@ class Home extends Component {
   refreshCocktails = async () => {
     let { data: cocktails } = await cocktailService.getAllCocktails();
 
-    if (this.context.bar.length > 0 && this.state.barIsSelected) {
+    if (this.context.bar.length > 0 && this.context.useMyBar) {
       const barIds = this.context.bar.map((ing) => ing._id);
 
       cocktails = cocktails.filter((cocktail) => {
-        cocktail.missing = barService.getMissingLength(
+        cocktail.missing = barService.getMissingCount(
           cocktail.components,
-          barIds
+          barIds,
+          this.context.useMyBar
         );
         if (cocktail.missing < 4) return true;
         return false;
@@ -102,7 +102,8 @@ class Home extends Component {
 
   handleCheck = () => {
     this.refreshCocktails();
-    this.setState({ barIsSelected: !this.state.barIsSelected, currentPage: 1 });
+    this.setState({ currentPage: 1 });
+    this.context.setUseMyBar(!this.context.useMyBar);
   };
 
   handleClick = () => {
@@ -182,7 +183,7 @@ class Home extends Component {
             {this.context.bar && this.context.bar.length >= 3 && (
               <Form.Check
                 className="mb-3 pl-4"
-                id="barIsSelected"
+                id="useMyBar"
                 type="checkbox"
                 label="Use ingredients from My Bar"
                 onChange={this.handleCheck}

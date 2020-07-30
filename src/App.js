@@ -23,8 +23,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 export default function App() {
-  const [user, setUser] = useState();
   const [bar, setBar] = useState();
+  const [useMyBar, setUseMyBar] = useState(false);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     getMainData();
@@ -46,7 +47,9 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <BarContext.Provider value={{ bar, addOrRemoveItem }}>
+      <BarContext.Provider
+        value={{ addOrRemoveItem, bar, setUseMyBar, useMyBar }}
+      >
         <ToastContainer />
         <NavBar />
         <div className="container-fluid">

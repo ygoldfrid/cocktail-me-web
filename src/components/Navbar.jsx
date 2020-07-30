@@ -25,11 +25,6 @@ const NavBar = () => {
             <Fragment>
               {matches.mobile && (
                 <Fragment>
-                  <ul className="navbar-nav mr-auto">
-                    <Link className="nav-item nav-link" to="/market">
-                      Market
-                    </Link>
-                  </ul>
                   <ul className="navbar-nav ml-auto">
                     {!user && (
                       <Link className="nav-item nav-link" to="/login">
@@ -54,7 +49,7 @@ const NavBar = () => {
                         </Link>
                       </div>
                     )}
-                    <Link className="nav-item nav-link" to="/mybar">
+                    <Link className="mx-2 nav-item nav-link" to="/mybar">
                       <i
                         className="clickable fa fa-glass 3x"
                         aria-hidden="true"
@@ -63,17 +58,21 @@ const NavBar = () => {
                         {bar && bar.length}
                       </span>
                     </Link>
+                    <Link className="nav-item nav-link" to="/market">
+                      <i
+                        className="clickable fa fa-shopping-basket 3x"
+                        aria-hidden="true"
+                      />
+                    </Link>
                   </ul>
                 </Fragment>
               )}
               {matches.desktop && (
                 <Fragment>
-                  <ul className="navbar-nav mr-auto">
-                    <Link className="nav-item nav-link" to="/market">
+                  <ul className="navbar-nav ml-auto">
+                    <Link className="mx-3 nav-item nav-link" to="/market">
                       Market
                     </Link>
-                  </ul>
-                  <ul className="navbar-nav ml-auto">
                     {!user && (
                       <Link className="nav-item nav-link" to="/login">
                         <i

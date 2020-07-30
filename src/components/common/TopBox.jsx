@@ -2,9 +2,19 @@ import React, { Fragment, useContext } from "react";
 import { Form } from "react-bootstrap";
 
 import AddOrRemoveButton from "./AddOrRemoveButton";
+import BarContext from "../../contexts/barContext";
 import Thumbnail from "./Thumbnail";
 
-function TopBox({ element, ingredients, missing, onCheck, type }) {
+function TopBox({
+  areThereAlternatives,
+  element,
+  ingredients,
+  missingCount,
+  onCheck,
+  type,
+}) {
+  const { useMyBar } = useContext(BarContext);
+
   return (
     <Fragment>
       {type === "cocktail" && (
@@ -12,17 +22,20 @@ function TopBox({ element, ingredients, missing, onCheck, type }) {
           <h5 className="card-title">{element.name}</h5>
           <p className="card-text mb-2">
             <small className="text-muted">
-              {missing === 0
+              {missingCount === 0
                 ? "You have all the ingredients in My Bar"
-                : `Missing ${missing} from My Bar`}
+                : `Missing ${missingCount} from My Bar`}
             </small>
           </p>
-          <Form.Check
-            id="useMyBar"
-            type="checkbox"
-            label="Replace ingredients with My Bar"
-            onChange={onCheck}
-          />
+          {areThereAlternatives && (
+            <Form.Check
+              id="useMyBar"
+              type="checkbox"
+              label="Replace ingredients with My Bar"
+              onChange={onCheck}
+              checked={useMyBar}
+            />
+          )}
           <p className="card-text my-2">Ingredients:</p>
           <div className="row ml-1">
             {ingredients &&

@@ -61,11 +61,13 @@ button.link:hover {
 .nav-item,
 .navbar-brand,
 .fa-user-o,
+.fa-shopping-basket,
 .fa-glass {
   color: white;
 }
 .nav-item:hover,
 .navbar-brand:hover,
+.fa-shopping-basket:hover,
 .fa-user-o:hover,
 .fa-glass:hover {
   color: white;

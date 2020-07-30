@@ -36,36 +36,52 @@ async function removeFromBar(user, ingredient, bar) {
   await cocktailService.removeFromBar(user, ingredient._id, bar);
 }
 
-function getMissingLength(components, barIds) {
+function getMissingCount(components, barIds, useMyBar) {
   const size = components.length;
 
   const match = components.filter((component) => {
-    if (barIds.includes(component.ingredient._id)) return true;
-    for (let alt of component.ingredient.alternatives)
-      if (barIds.includes(alt)) return true;
+    if (barIds.includes(component.ingredient._id)) {
+      component.missing = false;
+      return true;
+    }
+
+    if (useMyBar) {
+      for (let alt of component.ingredient.alternatives)
+        if (barIds.includes(alt._id)) {
+          component.missing = false;
+          return true;
+        }
+    }
 
     component.missing = true;
     return false;
   }).length;
+
   return size - match;
 }
 
 function replaceComponents(cocktail, bar) {
-  return cocktail.components.map((component) => {
+  let areThereAlternatives = false;
+
+  const replacedComponents = cocktail.components.map((component) => {
     if (bar.includes(component.ingredient._id)) return component;
     for (let alt of component.ingredient.alternatives)
-      if (bar.includes(alt._id))
+      if (bar.includes(alt._id)) {
+        areThereAlternatives = true;
         return {
           _id: component._id,
           ingredient: { ...alt },
         };
+      }
     return component;
   });
+
+  return { replacedComponents, areThereAlternatives };
 }
 
 export default {
   addToBar,
   removeFromBar,
-  getMissingLength,
+  getMissingCount,
   replaceComponents,
 };
