@@ -23,7 +23,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 export default function App() {
-  const [bar, setBar] = useState();
+  const [bar, setBar] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [useMyBar, setUseMyBar] = useState(false);
   const [user, setUser] = useState();
 
@@ -33,20 +34,37 @@ export default function App() {
 
   const getMainData = async () => {
     const user = auth.getCurrentUser();
-    const bar = await cocktailService.getBar(user);
     setUser(user);
+
+    const bar = await cocktailService.getBar(user);
     setBar(bar);
+
+    if (user) {
+      const { data: favorites } = await cocktailService.getFavorites();
+      setFavorites(favorites);
+    }
   };
 
   const addOrRemoveItem = async (ingredient, isInMyBar = true) => {
     const barCopy = [...bar];
     if (isInMyBar) await barService.removeFromBar(user, ingredient, barCopy);
     else await barService.addToBar(user, ingredient, barCopy);
+
     setBar(barCopy);
   };
 
+  const addOrRemoveFavorites = async (cocktailId, isFavorite = true) => {
+    let { data: favorites } = isFavorite
+      ? await cocktailService.removeFromFavorites(cocktailId)
+      : await cocktailService.addToFavorites(cocktailId);
+
+    setFavorites(favorites);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider
+      value={{ addOrRemoveFavorites, user, setUser, favorites }}
+    >
       <BarContext.Provider
         value={{ addOrRemoveItem, bar, setUseMyBar, useMyBar }}
       >

@@ -1,7 +1,7 @@
 /* COLORS */
 :root {
   --light-green: #c3e6cb;
-  --light-yellow: #f9c126;
+  --mustard: #f9c126;
   --hover-green: #b1dfbb;
   --simple-green: #00ad28;
   --dark-green: #155724;
@@ -110,6 +110,16 @@ button.link:hover {
 .category-title {
   border-bottom: solid 1px var(--transparent-grey);
 }
+.hover-opacity:hover {
+  background: rgba(230, 230, 230, 0.8);
+  opacity: 0.8;
+}
+.star-on {
+  color: var(--mustard);
+}
+.star-off {
+  color: black;
+}
 
 /* SIDEBAR */
 .sidebar {
@@ -171,7 +181,7 @@ p.empty-bar {
   border-radius: 10px;
   position: relative;
   bottom: 10px;
-  background-color: var(--light-yellow);
+  background-color: var(--mustard);
   color: var(--darker-green);
 }
 .plus-sign > i {
@@ -251,6 +261,11 @@ p.empty-bar {
   max-width: 500px;
   margin: auto;
 }
+.favorites-container {
+  width: calc(100% - 100px);
+  max-width: 900px;
+  margin: auto;
+}
 
 /*MAIN PAGE*/
 .element > div.card {
@@ -260,6 +275,11 @@ p.empty-bar {
 }
 h5.card-title {
   margin-bottom: 0px;
+}
+p.card-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .caption,
 .nav-name {

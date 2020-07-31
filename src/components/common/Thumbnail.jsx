@@ -20,8 +20,8 @@ function Thumbnail({ item, measure, missing, size = 70, type }) {
         alt={item.name}
         className={
           missing
-            ? "figure-img img-fluid rounded disabled"
-            : "figure-img img-fluid rounded"
+            ? "figure-img img-fluid rounded hover-opacity disabled"
+            : "figure-img img-fluid rounded hover-opacity"
         }
         height={size}
         width={size}

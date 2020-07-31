@@ -6,11 +6,11 @@ import cocktailService from "../services/cocktailService";
 import MainPage from "./common/MainPage";
 
 function CocktailPage({ match }) {
-  const { bar, setUseMyBar, useMyBar } = useContext(BarContext);
+  const { bar, useMyBar } = useContext(BarContext);
 
   const [areThereAlternatives, setAreThereAlternatives] = useState(false);
   const [cocktail, setCocktail] = useState({});
-  const [ingredients, setIngredients] = useState(null);
+  const [components, setComponents] = useState(null);
   const [missingCount, setMissingCount] = useState(0);
   const id = match.params.id;
 
@@ -24,32 +24,27 @@ function CocktailPage({ match }) {
 
         const replaced = barService.replaceComponents(cocktail, barIds);
 
-        const components = useMyBar
+        const loadedComponents = useMyBar
           ? replaced.replacedComponents
           : cocktail.components;
 
-        const missing = barService.getMissingCount(components, barIds);
+        const missing = barService.getMissingCount(loadedComponents, barIds);
         setMissingCount(missing);
 
         setAreThereAlternatives(replaced.areThereAlternatives);
-        setIngredients(components);
+        setComponents(loadedComponents);
       }
     }
 
     getData();
   }, [id, bar, useMyBar]);
 
-  const handleCheck = () => {
-    setUseMyBar(!useMyBar);
-  };
-
   return (
     <MainPage
       areThereAlternatives={areThereAlternatives}
       element={cocktail}
-      ingredients={ingredients}
+      components={components}
       missingCount={missingCount}
-      onCheck={handleCheck}
       type={"cocktail"}
     />
   );

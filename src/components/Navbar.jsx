@@ -50,17 +50,14 @@ const NavBar = () => {
                       </div>
                     )}
                     <Link className="mx-2 nav-item nav-link" to="/mybar">
-                      <i
-                        className="clickable fa fa-glass 3x"
-                        aria-hidden="true"
-                      />
+                      <i className="clickable fa fa-glass" aria-hidden="true" />
                       <span className="badge badge-light badge-bar">
                         {bar && bar.length}
                       </span>
                     </Link>
                     <Link className="nav-item nav-link" to="/market">
                       <i
-                        className="clickable fa fa-shopping-basket 3x"
+                        className="clickable fa fa-shopping-basket"
                         aria-hidden="true"
                       />
                     </Link>

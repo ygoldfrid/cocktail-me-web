@@ -9,7 +9,7 @@ function MyBarItem({ ing }) {
   const { addOrRemoveItem } = useContext(BarContext);
 
   return (
-    <li className="list-group-item">
+    <li className="list-group-item hover-opacity">
       <div className="d-flex flex-row">
         <div
           className="clickable"

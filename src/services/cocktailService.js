@@ -4,6 +4,7 @@ import _ from "lodash";
 const cocktailsEndpoint = "cocktails/";
 const ingredientsEndpoint = "ingredients";
 const barEndpoint = "bar/";
+const favoritesEndpoint = "favorites/";
 
 const barKey = "bar";
 
@@ -61,7 +62,17 @@ function removeFromBar(user, ingredientId, bar) {
     ? http.delete(`${barEndpoint}${ingredientId}`)
     : { data: localStorage.setItem(barKey, JSON.stringify(bar)) };
 }
-export async function concatBar(bar) {}
+
+//Favorites
+async function getFavorites() {
+  return http.get(favoritesEndpoint);
+}
+async function addToFavorites(cocktailId) {
+  return http.post(favoritesEndpoint, { _id: cocktailId });
+}
+async function removeFromFavorites(cocktailId) {
+  return http.delete(`${favoritesEndpoint}${cocktailId}`);
+}
 
 export default {
   getAllCocktails,
@@ -73,4 +84,7 @@ export default {
   getBar,
   addToBar,
   removeFromBar,
+  getFavorites,
+  addToFavorites,
+  removeFromFavorites,
 };

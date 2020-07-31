@@ -33,10 +33,6 @@ class Home extends Component {
     await this.refreshCocktails();
   }
 
-  async componentDidUpdate(prevProps) {
-    if (prevProps.bar !== this.context.bar) await this.refreshCocktails();
-  }
-
   setChecked = (useMyBar) => {
     const checkbox = document.getElementById("useMyBar");
     if (checkbox) {
@@ -191,7 +187,7 @@ class Home extends Component {
             )}
             {pagedCocktails.length > 0 && (
               <Fragment>
-                <CocktailList cocktails={pagedCocktails} />
+                <CocktailList cocktails={pagedCocktails} size="small" />
                 <Pagination
                   itemsCount={totalCount}
                   pageSize={pageSize}

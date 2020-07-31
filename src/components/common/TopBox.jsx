@@ -4,22 +4,25 @@ import { Form } from "react-bootstrap";
 import AddOrRemoveButton from "./AddOrRemoveButton";
 import BarContext from "../../contexts/barContext";
 import Thumbnail from "./Thumbnail";
+import Star from "../Star";
 
 function TopBox({
   areThereAlternatives,
+  components,
   element,
-  ingredients,
   missingCount,
-  onCheck,
   type,
 }) {
-  const { useMyBar } = useContext(BarContext);
+  const { setUseMyBar, useMyBar } = useContext(BarContext);
 
   return (
     <Fragment>
       {type === "cocktail" && (
         <Fragment>
-          <h5 className="card-title">{element.name}</h5>
+          <div className="d-flex justify-content-between">
+            <h5 className="card-title">{element.name}</h5>
+            <Star cocktail={element} />
+          </div>
           <p className="card-text mb-2">
             <small className="text-muted">
               {missingCount === 0
@@ -32,19 +35,19 @@ function TopBox({
               id="useMyBar"
               type="checkbox"
               label="Replace ingredients with My Bar"
-              onChange={onCheck}
+              onChange={() => setUseMyBar(!useMyBar)}
               checked={useMyBar}
             />
           )}
           <p className="card-text my-2">Ingredients:</p>
           <div className="row ml-1">
-            {ingredients &&
-              ingredients.map((ing) => (
-                <Fragment key={ing._id}>
+            {components &&
+              components.map((comp) => (
+                <Fragment key={comp.ingredient._id}>
                   <Thumbnail
-                    item={ing.ingredient}
-                    measure={ing.measure}
-                    missing={ing.missing}
+                    item={comp.ingredient}
+                    measure={comp.measure}
+                    missing={comp.missing}
                     type="ingredients"
                     size="70"
                   />
