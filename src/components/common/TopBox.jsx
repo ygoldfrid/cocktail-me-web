@@ -21,7 +21,9 @@ function TopBox({
         <Fragment>
           <div className="d-flex justify-content-between">
             <h5 className="card-title">{element.name}</h5>
-            <Star cocktail={element} />
+            <h5>
+              <Star cocktail={element} />
+            </h5>
           </div>
           <p className="card-text mb-2">
             <small className="text-muted">

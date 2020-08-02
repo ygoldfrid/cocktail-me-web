@@ -25,6 +25,19 @@ class Form extends Component {
     return error ? error.details[0].message : null;
   };
 
+  validatePasswordConfirmation = ({ value }) => {
+    const obj = {
+      password: this.state.data.password,
+      passwordConfirmation: value,
+    };
+    const schema = {
+      password: this.schema.password,
+      passwordConfirmation: this.schema.passwordConfirmation,
+    };
+    const { error } = Joi.validate(obj, schema);
+    return error ? error.details[0].message : null;
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     const errors = this.validate();
@@ -35,7 +48,10 @@ class Form extends Component {
 
   handleChange = ({ currentTarget: input }) => {
     const errors = { ...this.state.errors };
-    const errorMessage = this.validateProperty(input);
+    const errorMessage =
+      input.name === "passwordConfirmation"
+        ? this.validatePasswordConfirmation(input)
+        : this.validateProperty(input);
     if (errorMessage) errors[input.name] = errorMessage;
     else delete errors[input.name];
 

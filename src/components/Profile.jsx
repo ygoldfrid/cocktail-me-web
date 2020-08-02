@@ -15,7 +15,7 @@ function Profile() {
       {user && (
         <div className="mb-5 auth-container">
           <div className="card text-center">
-            <div className="card-header">MyProfile</div>
+            <div className="card-header">My Profile</div>
             <div className="card-body">
               <h5 className="card-title">{user.name}</h5>
               <p className="card-text mb-2">{user.email}</p>

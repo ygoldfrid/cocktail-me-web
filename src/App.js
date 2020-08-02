@@ -9,15 +9,19 @@ import auth from "./services/authService";
 import barService from "./services/barService";
 import cocktailService from "./services/cocktailService";
 
+import ForgotPassword from "./components/auth/ForgotPassword";
+import ValidateToken from "./components/auth/ValidateToken";
+import ResetPassword from "./components/auth/ResetPassword";
+import SuccessReset from "./components/auth/SuccessReset";
+import RegisterPage from "./components/auth/RegisterPage";
 import IngredientPage from "./components/IngredientPage";
 import CocktailPage from "./components/CocktailPage";
-import RegisterPage from "./components/RegisterPage";
-import LoginPage from "./components/LoginPage";
+import LoginPage from "./components/auth/LoginPage";
 import Profile from "./components/Profile";
+import Market from "./components/Market";
 import NavBar from "./components/Navbar";
 import MyBar from "./components/MyBar";
 import Home from "./components/Home";
-import Market from "./components/Market";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -73,8 +77,18 @@ export default function App() {
         <div className="container-fluid">
           <main role="main">
             <Switch>
-              <Route path="/register" component={RegisterPage} />
+              <Route
+                path="/forgotPassword/validate"
+                component={ValidateToken}
+              />
+              <Route
+                path="/forgotPassword/successReset"
+                component={SuccessReset}
+              />
+              <Route path="/forgotPassword/reset" component={ResetPassword} />
+              <Route path="/forgotPassword" component={ForgotPassword} />
               <Route path="/login" component={LoginPage} />
+              <Route path="/register" component={RegisterPage} />
               <Route path="/profile" component={Profile} />
               <Route path="/cocktails/:id" component={CocktailPage} />
               <Route path="/ingredients/:id" component={IngredientPage} />
@@ -82,6 +96,7 @@ export default function App() {
               <Route path="/mybar" component={MyBar} />
               <Route path="/home" component={Home} />
               <Redirect from="/" exact to="/home" />
+              <Redirect to="/home" />
             </Switch>
           </main>
         </div>

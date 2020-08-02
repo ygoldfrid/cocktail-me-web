@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { toast } from "react-toastify";
 
 import AuthContext from "../contexts/authContext";
 import { useHistory } from "react-router-dom";
@@ -14,7 +15,10 @@ function Star({ cocktail, isFavorite }) {
     e.stopPropagation();
 
     if (user) addOrRemoveFavorites(cocktail._id, isFavorite);
-    else history.push("/login");
+    else {
+      toast.info("Login to add to My Favorites");
+      history.push("/login");
+    }
   };
 
   return (
