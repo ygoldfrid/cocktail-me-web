@@ -1,54 +1,42 @@
-import React from "react";
-import Tour from "reactour";
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-
-import BarContext from "../contexts/barContext";
-import barService from "../services/barService";
-import cocktailService from "../services/cocktailService";
-import useTour from "../contexts/useTour";
-import { useContext } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import Tour from "reactour";
 
-function AppTour() {
+function AppTourDesktop({
+  exec,
+  setDisableBodyScrollSteps,
+  tour_funcs,
+  tour_ids,
+  ...rest
+}) {
   const history = useHistory();
-  const { bar, addOrRemoveItem } = useContext(BarContext);
-  const { isTourOpen, closeTour } = useTour();
 
-  const disableBody = (target) => disableBodyScroll(target);
-  const enableBody = (target) => enableBodyScroll(target);
-
-  const addIngredient = async ({ ingredientId }) => {
-    if (!barService.isInMyBar(ingredientId, bar)) {
-      const { data: ingredient } = await cocktailService.getIngredientById(
-        ingredientId
-      );
-
-      await addOrRemoveItem(ingredient, false);
-    }
-  };
-
-  const removeIngredient = async ({ ingredientId }) => {
-    if (barService.isInMyBar(ingredientId, bar)) {
-      const { data: ingredient } = await cocktailService.getIngredientById(
-        ingredientId
-      );
-
-      await addOrRemoveItem(ingredient, true);
-    }
-  };
-
-  const exec = (func, params) => {
-    if (func === tour_funcs.add_ingredient) addIngredient(params);
-    if (func === tour_funcs.remove_ingredient) removeIngredient(params);
-  };
+  useEffect(() => {
+    setDisableBodyScrollSteps([
+      3,
+      9,
+      10,
+      12,
+      13,
+      15,
+      18,
+      22,
+      23,
+      24,
+      26,
+      27,
+      29,
+    ]);
+  }, [setDisableBodyScrollSteps]);
 
   const steps = [
     {
+      // Step 1
       action: () => history.push("/home"),
       content: () => (
         <div className="p-2">
           <h5>
-            <b>Welcome to Cocktail Me!</b>
+            <b>Welcome!</b>
           </h5>
           <p>
             With <b>Cocktail Me!</b> you can add everything you have in your
@@ -56,36 +44,52 @@ function AppTour() {
             make. Are you ready?
           </p>
           <p className="mt-2 small">
-            (you can move with the keyboard arrows too)
+            (you can move with the keyboard arrows as well)
           </p>
         </div>
       ),
     },
     {
-      action: () => history.push("/home"),
+      // Step 2
+      action: (node) => {
+        history.push("/home");
+        if (node)
+          node.onclick = () => document.getElementById("next-btn").click();
+      },
       selector: ".market",
       content: (
         <div className="p-2">
           <p>
-            First let's go to the <b>Market</b>
+            First let's go to the <b>Market</b>.
+          </p>
+          <p>
+            <b>Click on it!</b>
           </p>
         </div>
       ),
     },
     {
+      // Step 3
       action: () => history.push("/market"),
       content: (
         <div className="p-2">
           <p>
-            This is the <b>Market</b> page. Here we can add all the ingredients
-            we want to <b>My Bar</b>.
+            This is the <b>Market</b> page.
+          </p>
+          <p>
+            Here we can add all the ingredients we want to <b>My Bar</b>.
           </p>
         </div>
       ),
     },
     {
-      action: () => history.push("/market"),
-      position: "top",
+      // Step 4
+      action: (node) => {
+        history.push("/market");
+        if (node)
+          node.onclick = () => document.getElementById("next-btn").click();
+      },
+      position: "left",
       selector: `[tour_id="market-${tour_ids.white_rum}"]`,
       content: (
         <div className="p-2">
@@ -99,11 +103,13 @@ function AppTour() {
       ),
     },
     {
+      // Step 5
       action: () => {
         history.push("/market");
         exec(tour_funcs.add_ingredient, { ingredientId: tour_ids.white_rum });
       },
       selector: ".flex-column",
+      stepInteraction: false,
       content: (
         <div className="p-2">
           <p>
@@ -117,6 +123,7 @@ function AppTour() {
       ),
     },
     {
+      // Step 6
       action: () => history.push("/market"),
       content: (
         <div className="p-2">
@@ -129,6 +136,7 @@ function AppTour() {
       ),
     },
     {
+      // Step 7
       action: () => {
         history.push("/market");
         exec(tour_funcs.add_ingredient, { ingredientId: tour_ids.white_rum });
@@ -138,6 +146,7 @@ function AppTour() {
 
         exec(tour_funcs.add_ingredient, { ingredientId: tour_ids.cola });
       },
+      stepInteraction: false,
       selector: ".flex-column",
       content: (
         <div className="p-2">
@@ -149,7 +158,12 @@ function AppTour() {
       ),
     },
     {
-      action: () => history.push("/market"),
+      //Step 8
+      action: (node) => {
+        history.push("/market");
+        if (node)
+          node.onclick = () => document.getElementById("next-btn").click();
+      },
       selector: ".btn-cocktailme",
       content: (
         <div className="p-2">
@@ -161,51 +175,55 @@ function AppTour() {
       ),
     },
     {
+      //Step 9
       action: () => history.push({ pathname: "/home", state: true }),
       content: (
         <div className="p-2">
           <p>
-            These are all the <b>Cocktails</b> you can make with the{" "}
-            <b>Ingredients</b> you have.
+            Done! We have calculated all the <b>Cocktails</b> you can make with
+            the <b>Ingredients</b> you have.
           </p>
         </div>
       ),
     },
     {
+      //Step 10
       action: () => history.push({ pathname: "/home", state: true }),
       selector: `[tour_id="missing-${tour_ids.daiquiri}"]`,
-      position: "right",
+      position: "bottom",
+      stepInteraction: false,
       content: (
         <div className="p-2">
           <p>
-            Here you can see how many ingredients you are <b>Missing</b>
+            Here you can see how many ingredients you are <b>Missing</b>.
+          </p>
+          <p>
+            Or if you have <b>Everything</b> you need.
           </p>
         </div>
       ),
+      highlightedSelectors: [`[tour_id="missing-${tour_ids.cuba_libre}"]`],
     },
     {
-      action: () => history.push({ pathname: "/home", state: true }),
-      selector: `[tour_id="missing-${tour_ids.cuba_libre}"]`,
-      position: "right",
-      content: (
-        <div className="p-2">
-          <p>Or if you have all you need</p>
-        </div>
-      ),
-    },
-    {
-      action: () => history.push({ pathname: "/home", state: true }),
+      //Step 11
+      action: (node) => {
+        history.push({ pathname: "/home", state: true });
+        if (node)
+          node.onclick = () => document.getElementById("next-btn").click();
+      },
       selector: `[id="${tour_ids.cuba_libre}"]`,
       position: "right",
       content: (
         <div className="p-2">
+          <p>Let's check out how to make a Cuba Libre.</p>
           <p>
-            Let's check out how to make a <b>Cuba Libre</b>.
+            <b>Click on it!</b>
           </p>
         </div>
       ),
     },
     {
+      //Step 12
       action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
       content: (
         <div className="p-2">
@@ -216,29 +234,26 @@ function AppTour() {
       ),
     },
     {
+      //Step 13
       action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
       selector: ".ingredients",
+      position: "bottom",
+      stepInteraction: false,
       content: (
         <div className="p-2">
           <p>
-            Here we can see the <b>Ingredients</b> of our favorite cocktails.
+            Here you can see the <b>Ingredients</b> of your favorite cocktails.
           </p>
         </div>
       ),
     },
     {
-      action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
-      selector: ".bottom-box",
-      content: (
-        <div className="p-2">
-          <p>
-            As well as the <b>Preparation</b>.
-          </p>
-        </div>
-      ),
-    },
-    {
-      action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
+      //Step 14
+      action: (node) => {
+        history.push(`/cocktails/${tour_ids.cuba_libre}`);
+        if (node)
+          node.onclick = () => document.getElementById("next-btn").click();
+      },
       selector: ".flex-column",
       content: (
         <div className="p-2">
@@ -251,12 +266,13 @@ function AppTour() {
             <b>
               <i className="fa fa-trash-o" />
             </b>{" "}
-            icon next to the <b>Lime Juice</b>
+            next to the <b>Lime Juice</b>
           </p>
         </div>
       ),
     },
     {
+      //Step 15
       action: () => {
         history.push(`/cocktails/${tour_ids.cuba_libre}`);
         exec(tour_funcs.remove_ingredient, {
@@ -264,6 +280,8 @@ function AppTour() {
         });
       },
       selector: ".ingredients",
+      position: "bottom",
+      stepInteraction: false,
       content: (
         <div className="p-2">
           <p>
@@ -274,7 +292,12 @@ function AppTour() {
       ),
     },
     {
-      action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
+      //Step 16
+      action: (node) => {
+        history.push(`/cocktails/${tour_ids.cuba_libre}`);
+        if (node)
+          node.onclick = () => document.getElementById("next-btn").click();
+      },
       selector: ".market",
       content: (
         <div className="p-2">
@@ -285,17 +308,23 @@ function AppTour() {
       ),
     },
     {
+      //Step 17
       action: () => history.push("/market"),
       content: (
         <div className="p-2">
           <p>
-            Let's say we have <b>Lemon</b> instead of <b>Lime Juice</b>.
+            Let's say you have <b>Lemon</b> instead of <b>Lime Juice</b>.
           </p>
         </div>
       ),
     },
     {
-      action: () => history.push("/market"),
+      //Step 18
+      action: (node) => {
+        history.push("/market");
+        if (node)
+          node.onclick = () => document.getElementById("next-btn").click();
+      },
       selector: `[tour_id="market-${tour_ids.lemon}"]`,
       content: (
         <div className="p-2">
@@ -306,40 +335,25 @@ function AppTour() {
       ),
     },
     {
+      //Step 19
       action: () => {
-        history.push("/market");
         exec(tour_funcs.add_ingredient, { ingredientId: tour_ids.lemon });
+        history.push(`/cocktails/${tour_ids.cuba_libre}`);
       },
-      selector: ".btn-cocktailme",
       content: (
         <div className="p-2">
           <p>
-            And now <b>Cocktail Me!</b> one more time.
+            Great! Now back at <b>Cuba Libre</b> let's see what happened.
           </p>
         </div>
       ),
     },
     {
-      action: () => history.push({ pathname: "/home", state: true }),
-      content: (
-        <div className="p-2">
-          <p>We see the same results! Why?</p>
-        </div>
-      ),
-    },
-    {
-      action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
-      content: (
-        <div className="p-2">
-          <p>
-            Let's go back to <b>Cuba Libre</b> and see what happened.
-          </p>
-        </div>
-      ),
-    },
-    {
+      //Step 20
       action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
       selector: ".ingredients",
+      position: "bottom",
+      stepInteraction: false,
       content: (
         <div className="p-2">
           <p>
@@ -349,6 +363,7 @@ function AppTour() {
       ),
     },
     {
+      //Step 21
       action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
       selector: ".form-check",
       position: "left",
@@ -366,50 +381,7 @@ function AppTour() {
       ),
     },
     {
-      action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
-      selector: `[tour_id="figure-${tour_ids.white_rum}"]`,
-      content: (
-        <div className="p-2">
-          <p>
-            We can also check out any <b>Ingredient</b>. Let's go with{" "}
-            <b>White Rum</b>.
-          </p>
-        </div>
-      ),
-    },
-    {
-      action: () => history.push(`/ingredients/${tour_ids.white_rum}`),
-      content: (
-        <div className="p-2">
-          <p>
-            This is the <b>Ingredient</b> page.
-          </p>
-        </div>
-      ),
-    },
-    {
-      action: () => history.push(`/ingredients/${tour_ids.white_rum}`),
-      selector: ".alternatives",
-      content: (
-        <div className="p-2">
-          <p>
-            You can see all the <b>Alternatives</b> there are.
-          </p>
-        </div>
-      ),
-    },
-    {
-      action: () => history.push(`/ingredients/${tour_ids.white_rum}`),
-      selector: ".bottom-box",
-      content: (
-        <div className="p-2">
-          <p>
-            And all the <b>Cocktails</b> you can make with it.
-          </p>
-        </div>
-      ),
-    },
-    {
+      //Step 22
       action: () => history.push({ pathname: "/home", state: true }),
       content: (
         <div className="p-2">
@@ -420,6 +392,7 @@ function AppTour() {
       ),
     },
     {
+      //Step 23
       action: () => history.push({ pathname: "/home", state: true }),
       selector: ".form-check",
       content: (
@@ -435,8 +408,10 @@ function AppTour() {
       ),
     },
     {
+      //Step 24
       action: () => history.push({ pathname: "/home", state: true }),
       selector: ".tour",
+      stepInteraction: false,
       content: (
         <div className="p-2">
           <p>
@@ -451,33 +426,7 @@ function AppTour() {
     },
   ];
 
-  return (
-    <Tour
-      startAt={0}
-      steps={steps}
-      isOpen={isTourOpen}
-      onRequestClose={closeTour}
-      rounded={5}
-      accentColor="#155724"
-      onAfterOpen={disableBody}
-      onBeforeClose={enableBody}
-      lastStepNextButton={<button className="btn-cocktailme">Finish</button>}
-    />
-  );
+  return <Tour steps={steps} {...rest} />;
 }
 
-const tour_ids = {
-  white_rum: "5eecfb641e34422b4039dba3",
-  lime_juice: "5eecfb641e34422b4039dbb4",
-  cola: "5eecfb641e34422b4039dbaf",
-  cuba_libre: "5eecfb641e34422b4039dbdc",
-  daiquiri: "5eecfb641e34422b4039dc17",
-  lemon: "5eecfb641e34422b4039dbbe",
-};
-
-const tour_funcs = {
-  add_ingredient: "Add Ingredient",
-  remove_ingredient: "Remove Ingredient",
-};
-
-export default AppTour;
+export default AppTourDesktop;

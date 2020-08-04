@@ -31,7 +31,7 @@ const NavBar = () => {
                     {!user && (
                       <Link className="nav-item nav-link" to="/login">
                         <i
-                          className="clickable fa fa-user-o"
+                          className="clickable navbar-icon fa fa-user-o"
                           aria-hidden="true"
                         />{" "}
                         Login
@@ -44,22 +44,35 @@ const NavBar = () => {
                           to="/profile"
                         >
                           <i
-                            className="clickable fa fa-user-o"
+                            className="clickable navbar-icon fa fa-user-o"
                             aria-hidden="true"
                           />{" "}
                           {user.name}
                         </Link>
                       </div>
                     )}
-                    <Link className="mx-2 nav-item nav-link" to="/mybar">
-                      <i className="clickable fa fa-glass" aria-hidden="true" />
+                    <Link className="mybar mx-2 nav-item nav-link" to="/mybar">
+                      <i
+                        className="clickable navbar-icon fa fa-glass"
+                        aria-hidden="true"
+                      />
                       <span className="badge badge-light badge-bar">
                         {bar && bar.length}
                       </span>
                     </Link>
                     <Link className="market nav-item nav-link" to="/market">
                       <i
-                        className="clickable fa fa-shopping-basket"
+                        className="clickable navbar-icon fa fa-shopping-basket"
+                        aria-hidden="true"
+                      />
+                    </Link>
+                    <Link
+                      className="tour mx-3 nav-item nav-link"
+                      onClick={() => openTour()}
+                      to={"#"}
+                    >
+                      <i
+                        className="clickable navbar-icon fa fa-superpowers"
                         aria-hidden="true"
                       />
                     </Link>
@@ -72,17 +85,17 @@ const NavBar = () => {
                     <Link className="market nav-item nav-link" to="/market">
                       Market
                     </Link>
-                    <a
+                    <Link
                       className="tour mx-3 nav-item nav-link"
-                      href="#"
                       onClick={() => openTour()}
+                      to={"#"}
                     >
                       Tour
-                    </a>
+                    </Link>
                     {!user && (
                       <Link className="nav-item nav-link" to="/login">
                         <i
-                          className="clickable fa fa-user-o"
+                          className="clickable navbar-icon fa fa-user-o"
                           aria-hidden="true"
                         />{" "}
                         Login
@@ -91,7 +104,7 @@ const NavBar = () => {
                     {user && (
                       <Link className="nav-item nav-link" to="/profile">
                         <i
-                          className="clickable fa fa-user-o"
+                          className="clickable navbar-icon fa fa-user-o"
                           aria-hidden="true"
                         />{" "}
                         Hello {user.name}!

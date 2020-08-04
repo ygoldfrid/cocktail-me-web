@@ -18,7 +18,7 @@ import RegisterPage from "./components/auth/RegisterPage";
 import IngredientPage from "./components/IngredientPage";
 import CocktailPage from "./components/CocktailPage";
 import LoginPage from "./components/auth/LoginPage";
-import AppTour from "./components/AppTour";
+import AppTour from "./components/appTour/AppTour";
 import Profile from "./components/Profile";
 import Market from "./components/Market";
 import NavBar from "./components/Navbar";
