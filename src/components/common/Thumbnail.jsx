@@ -10,6 +10,7 @@ function Thumbnail({ item, measure, missing, size = 70, type }) {
     <figure
       style={{ width: `${size}px` }}
       className="figure clickable mr-2"
+      tour_id={`figure-${item._id}`}
       id={item._id}
       onClick={({ currentTarget }) => {
         history.push(`/${type}/${currentTarget.id}`);

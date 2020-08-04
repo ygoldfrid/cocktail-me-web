@@ -22,14 +22,14 @@ function MainPage({ element, ...rest }) {
               )}
             </div>
             <div className="col-md-8">
-              <div className="card-body">
+              <div className="top-box card-body">
                 <TopBox element={element} {...rest} />
               </div>
             </div>
           </div>
         </div>
         <div className="card">
-          <div className="card-body">
+          <div className="bottom-box card-body">
             <BottomBox element={element} {...rest} />
           </div>
         </div>

@@ -4,10 +4,12 @@ import Media from "react-media";
 
 import AuthContext from "../contexts/authContext";
 import BarContext from "../contexts/barContext";
+import useTour from "../contexts/useTour";
 
 const NavBar = () => {
   const { user } = useContext(AuthContext);
   const { bar } = useContext(BarContext);
+  const { openTour } = useTour();
 
   return (
     <nav className="navbar navbar-expand sticky-top">
@@ -55,7 +57,7 @@ const NavBar = () => {
                         {bar && bar.length}
                       </span>
                     </Link>
-                    <Link className="nav-item nav-link" to="/market">
+                    <Link className="market nav-item nav-link" to="/market">
                       <i
                         className="clickable fa fa-shopping-basket"
                         aria-hidden="true"
@@ -67,9 +69,16 @@ const NavBar = () => {
               {matches.desktop && (
                 <Fragment>
                   <ul className="navbar-nav ml-auto">
-                    <Link className="mx-3 nav-item nav-link" to="/market">
+                    <Link className="market nav-item nav-link" to="/market">
                       Market
                     </Link>
+                    <a
+                      className="tour mx-3 nav-item nav-link"
+                      href="#"
+                      onClick={() => openTour()}
+                    >
+                      Tour
+                    </a>
                     {!user && (
                       <Link className="nav-item nav-link" to="/login">
                         <i

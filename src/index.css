@@ -204,6 +204,10 @@ p.empty-bar {
   border-radius: 3px;
   color: white;
   font-size: 12px;
+  font-family: "Raleway";
+  text-decoration: none;
+  border-width: 0px;
+  padding: 8px;
 }
 .btn-cocktailme:hover {
   color: white;

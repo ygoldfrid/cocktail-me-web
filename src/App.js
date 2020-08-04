@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 
 import AuthContext from "./contexts/authContext";
 import BarContext from "./contexts/barContext";
+import TourContext from "./contexts/tourContext";
 
 import auth from "./services/authService";
 import barService from "./services/barService";
@@ -17,6 +18,7 @@ import RegisterPage from "./components/auth/RegisterPage";
 import IngredientPage from "./components/IngredientPage";
 import CocktailPage from "./components/CocktailPage";
 import LoginPage from "./components/auth/LoginPage";
+import AppTour from "./components/AppTour";
 import Profile from "./components/Profile";
 import Market from "./components/Market";
 import NavBar from "./components/Navbar";
@@ -29,6 +31,7 @@ import "./App.css";
 export default function App() {
   const [bar, setBar] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [isTourOpen, setIsTourOpen] = useState(false);
   const [useMyBar, setUseMyBar] = useState(false);
   const [user, setUser] = useState();
 
@@ -39,6 +42,8 @@ export default function App() {
   const getMainData = async () => {
     const user = auth.getCurrentUser();
     setUser(user);
+
+    setIsTourOpen(auth.openTour());
 
     const bar = await cocktailService.getBar(user);
     setBar(bar);
@@ -72,34 +77,37 @@ export default function App() {
       <BarContext.Provider
         value={{ addOrRemoveItem, bar, setUseMyBar, useMyBar }}
       >
-        <ToastContainer />
-        <NavBar />
-        <div className="container-fluid">
-          <main role="main">
-            <Switch>
-              <Route
-                path="/forgotPassword/validate"
-                component={ValidateToken}
-              />
-              <Route
-                path="/forgotPassword/successReset"
-                component={SuccessReset}
-              />
-              <Route path="/forgotPassword/reset" component={ResetPassword} />
-              <Route path="/forgotPassword" component={ForgotPassword} />
-              <Route path="/login" component={LoginPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/cocktails/:id" component={CocktailPage} />
-              <Route path="/ingredients/:id" component={IngredientPage} />
-              <Route path="/market" component={Market} />
-              <Route path="/mybar" component={MyBar} />
-              <Route path="/home" component={Home} />
-              <Redirect from="/" exact to="/home" />
-              <Redirect to="/home" />
-            </Switch>
-          </main>
-        </div>
+        <TourContext.Provider value={{ isTourOpen, setIsTourOpen }}>
+          <AppTour />
+          <ToastContainer />
+          <NavBar />
+          <div className="container-fluid">
+            <main role="main">
+              <Switch>
+                <Route
+                  path="/forgotPassword/validate"
+                  component={ValidateToken}
+                />
+                <Route
+                  path="/forgotPassword/successReset"
+                  component={SuccessReset}
+                />
+                <Route path="/forgotPassword/reset" component={ResetPassword} />
+                <Route path="/forgotPassword" component={ForgotPassword} />
+                <Route path="/login" component={LoginPage} />
+                <Route path="/register" component={RegisterPage} />
+                <Route path="/profile" component={Profile} />
+                <Route path="/cocktails/:id" component={CocktailPage} />
+                <Route path="/ingredients/:id" component={IngredientPage} />
+                <Route path="/market" component={Market} />
+                <Route path="/mybar" component={MyBar} />
+                <Route path="/home" component={Home} />
+                <Redirect from="/" exact to="/home" />
+                <Redirect to="/home" />
+              </Switch>
+            </main>
+          </div>
+        </TourContext.Provider>
       </BarContext.Provider>
     </AuthContext.Provider>
   );

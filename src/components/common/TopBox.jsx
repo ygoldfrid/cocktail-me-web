@@ -41,20 +41,22 @@ function TopBox({
               checked={useMyBar}
             />
           )}
-          <p className="card-text my-2">Ingredients:</p>
-          <div className="row ml-1">
-            {components &&
-              components.map((comp) => (
-                <Fragment key={comp.ingredient._id}>
-                  <Thumbnail
-                    item={comp.ingredient}
-                    measure={comp.measure}
-                    missing={comp.missing}
-                    type="ingredients"
-                    size="70"
-                  />
-                </Fragment>
-              ))}
+          <div className="ingredients">
+            <p className="card-text my-2">Ingredients:</p>
+            <div className="row">
+              {components &&
+                components.map((comp) => (
+                  <Fragment key={comp.ingredient._id}>
+                    <Thumbnail
+                      item={comp.ingredient}
+                      measure={comp.measure}
+                      missing={comp.missing}
+                      type="ingredients"
+                      size="70"
+                    />
+                  </Fragment>
+                ))}
+            </div>
           </div>
         </Fragment>
       )}
@@ -69,12 +71,14 @@ function TopBox({
           </p>
           {element.alternatives && element.alternatives.length > 0 && (
             <Fragment>
-              <p className="card-text mb-2">You can replace it with:</p>
-              {element.alternatives.map((ing) => (
-                <Fragment key={ing._id}>
-                  <Thumbnail item={ing} type="ingredients" />
-                </Fragment>
-              ))}
+              <div className="alternatives">
+                <p className="card-text mb-2">You can replace it with:</p>
+                {element.alternatives.map((ing) => (
+                  <Fragment key={ing._id}>
+                    <Thumbnail item={ing} type="ingredients" />
+                  </Fragment>
+                ))}
+              </div>
             </Fragment>
           )}
           {element.alternatives && element.alternatives.length === 0 && (

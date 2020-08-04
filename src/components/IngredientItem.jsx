@@ -4,11 +4,11 @@ import { useHistory } from "react-router-dom";
 import AddOrRemoveButton from "./common/AddOrRemoveButton";
 import Image from "./common/Image";
 
-function IngredientItem({ bar, ing }) {
+function IngredientItem({ ing }) {
   const history = useHistory();
 
   return (
-    <div className="card p-1 pb-3 h-100">
+    <div className="card p-1 pb-3 h-100" tour_id={`market-${ing._id}`}>
       <Image
         images={ing.images}
         alt={ing.name}

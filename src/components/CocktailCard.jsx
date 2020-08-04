@@ -26,10 +26,12 @@ function CocktailCard({ cocktail }) {
           className="card-img-top"
         />
         {cocktail.missing === 0 && (
-          <div className="top-right">You can make this</div>
+          <div className="top-right" tour_id={`missing-${cocktail._id}`}>
+            You can make this
+          </div>
         )}
         {cocktail.missing > 0 && (
-          <div className="top-right">
+          <div className="top-right" tour_id={`missing-${cocktail._id}`}>
             {cocktail.missing === 1
               ? `${cocktail.missing} ingredient missing`
               : `${cocktail.missing} ingredients missing`}

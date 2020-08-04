@@ -79,9 +79,14 @@ function replaceComponents(cocktail, bar) {
   return { replacedComponents, areThereAlternatives };
 }
 
+function isInMyBar(ingredientId, bar) {
+  return bar.some((ing) => ing._id === ingredientId);
+}
+
 export default {
   addToBar,
   removeFromBar,
   getMissingCount,
   replaceComponents,
+  isInMyBar,
 };

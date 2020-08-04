@@ -2,7 +2,9 @@ import jwtDecode from "jwt-decode";
 import http from "./httpService";
 
 const authEndpoint = "/auth";
+
 const tokenKey = "token";
+const tourKey = "tour";
 
 http.setJwt(localStorage.getItem(tokenKey));
 
@@ -29,9 +31,19 @@ function getCurrentUser() {
   }
 }
 
+function openTour() {
+  const tourSeen = localStorage.getItem(tourKey);
+
+  if (tourSeen) return false;
+
+  localStorage.setItem(tourKey, JSON.stringify({ seen: true }));
+  return true;
+}
+
 export default {
   login,
   loginWithJwt,
   logout,
   getCurrentUser,
+  openTour,
 };

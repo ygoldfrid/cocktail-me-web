@@ -5,8 +5,8 @@ import CocktailCard from "./CocktailCard";
 function CocktailList({ cocktails, size }) {
   const getSize = () => {
     return size === "small"
-      ? "row row-cols-1 row-cols-sm-3 row-cols-md-2 row-cols-lg-3"
-      : "row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center";
+      ? "cocktail-list row row-cols-1 row-cols-sm-3 row-cols-md-2 row-cols-lg-3"
+      : "cocktail-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center";
   };
 
   return (
