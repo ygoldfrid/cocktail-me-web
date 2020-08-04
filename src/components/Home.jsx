@@ -44,7 +44,8 @@ class Home extends Component {
   getSpirits = async () => {
     const { data: ingredients } = await cocktailService.getAllIngredients();
     const spirits = [
-      { _id: "", name: "All of them!" },
+      { _id: "", name: "All Cocktails" },
+      { _id: "fav", name: "Favorites" },
       ...ingredients.filter((ing) => ing.category === "Spirits"),
     ];
     this.setState({ spirits });
@@ -73,6 +74,11 @@ class Home extends Component {
   };
 
   handleSpiritSelect = (spirit) => {
+    if (spirit._id === "fav" && !this.props.user) {
+      toast.info("Login to use Favorites");
+      this.props.history.push("/login");
+    }
+
     this.setState({
       selectedSpirit: spirit,
       searchQuery: "",
@@ -124,13 +130,16 @@ class Home extends Component {
         cocktail.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     else if (selectedSpirit && selectedSpirit._id) {
-      filtered = allCocktails.filter((cocktail) =>
-        cocktail.components.some(
-          (component) =>
-            component.ingredient._id === selectedSpirit._id ||
-            component.ingredient._id === selectedSpirit.alternatives[0]
-        )
-      );
+      if (selectedSpirit._id === "fav") filtered = this.props.favorites;
+      else {
+        filtered = allCocktails.filter((cocktail) =>
+          cocktail.components.some(
+            (component) =>
+              component.ingredient._id === selectedSpirit._id ||
+              component.ingredient._id === selectedSpirit.alternatives[0]
+          )
+        );
+      }
     }
 
     const pagedCocktails = paginate(filtered, currentPage, pageSize);

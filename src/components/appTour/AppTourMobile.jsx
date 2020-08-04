@@ -155,7 +155,7 @@ function AppTourMobile({
             .
           </p>
           <p>
-            Here we can see all the <b>Ingredients</b> you have. As you can see{" "}
+            Here you can see all the <b>Ingredients</b> you have. As you can see{" "}
             <b>White Rum</b> was just added.
           </p>
         </div>

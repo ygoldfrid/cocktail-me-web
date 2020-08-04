@@ -38,7 +38,7 @@ function Market() {
     <Fragment>
       <SideBar />
       <div className="categories col-md-9 mr-sm-auto col-lg-10 px-md-4">
-        <h3 className="text-center mb-4">Select some items for My Bar</h3>
+        <h3 className="text-center mb-4">Market</h3>
         {(spirits.length === 0 ||
           liqueurs.length === 0 ||
           mixers.length === 0 ||

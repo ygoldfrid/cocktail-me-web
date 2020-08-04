@@ -113,7 +113,7 @@ function AppTourDesktop({
       content: (
         <div className="p-2">
           <p>
-            Here we can check all the ingredients that we've added to{" "}
+            Here you can check all the ingredients that you've added to{" "}
             <b>My Bar</b>.
           </p>
           <p>

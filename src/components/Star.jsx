@@ -16,7 +16,7 @@ function Star({ cocktail, isFavorite }) {
 
     if (user) addOrRemoveFavorites(cocktail._id, isFavorite);
     else {
-      toast.info("Login to add to My Favorites");
+      toast.info("Login to add to Favorites");
       history.push("/login");
     }
   };

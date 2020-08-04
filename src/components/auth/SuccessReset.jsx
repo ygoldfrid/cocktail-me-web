@@ -12,9 +12,7 @@ class ForgotPasswordPage extends Component {
           <div className="card text-center">
             <div className="card-header">Success!</div>
             <div className="card-body">
-              <p className="card-text">
-                Your password has been reset successfully
-              </p>
+              <p>Your password has been reset successfully</p>
               <Link to="/login">Back to Login</Link>
             </div>
           </div>

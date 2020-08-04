@@ -20,6 +20,7 @@ const ListGroup = ({
             }
             onClick={() => onItemSelect(item)}
           >
+            {item[idProperty] === "fav" && <i className="fa fa-star star-on" />}{" "}
             {item[textProperty]}
           </li>
         ))}

@@ -101,7 +101,12 @@ export default function App() {
                 <Route path="/ingredients/:id" component={IngredientPage} />
                 <Route path="/market" component={Market} />
                 <Route path="/mybar" component={MyBar} />
-                <Route path="/home" component={Home} />
+                <Route
+                  path="/home"
+                  render={(props) => (
+                    <Home {...props} favorites={favorites} user={user} />
+                  )}
+                />
                 <Redirect from="/" exact to="/home" />
                 <Redirect to="/home" />
               </Switch>
