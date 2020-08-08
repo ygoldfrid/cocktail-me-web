@@ -54,7 +54,10 @@ function AppTourDesktop({
       action: (node) => {
         history.push("/home");
         if (node)
-          node.onclick = () => document.getElementById("next-btn").click();
+          node.onclick = () => {
+            const nextBtn = document.getElementById("next-btn");
+            if (nextBtn) nextBtn.click();
+          };
       },
       selector: ".market",
       content: (
@@ -87,7 +90,10 @@ function AppTourDesktop({
       action: (node) => {
         history.push("/market");
         if (node)
-          node.onclick = () => document.getElementById("next-btn").click();
+          node.onclick = () => {
+            const nextBtn = document.getElementById("next-btn");
+            if (nextBtn) nextBtn.click();
+          };
       },
       position: "left",
       selector: `[tour_id="market-${tour_ids.white_rum}"]`,
@@ -162,7 +168,10 @@ function AppTourDesktop({
       action: (node) => {
         history.push("/market");
         if (node)
-          node.onclick = () => document.getElementById("next-btn").click();
+          node.onclick = () => {
+            const nextBtn = document.getElementById("next-btn");
+            if (nextBtn) nextBtn.click();
+          };
       },
       selector: ".btn-cocktailme",
       content: (
@@ -209,7 +218,10 @@ function AppTourDesktop({
       action: (node) => {
         history.push({ pathname: "/home", state: true });
         if (node)
-          node.onclick = () => document.getElementById("next-btn").click();
+          node.onclick = () => {
+            const nextBtn = document.getElementById("next-btn");
+            if (nextBtn) nextBtn.click();
+          };
       },
       selector: `[id="${tour_ids.cuba_libre}"]`,
       position: "right",
@@ -252,7 +264,10 @@ function AppTourDesktop({
       action: (node) => {
         history.push(`/cocktails/${tour_ids.cuba_libre}`);
         if (node)
-          node.onclick = () => document.getElementById("next-btn").click();
+          node.onclick = () => {
+            const nextBtn = document.getElementById("next-btn");
+            if (nextBtn) nextBtn.click();
+          };
       },
       selector: ".flex-column",
       content: (
@@ -296,7 +311,10 @@ function AppTourDesktop({
       action: (node) => {
         history.push(`/cocktails/${tour_ids.cuba_libre}`);
         if (node)
-          node.onclick = () => document.getElementById("next-btn").click();
+          node.onclick = () => {
+            const nextBtn = document.getElementById("next-btn");
+            if (nextBtn) nextBtn.click();
+          };
       },
       selector: ".market",
       content: (
@@ -323,7 +341,10 @@ function AppTourDesktop({
       action: (node) => {
         history.push("/market");
         if (node)
-          node.onclick = () => document.getElementById("next-btn").click();
+          node.onclick = () => {
+            const nextBtn = document.getElementById("next-btn");
+            if (nextBtn) nextBtn.click();
+          };
       },
       selector: `[tour_id="market-${tour_ids.lemon}"]`,
       content: (
