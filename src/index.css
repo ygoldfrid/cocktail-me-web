@@ -187,6 +187,9 @@ p.empty-bar {
 .plus-sign > i {
   color: var(--dark-green);
 }
+.mybar-container {
+  min-height: 100vh;
+}
 
 /* BUTTONS */
 .btn-cocktailme-red {

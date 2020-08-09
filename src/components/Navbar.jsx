@@ -45,7 +45,7 @@ const NavBar = () => {
                       />
                     </Link>
                     <Link
-                      className="market nav-item nav-link ml-2"
+                      className="market nav-item nav-link ml-3"
                       to="/market"
                     >
                       <i
@@ -54,7 +54,7 @@ const NavBar = () => {
                       />
                     </Link>
                     <Link
-                      className="tour nav-item nav-link ml-2"
+                      className="tour nav-item nav-link ml-3"
                       onClick={() => openTour()}
                       to={"#"}
                     >
@@ -63,7 +63,7 @@ const NavBar = () => {
                         aria-hidden="true"
                       />
                     </Link>
-                    <Link className="mybar nav-item nav-link ml-2" to="/mybar">
+                    <Link className="mybar nav-item nav-link ml-3" to="/mybar">
                       <i
                         className="clickable navbar-icon fa fa-glass"
                         aria-hidden="true"
