@@ -38,46 +38,23 @@ const NavBar = () => {
               {matches.mobile && (
                 <>
                   <ul className="navbar-nav ml-auto">
-                    {!user && (
-                      <Link className="nav-item nav-link" to="/login">
-                        <i
-                          className="clickable navbar-icon fa fa-user-o"
-                          aria-hidden="true"
-                        />{" "}
-                        Login
-                      </Link>
-                    )}
-                    {user && (
-                      <div className="nav-container">
-                        <Link
-                          className="nav-item nav-link nav-name"
-                          to="/profile"
-                        >
-                          <i
-                            className="clickable navbar-icon fa fa-user-o"
-                            aria-hidden="true"
-                          />{" "}
-                          {user.name}
-                        </Link>
-                      </div>
-                    )}
-                    <Link className="mybar mx-2 nav-item nav-link" to="/mybar">
+                    <Link className="nav-item nav-link" to="/profile">
                       <i
-                        className="clickable navbar-icon fa fa-glass"
+                        className="clickable navbar-icon fa fa-user-o"
                         aria-hidden="true"
                       />
-                      <span className="badge badge-light badge-bar">
-                        {bar && bar.length}
-                      </span>
                     </Link>
-                    <Link className="market nav-item nav-link" to="/market">
+                    <Link
+                      className="market nav-item nav-link ml-2"
+                      to="/market"
+                    >
                       <i
                         className="clickable navbar-icon fa fa-shopping-basket"
                         aria-hidden="true"
                       />
                     </Link>
                     <Link
-                      className="tour mx-3 nav-item nav-link"
+                      className="tour nav-item nav-link ml-2"
                       onClick={() => openTour()}
                       to={"#"}
                     >
@@ -85,6 +62,15 @@ const NavBar = () => {
                         className="clickable navbar-icon fa fa-superpowers"
                         aria-hidden="true"
                       />
+                    </Link>
+                    <Link className="mybar nav-item nav-link ml-2" to="/mybar">
+                      <i
+                        className="clickable navbar-icon fa fa-glass"
+                        aria-hidden="true"
+                      />
+                      <span className="badge badge-light badge-bar">
+                        {bar && bar.length}
+                      </span>
                     </Link>
                   </ul>
                 </>

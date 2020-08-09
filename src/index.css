@@ -55,16 +55,6 @@ button.link:hover {
 .navbar {
   background-color: var(--dark-green);
 }
-.navbar-link {
-  font-size: 18px;
-  color: white;
-  text-decoration: none;
-  margin-right: 5px;
-}
-.navbar-link:hover {
-  color: white;
-  text-decoration: none;
-}
 .nav-item,
 .navbar-icon {
   color: white;

@@ -9,7 +9,7 @@ import Footer from "./common/Footer";
 function Profile() {
   const { user, favorites } = useContext(AuthContext);
 
-  if (!user) return <Redirect to="/" />;
+  if (!user) return <Redirect to="/login" />;
 
   return (
     <>
