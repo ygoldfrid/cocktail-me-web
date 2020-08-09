@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 
+import Footer from "../common/Footer";
+
 class ForgotPasswordPage extends Component {
   render() {
     if (!this.props.history.location.state)
@@ -17,6 +19,7 @@ class ForgotPasswordPage extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

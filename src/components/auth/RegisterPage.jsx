@@ -3,6 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import Joi from "joi-browser";
 
 import auth from "../../services/authService";
+import Footer from "../common/Footer";
 import Form from "../common/Form";
 import userService from "../../services/userService";
 
@@ -47,7 +48,7 @@ class RegisterPage extends Form {
   render() {
     if (auth.getCurrentUser()) return <Redirect to="/" />;
     return (
-      <div className="login row mt-5">
+      <div className="register row mt-5">
         <div className="auth-container">
           <h4 className="mb-3">Create your Account</h4>
           <form onSubmit={this.handleSubmit}>
@@ -65,6 +66,7 @@ class RegisterPage extends Form {
             Already registered? <Link to="/login">Login here</Link>
           </p>
         </div>
+        <Footer />
       </div>
     );
   }

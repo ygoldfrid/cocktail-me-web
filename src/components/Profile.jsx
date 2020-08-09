@@ -3,7 +3,8 @@ import { Redirect } from "react-router-dom";
 
 import AuthContext from "../contexts/authContext";
 import auth from "../services/authService";
-import CocktailList from "./CocktailList";
+import CocktailList from "./cocktails/CocktailList";
+import Footer from "./common/Footer";
 
 function Profile() {
   const { user, favorites } = useContext(AuthContext);
@@ -11,9 +12,9 @@ function Profile() {
   if (!user) return <Redirect to="/" />;
 
   return (
-    <div className="login mt-5">
+    <div className="mt-5">
       {user && (
-        <div className="mb-5 auth-container">
+        <div className="profile mb-5">
           <div className="card text-center">
             <div className="card-header">My Profile</div>
             <div className="card-body">
@@ -34,6 +35,7 @@ function Profile() {
           <CocktailList cocktails={favorites} size="big" />
         </div>
       )}
+      <Footer />
     </div>
   );
 }

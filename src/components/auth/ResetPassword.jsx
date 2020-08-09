@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import { Redirect } from "react-router-dom";
 
 import Form from "../common/Form";
+import Footer from "../common/Footer";
 import userService from "../../services/userService";
 
 class ResetPassword extends Form {
@@ -65,6 +66,7 @@ class ResetPassword extends Form {
             {this.renderButton("Send")}
           </form>
         </div>
+        <Footer />
       </div>
     );
   }

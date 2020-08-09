@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 
 import auth from "../../services/authService";
+import Footer from "../common/Footer";
 import Form from "../common/Form";
 import userService from "../../services/userService";
 import { Redirect } from "react-router-dom";
@@ -52,6 +53,7 @@ class ForgotPasswordPage extends Form {
             {this.renderButton("Send")}
           </form>
         </div>
+        <Footer />
       </div>
     );
   }

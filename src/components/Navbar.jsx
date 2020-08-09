@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Media from "react-media";
 
@@ -13,9 +13,19 @@ const NavBar = () => {
 
   return (
     <nav className="navbar navbar-expand sticky-top">
-      <Link className="navbar-brand" to="/">
-        Cocktail Me!
-      </Link>
+      <div
+        className="navbar-name row align-items-center clickable"
+        onClick={() => (window.location = "/")}
+      >
+        <img
+          src={process.env.PUBLIC_URL + "/logo.png"}
+          alt="logo"
+          width="30"
+          height="30"
+          className="mr-1"
+        />
+        <h6>Cocktail Me!</h6>
+      </div>
       <div className="collapse navbar-collapse" id="navbarNav">
         <Media
           queries={{
@@ -24,9 +34,9 @@ const NavBar = () => {
           }}
         >
           {(matches) => (
-            <Fragment>
+            <>
               {matches.mobile && (
-                <Fragment>
+                <>
                   <ul className="navbar-nav ml-auto">
                     {!user && (
                       <Link className="nav-item nav-link" to="/login">
@@ -77,10 +87,10 @@ const NavBar = () => {
                       />
                     </Link>
                   </ul>
-                </Fragment>
+                </>
               )}
               {matches.desktop && (
-                <Fragment>
+                <>
                   <ul className="navbar-nav ml-auto">
                     <Link className="market nav-item nav-link" to="/market">
                       Market
@@ -111,9 +121,9 @@ const NavBar = () => {
                       </Link>
                     )}
                   </ul>
-                </Fragment>
+                </>
               )}
-            </Fragment>
+            </>
           )}
         </Media>
       </div>

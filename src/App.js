@@ -15,14 +15,14 @@ import ValidateToken from "./components/auth/ValidateToken";
 import ResetPassword from "./components/auth/ResetPassword";
 import SuccessReset from "./components/auth/SuccessReset";
 import RegisterPage from "./components/auth/RegisterPage";
-import IngredientPage from "./components/IngredientPage";
-import CocktailPage from "./components/CocktailPage";
+import IngredientPage from "./components/main-page/IngredientPage";
+import CocktailPage from "./components/main-page/CocktailPage";
 import LoginPage from "./components/auth/LoginPage";
 import AppTour from "./components/appTour/AppTour";
 import Profile from "./components/Profile";
-import Market from "./components/Market";
+import Market from "./components/market/Market";
 import NavBar from "./components/Navbar";
-import MyBar from "./components/MyBar";
+import MyBar from "./components/bar/MyBar";
 import Home from "./components/Home";
 
 import "react-toastify/dist/ReactToastify.css";

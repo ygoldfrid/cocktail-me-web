@@ -1,21 +1,19 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Media from "react-media";
 
 import BarContext from "../contexts/barContext";
-
-import cocktailService from "../services/cocktailService";
 import barService from "../services/barService";
-
-import { paginate } from "../utils/paginate";
-
+import CocktailList from "./cocktails/CocktailList";
+import cocktailService from "../services/cocktailService";
+import Footer from "./common/Footer";
+import ListGroup from "./common/ListGroup";
+import Loader from "./common/Loader";
 import Pagination from "./common/Pagination";
 import SearchBox from "./common/SearchBox";
-import ListGroup from "./common/ListGroup";
-import SideBar from "./common/SideBar";
-import Loader from "./common/Loader";
-import CocktailList from "./CocktailList";
+import SideBar from "./bar/SideBar";
+import { paginate } from "../utils/paginate";
 
 class Home extends Component {
   state = {
@@ -160,7 +158,7 @@ class Home extends Component {
     let { totalCount, pagedCocktails } = this.getPagedData();
 
     return (
-      <Fragment>
+      <>
         <SideBar onClick={this.handleClick} />
         <div className="row cocktails col-md-9 mr-sm-auto col-lg-10 px-md-4">
           <Media
@@ -170,7 +168,7 @@ class Home extends Component {
             }}
           >
             {(matches) => (
-              <Fragment>
+              <>
                 {matches.desktop && (
                   <ListGroup
                     title="Spirits"
@@ -179,7 +177,7 @@ class Home extends Component {
                     onItemSelect={this.handleSpiritSelect}
                   />
                 )}
-              </Fragment>
+              </>
             )}
           </Media>
 
@@ -195,7 +193,7 @@ class Home extends Component {
               />
             )}
             {pagedCocktails.length > 0 && (
-              <Fragment>
+              <>
                 <CocktailList cocktails={pagedCocktails} size="small" />
                 <Pagination
                   itemsCount={totalCount}
@@ -203,7 +201,7 @@ class Home extends Component {
                   currentPage={currentPage}
                   onPageChange={this.handlePageChange}
                 />
-              </Fragment>
+              </>
             )}
             {allCocktails.length === 0 && (
               <Loader text="Loading delicious cocktails..." />
@@ -212,8 +210,9 @@ class Home extends Component {
               <p>Oops! No results found. Try removing some filters</p>
             )}
           </div>
+          <Footer />
         </div>
-      </Fragment>
+      </>
     );
   }
 }
