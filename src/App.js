@@ -10,20 +10,21 @@ import auth from "./services/authService";
 import barService from "./services/barService";
 import cocktailService from "./services/cocktailService";
 
+import AppTour from "./components/appTour/AppTour";
+import CocktailPage from "./components/main-page/CocktailPage";
 import ForgotPassword from "./components/auth/ForgotPassword";
-import ValidateToken from "./components/auth/ValidateToken";
+import Home from "./components/Home";
+import IngredientPage from "./components/main-page/IngredientPage";
+import LoginPage from "./components/auth/LoginPage";
+import Market from "./components/market/Market";
+import MyBar from "./components/bar/MyBar";
+import NavBar from "./components/Navbar";
+import Privacy from "./components/Privacy";
+import Profile from "./components/Profile";
+import RegisterPage from "./components/auth/RegisterPage";
 import ResetPassword from "./components/auth/ResetPassword";
 import SuccessReset from "./components/auth/SuccessReset";
-import RegisterPage from "./components/auth/RegisterPage";
-import IngredientPage from "./components/main-page/IngredientPage";
-import CocktailPage from "./components/main-page/CocktailPage";
-import LoginPage from "./components/auth/LoginPage";
-import AppTour from "./components/appTour/AppTour";
-import Profile from "./components/Profile";
-import Market from "./components/market/Market";
-import NavBar from "./components/Navbar";
-import MyBar from "./components/bar/MyBar";
-import Home from "./components/Home";
+import ValidateToken from "./components/auth/ValidateToken";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -101,6 +102,7 @@ export default function App() {
                 <Route path="/ingredients/:id" component={IngredientPage} />
                 <Route path="/market" component={Market} />
                 <Route path="/mybar" component={MyBar} />
+                <Route path="/privacy" component={Privacy} />
                 <Route
                   path="/home"
                   render={(props) => (

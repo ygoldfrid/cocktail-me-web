@@ -1,15 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <footer className="footer d-flex justify-content-between">
       <div className="footer-column">
-        <h6>Attribution</h6>
+        <h6>Attribution:</h6>
         <p>
           Icons made by{" "}
           <a href="https://www.flaticon.com/authors/freepik">Freepik</a> from{" "}
           <a href="https://www.flaticon.com/">www.flaticon.com</a>
         </p>
+        <h6>
+          <Link to="/privacy">Privacy Policy</Link>
+        </h6>
       </div>
       <div className="footer-column">
         <a href="https://github.com/ygoldfrid">
