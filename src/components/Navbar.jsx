@@ -12,7 +12,7 @@ const NavBar = () => {
   const { openTour } = useTour();
 
   return (
-    <nav className="navbar navbar-expand sticky-top">
+    <nav className="navbar navbar-expand-sm navbar-dark sticky-top">
       <div
         className="navbar-name row align-items-center clickable"
         onClick={() => (window.location = "/")}
@@ -26,70 +26,71 @@ const NavBar = () => {
         />
         <h6>Cocktail Me!</h6>
       </div>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <Media
-          queries={{
-            mobile: "(max-width: 767px)",
-            desktop: "(min-width: 768px)",
-          }}
-        >
-          {(matches) => (
-            <>
-              {matches.mobile && (
-                <>
-                  <ul className="navbar-nav ml-auto">
-                    <Link className="nav-item nav-link" to="/profile">
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      <Media
+        queries={{
+          mobile: "(max-width: 575px)",
+          desktop: "(min-width: 575px)",
+        }}
+      >
+        {(matches) => (
+          <>
+            {matches.mobile && (
+              <div
+                className="collapse navbar-collapse"
+                id="navbarNav"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+              >
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link className="mybar nav-item navbar-link" to="/mybar">
                       <i
-                        className="clickable navbar-icon fa fa-user-o"
+                        className="clickable navbar-icon fa fa-glass"
                         aria-hidden="true"
-                      />
+                      />{" "}
+                      My Bar
+                      <span className="badge badge-light badge-bar">
+                        {bar && bar.length}
+                      </span>
                     </Link>
-                    <Link
-                      className="market nav-item nav-link ml-3"
-                      to="/market"
-                    >
+                  </li>
+                  <li className="nav-item">
+                    <Link className="market navbar-link" to="/market">
                       <i
                         className="clickable navbar-icon fa fa-shopping-basket"
                         aria-hidden="true"
-                      />
+                      />{" "}
+                      Market
                     </Link>
+                  </li>
+                  <li className="nav-item">
                     <Link
-                      className="tour nav-item nav-link ml-3"
+                      className="tour navbar-link"
                       onClick={() => openTour()}
                       to={"#"}
                     >
                       <i
                         className="clickable navbar-icon fa fa-superpowers"
                         aria-hidden="true"
-                      />
-                    </Link>
-                    <Link className="mybar nav-item nav-link ml-3" to="/mybar">
-                      <i
-                        className="clickable navbar-icon fa fa-glass"
-                        aria-hidden="true"
-                      />
-                      <span className="badge badge-light badge-bar">
-                        {bar && bar.length}
-                      </span>
-                    </Link>
-                  </ul>
-                </>
-              )}
-              {matches.desktop && (
-                <>
-                  <ul className="navbar-nav ml-auto">
-                    <Link className="market nav-item nav-link" to="/market">
-                      Market
-                    </Link>
-                    <Link
-                      className="tour mx-3 nav-item nav-link"
-                      onClick={() => openTour()}
-                      to={"#"}
-                    >
+                      />{" "}
                       Tour
                     </Link>
+                  </li>
+                  <li className="nav-item">
                     {!user && (
-                      <Link className="nav-item nav-link" to="/login">
+                      <Link className="navbar-link" to="/login">
                         <i
                           className="clickable navbar-icon fa fa-user-o"
                           aria-hidden="true"
@@ -98,7 +99,47 @@ const NavBar = () => {
                       </Link>
                     )}
                     {user && (
-                      <Link className="nav-item nav-link" to="/profile">
+                      <Link className="navbar-link" to="/profile">
+                        <i
+                          className="clickable navbar-icon fa fa-user-o"
+                          aria-hidden="true"
+                        />{" "}
+                        {user.name}
+                      </Link>
+                    )}
+                  </li>
+                </ul>
+              </div>
+            )}
+            {matches.desktop && (
+              <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link className="market navbar-link" to="/market">
+                      Market
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="tour mx-3 navbar-link"
+                      onClick={() => openTour()}
+                      to={"#"}
+                    >
+                      Tour
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    {!user && (
+                      <Link className="navbar-link" to="/login">
+                        <i
+                          className="clickable navbar-icon fa fa-user-o"
+                          aria-hidden="true"
+                        />{" "}
+                        Login
+                      </Link>
+                    )}
+                    {user && (
+                      <Link className="navbar-link" to="/profile">
                         <i
                           className="clickable navbar-icon fa fa-user-o"
                           aria-hidden="true"
@@ -106,13 +147,13 @@ const NavBar = () => {
                         Hello {user.name}!
                       </Link>
                     )}
-                  </ul>
-                </>
-              )}
-            </>
-          )}
-        </Media>
-      </div>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </>
+        )}
+      </Media>
     </nav>
   );
 };

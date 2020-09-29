@@ -55,13 +55,14 @@ button.link:hover {
 .navbar {
   background-color: var(--dark-green);
 }
-.nav-item,
+.navbar-link,
 .navbar-icon {
   color: white;
 }
-.nav-item:hover,
+.navbar-link:hover,
 .navbar-icon:hover {
   color: var(--light-grey);
+  text-decoration: none;
 }
 .navbar-name > h6 {
   font-family: MeriendaOne-Regular;
