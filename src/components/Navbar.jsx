@@ -54,7 +54,7 @@ const NavBar = () => {
                 data-target="#navbarNav"
               >
                 <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
+                  <li className="nav-item mt-2">
                     <Link className="mybar nav-item navbar-link" to="/mybar">
                       <i
                         className="clickable navbar-icon fa fa-glass"
@@ -66,7 +66,7 @@ const NavBar = () => {
                       </span>
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item mt-2">
                     <Link className="market navbar-link" to="/market">
                       <i
                         className="clickable navbar-icon fa fa-shopping-basket"
@@ -75,7 +75,7 @@ const NavBar = () => {
                       Market
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item mt-2">
                     <Link
                       className="tour navbar-link"
                       onClick={() => openTour()}
@@ -88,7 +88,7 @@ const NavBar = () => {
                       Tour
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item mt-2">
                     {!user && (
                       <Link className="navbar-link" to="/login">
                         <i

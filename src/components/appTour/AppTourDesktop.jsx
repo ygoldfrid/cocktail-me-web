@@ -12,21 +12,7 @@ function AppTourDesktop({
   const history = useHistory();
 
   useEffect(() => {
-    setDisableBodyScrollSteps([
-      3,
-      9,
-      10,
-      12,
-      13,
-      15,
-      18,
-      22,
-      23,
-      24,
-      26,
-      27,
-      29,
-    ]);
+    setDisableBodyScrollSteps([3, 9, 10, 12, 14, 17, 19, 20, 22]);
   }, [setDisableBodyScrollSteps]);
 
   const steps = [
@@ -206,12 +192,8 @@ function AppTourDesktop({
           <p>
             Here you can see how many ingredients you are <b>Missing</b>.
           </p>
-          <p>
-            Or if you have <b>Everything</b> you need.
-          </p>
         </div>
       ),
-      highlightedSelectors: [`[tour_id="missing-${tour_ids.cuba_libre}"]`],
     },
     {
       //Step 11

@@ -12,22 +12,7 @@ function AppTourMobile({
   const history = useHistory();
 
   useEffect(() => {
-    setDisableBodyScrollSteps([
-      3,
-      10,
-      11,
-      12,
-      14,
-      15,
-      20,
-      23,
-      26,
-      27,
-      28,
-      30,
-      31,
-      33,
-    ]);
+    setDisableBodyScrollSteps([2, 7, 9, 10, 12, 17, 20, 22, 23, 25, 26]);
   }, [setDisableBodyScrollSteps]);
 
   const steps = [
@@ -52,30 +37,6 @@ function AppTourMobile({
     },
     {
       // Step 2
-      action: (node) => {
-        history.push("/home");
-        if (node)
-          node.onclick = () => {
-            const nextBtn = document.getElementById("next-btn");
-            if (nextBtn) nextBtn.click();
-          };
-      },
-      selector: ".market",
-      content: (
-        <div className="p-2">
-          <p>
-            First let's go to the <b>Market</b>.
-          </p>
-          <p>
-            <b>
-              Click on the <i className="fa fa-shopping-basket" /> icon.
-            </b>
-          </p>
-        </div>
-      ),
-    },
-    {
-      // Step 3
       action: () => history.push("/market"),
       content: (
         <div className="p-2">
@@ -97,7 +58,7 @@ function AppTourMobile({
       ),
     },
     {
-      // Step 4
+      // Step 3
       action: (node) => {
         history.push("/market");
         if (node)
@@ -119,7 +80,7 @@ function AppTourMobile({
       ),
     },
     {
-      // Step 5
+      // Step 4
       action: (node) => {
         history.push("/market");
         exec(tour_funcs.add_ingredient, { ingredientId: tour_ids.white_rum });
@@ -129,20 +90,17 @@ function AppTourMobile({
             if (nextBtn) nextBtn.click();
           };
       },
-      selector: ".mybar",
       content: (
         <div className="p-2">
+          <p>Great!</p>
           <p>
-            Great! Now let's check out <b>My Bar</b>.
+            Now let's check out <i className="fa fa-glass" /> <b>My Bar</b>.
           </p>
-          <b>
-            Click on the <i className="fa fa-glass" /> icon.
-          </b>
         </div>
       ),
     },
     {
-      // Step 6
+      // Step 5
       action: () => history.push("/mybar"),
       stepInteraction: false,
       content: (
@@ -162,7 +120,7 @@ function AppTourMobile({
       ),
     },
     {
-      // Step 7
+      // Step 6
       action: () => history.push("/mybar"),
       content: (
         <div className="p-2">
@@ -178,7 +136,7 @@ function AppTourMobile({
       ),
     },
     {
-      // Step 8
+      // Step 7
       action: () => {
         history.push("/mybar");
         exec(tour_funcs.add_ingredient, { ingredientId: tour_ids.white_rum });
@@ -200,7 +158,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 9
+      //Step 8
       action: (node) => {
         history.push("/mybar");
         if (node)
@@ -220,7 +178,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 10
+      //Step 9
       action: () => history.push({ pathname: "/home", state: true }),
       content: (
         <div className="p-2">
@@ -232,7 +190,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 11
+      //Step 10
       action: () => history.push({ pathname: "/home", state: true }),
       selector: `[tour_id="missing-${tour_ids.daiquiri}"]`,
       position: "top",
@@ -246,7 +204,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 12
+      //Step 11
       action: (node) => {
         history.push({ pathname: "/home", state: true });
         if (node)
@@ -266,7 +224,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 13
+      //Step 12
       action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
       content: (
         <div className="p-2">
@@ -277,7 +235,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 14
+      //Step 13
       action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
       selector: ".ingredients",
       position: "bottom",
@@ -291,11 +249,10 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 15
+      //Step 14
       action: () => {
         history.push(`/cocktails/${tour_ids.cuba_libre}`);
       },
-      selector: ".mybar",
       content: (
         <div className="p-2">
           <p>
@@ -309,7 +266,7 @@ function AppTourMobile({
       ),
     },
     {
-      // Step 16
+      // Step 15
       action: () => history.push("/mybar"),
       content: (
         <div className="p-2">
@@ -324,7 +281,7 @@ function AppTourMobile({
       ),
     },
     {
-      // Step 17
+      // Step 16
       action: (node) => {
         history.push("/mybar");
         if (node)
@@ -347,7 +304,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 18
+      //Step 17
       action: () => {
         history.push(`/cocktails/${tour_ids.cuba_libre}`);
         exec(tour_funcs.remove_ingredient, {
@@ -363,7 +320,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 19
+      //Step 18
       action: () => {
         history.push(`/cocktails/${tour_ids.cuba_libre}`);
       },
@@ -380,7 +337,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 20
+      //Step 19
       action: (node) => {
         history.push(`/cocktails/${tour_ids.cuba_libre}`);
         if (node)
@@ -389,7 +346,6 @@ function AppTourMobile({
             if (nextBtn) nextBtn.click();
           };
       },
-      selector: ".market",
       content: (
         <div className="p-2">
           <p>
@@ -403,7 +359,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 21
+      //Step 20
       action: () => history.push("/market"),
       content: (
         <div className="p-2">
@@ -414,7 +370,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 22
+      //Step 21
       action: (node) => {
         history.push("/market");
         if (node)
@@ -437,7 +393,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 23
+      //Step 22
       action: () => {
         history.push(`/cocktails/${tour_ids.cuba_libre}`);
         exec(tour_funcs.add_ingredient, { ingredientId: tour_ids.lemon });
@@ -451,7 +407,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 24
+      //Step 23
       action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
       selector: ".ingredients",
       position: "bottom",
@@ -465,7 +421,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 25
+      //Step 24
       action: () => history.push(`/cocktails/${tour_ids.cuba_libre}`),
       selector: ".form-check",
       position: "top",
@@ -481,7 +437,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 26
+      //Step 25
       action: () => history.push({ pathname: "/home", state: true }),
       content: (
         <div className="p-2">
@@ -492,7 +448,7 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 27
+      //Step 26
       action: () => history.push({ pathname: "/home", state: true }),
       selector: ".form-check",
       content: (
@@ -511,19 +467,19 @@ function AppTourMobile({
       ),
     },
     {
-      //Step 28
+      //Step 27
       action: () => history.push({ pathname: "/home", state: true }),
-      selector: ".tour",
+      selector: ".navbar-toggler-icon",
       stepInteraction: false,
       content: (
         <div className="p-2">
           <p>
-            That's the end of our <b>Tour</b>! If you want to take it again at
-            any time just click in the{" "}
+            That's the end of our Tour! If you want to take it again at any time
+            just go to the <b>Menu</b> and click on{" "}
             <b>
               <i className="fa fa-superpowers" />
             </b>{" "}
-            icon.
+            <b>Tour</b>.
           </p>
           <p>
             <b>Happy Drinking!</b>
