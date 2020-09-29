@@ -192,16 +192,14 @@ class Home extends Component {
                 <>
                   {matches.mobile && (
                     <div
-                      className="alert alert-warning alert-dismissible fade show row align-items-center py-1"
+                      className="alert alert-warning alert-dismissible fade show"
                       role="alert"
                     >
-                      <p>Try the mobile version</p>
+                      <p className="pl-2">Try the Mobile App</p>
                       <a href="https://play.google.com/store/apps/details?id=com.yanivgoldfrid.cocktailme">
                         <img
-                          alt="Google Play"
-                          src={
-                            process.env.PUBLIC_URL + "/google-play-badge.png"
-                          }
+                          alt="Get it on Google Play"
+                          src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
                           height="60"
                         />
                       </a>
