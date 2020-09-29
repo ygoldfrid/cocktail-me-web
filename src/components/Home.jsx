@@ -182,6 +182,43 @@ class Home extends Component {
           </Media>
 
           <div className="col">
+            <Media
+              queries={{
+                mobile: "(max-width: 575px)",
+                desktop: "(min-width: 575px)",
+              }}
+            >
+              {(matches) => (
+                <>
+                  {matches.mobile && (
+                    <div
+                      className="alert alert-warning alert-dismissible fade show row align-items-center py-1"
+                      role="alert"
+                    >
+                      <p>Try the mobile version</p>
+                      <a href="https://play.google.com/store/apps/details?id=com.yanivgoldfrid.cocktailme">
+                        <img
+                          alt="Google Play"
+                          src={
+                            process.env.PUBLIC_URL + "/google-play-badge.png"
+                          }
+                          height="60"
+                        />
+                      </a>
+                      <button
+                        type="button"
+                        className="close"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </Media>
+
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
             {this.context.bar && this.context.bar.length >= 3 && (
               <Form.Check
