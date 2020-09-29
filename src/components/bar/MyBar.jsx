@@ -3,18 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import BarContext from "../../contexts/barContext";
-import Footer from "../common/Footer";
 import MyBarItem from "./MyBarItem";
 
 function MyBar({ onClick, sidebar }) {
   const history = useHistory();
   const { bar } = useContext(BarContext);
-
-  const getButtonClasses = () => {
-    return sidebar
-      ? "sidebar-btn row justify-content-center"
-      : "my-bar-btn row justify-content-center";
-  };
 
   const handleCocktailClick = () => {
     if (bar.length < 3)
@@ -42,6 +35,16 @@ function MyBar({ onClick, sidebar }) {
           <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
         </div>
       </div>
+      {!sidebar && (
+        <div className="my-bar-btn row justify-content-center">
+          <button
+            className="btn btn-cocktailme"
+            onClick={onClick ? onClick : handleCocktailClick}
+          >
+            Cocktail Me!
+          </button>
+        </div>
+      )}
       <div className={sidebar ? "sidebar-sticky" : ""}>
         {bar && bar.length === 0 && (
           <p className="empty-bar text-center">
@@ -58,15 +61,16 @@ function MyBar({ onClick, sidebar }) {
             ))}
         </ul>
       </div>
-      <div className={getButtonClasses()}>
-        <button
-          className="btn btn-cocktailme"
-          onClick={onClick ? onClick : handleCocktailClick}
-        >
-          Cocktail Me!
-        </button>
-      </div>
-      <Footer />
+      {sidebar && (
+        <div className="sidebar-btn row justify-content-center">
+          <button
+            className="btn btn-cocktailme"
+            onClick={onClick ? onClick : handleCocktailClick}
+          >
+            Cocktail Me!
+          </button>
+        </div>
+      )}
     </>
   );
 }

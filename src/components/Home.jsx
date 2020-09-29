@@ -7,7 +7,7 @@ import BarContext from "../contexts/barContext";
 import barService from "../services/barService";
 import CocktailList from "./cocktails/CocktailList";
 import cocktailService from "../services/cocktailService";
-import Footer from "./common/Footer";
+import FooterDesktop from "./footer/FooterDesktop";
 import ListGroup from "./common/ListGroup";
 import Loader from "./common/Loader";
 import Pagination from "./common/Pagination";
@@ -161,60 +161,46 @@ class Home extends Component {
       <>
         <SideBar onClick={this.handleClick} />
         <div className="row cocktails col-md-9 mr-sm-auto col-lg-10 px-md-4">
-          <Media
-            queries={{
-              mobile: "(max-width: 991px)",
-              desktop: "(min-width: 992px)",
-            }}
-          >
-            {(matches) => (
-              <>
-                {matches.desktop && (
-                  <ListGroup
-                    title="Spirits"
-                    items={spirits}
-                    selectedItem={selectedSpirit}
-                    onItemSelect={this.handleSpiritSelect}
-                  />
-                )}
-              </>
-            )}
+          <Media queries={{ desktop: "(min-width: 992px)" }}>
+            {(matches) =>
+              matches.desktop && (
+                <ListGroup
+                  title="Spirits"
+                  items={spirits}
+                  selectedItem={selectedSpirit}
+                  onItemSelect={this.handleSpiritSelect}
+                />
+              )
+            }
           </Media>
 
           <div className="col">
-            <Media
-              queries={{
-                mobile: "(max-width: 575px)",
-                desktop: "(min-width: 575px)",
-              }}
-            >
-              {(matches) => (
-                <>
-                  {matches.mobile && (
-                    <div
-                      className="alert alert-warning alert-dismissible fade show"
-                      role="alert"
+            <Media queries={{ mobile: "(max-width: 575px)" }}>
+              {(matches) =>
+                matches.mobile && (
+                  <div
+                    className="alert alert-warning alert-dismissible fade show pl-1 pb-1"
+                    role="alert"
+                  >
+                    <p className="pl-2">Try the Mobile App</p>
+                    <a href="https://play.google.com/store/apps/details?id=com.yanivgoldfrid.cocktailme">
+                      <img
+                        alt="Get it on Google Play"
+                        src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+                        height="60"
+                      />
+                    </a>
+                    <button
+                      type="button"
+                      className="close"
+                      data-dismiss="alert"
+                      aria-label="Close"
                     >
-                      <p className="pl-2">Try the Mobile App</p>
-                      <a href="https://play.google.com/store/apps/details?id=com.yanivgoldfrid.cocktailme">
-                        <img
-                          alt="Get it on Google Play"
-                          src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-                          height="60"
-                        />
-                      </a>
-                      <button
-                        type="button"
-                        className="close"
-                        data-dismiss="alert"
-                        aria-label="Close"
-                      >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                  )}
-                </>
-              )}
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                )
+              }
             </Media>
 
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
@@ -245,7 +231,7 @@ class Home extends Component {
               <p>Oops! No results found. Try removing some filters</p>
             )}
           </div>
-          <Footer />
+          <FooterDesktop />
         </div>
       </>
     );

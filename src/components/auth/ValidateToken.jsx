@@ -2,7 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import { Redirect } from "react-router-dom";
 
-import Footer from "../common/Footer";
+import FooterDesktop from "../footer/FooterDesktop";
 import Form from "../common/Form";
 import userService from "../../services/userService";
 
@@ -64,7 +64,7 @@ class ValidateToken extends Form {
             </button>
           </p>
         </div>
-        <Footer />
+        <FooterDesktop />
       </div>
     );
   }

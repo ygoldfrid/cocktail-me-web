@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 
-import Footer from "../common/Footer";
+import FooterDesktop from "../footer/FooterDesktop";
 
 class ForgotPasswordPage extends Component {
   render() {
@@ -19,7 +19,7 @@ class ForgotPasswordPage extends Component {
             </div>
           </div>
         </div>
-        <Footer />
+        <FooterDesktop />
       </div>
     );
   }

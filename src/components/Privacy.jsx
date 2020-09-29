@@ -1,6 +1,6 @@
 import React from "react";
 
-import Footer from "./common/Footer";
+import FooterDesktop from "./footer/FooterDesktop";
 
 function Privacy() {
   return (
@@ -128,7 +128,7 @@ function Privacy() {
           cocktailme@yanivgoldfrid.com
         </p>
       </div>
-      <Footer />
+      <FooterDesktop />
     </>
   );
 }

@@ -3,7 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import Joi from "joi-browser";
 
 import auth from "../../services/authService";
-import Footer from "../common/Footer";
+import FooterDesktop from "../footer/FooterDesktop";
 import Form from "../common/Form";
 
 class LoginPage extends Form {
@@ -54,7 +54,7 @@ class LoginPage extends Form {
             Don't have an account? <Link to="/register">Register here</Link>
           </p>
         </div>
-        <Footer />
+        <FooterDesktop />
       </div>
     );
   }

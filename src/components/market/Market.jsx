@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import cocktailService from "../../services/cocktailService";
-import Footer from "../common/Footer";
+import FooterDesktop from "../footer/FooterDesktop";
 import MarketCategory from "./MarketCategory";
 import Loader from "../common/Loader";
 import SideBar from "../bar/SideBar";
@@ -59,7 +59,7 @@ function Market() {
               <MarketCategory title={"Others"} items={others} />
             </>
           )}
-        <Footer />
+        <FooterDesktop />
       </div>
     </>
   );

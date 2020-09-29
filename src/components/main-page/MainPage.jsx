@@ -1,7 +1,7 @@
 import React from "react";
 
 import BottomBox from "./BottomBox";
-import Footer from "../common/Footer";
+import FooterDesktop from "../footer/FooterDesktop";
 import Image from "../common/Image";
 import SideBar from "../bar/SideBar";
 import TopBox from "./TopBox";
@@ -34,7 +34,7 @@ function MainPage({ element, ...rest }) {
             <BottomBox element={element} {...rest} />
           </div>
         </div>
-        <Footer />
+        <FooterDesktop />
       </div>
     </>
   );

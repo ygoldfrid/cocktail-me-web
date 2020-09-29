@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import AuthContext from "../contexts/authContext";
 import auth from "../services/authService";
 import CocktailList from "./cocktails/CocktailList";
-import Footer from "./common/Footer";
+import FooterDesktop from "./footer/FooterDesktop";
 
 function Profile() {
   const { user, favorites } = useContext(AuthContext);
@@ -37,7 +37,7 @@ function Profile() {
           </div>
         )}
       </div>
-      <Footer />
+      <FooterDesktop />
     </>
   );
 }

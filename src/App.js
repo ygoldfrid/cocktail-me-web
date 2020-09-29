@@ -12,6 +12,7 @@ import cocktailService from "./services/cocktailService";
 
 import AppTour from "./components/appTour/AppTour";
 import CocktailPage from "./components/main-page/CocktailPage";
+import FooterMobile from "./components/footer/FooterMobile";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import Home from "./components/Home";
 import IngredientPage from "./components/main-page/IngredientPage";
@@ -114,6 +115,7 @@ export default function App() {
               </Switch>
             </main>
           </div>
+          <FooterMobile />
         </TourContext.Provider>
       </BarContext.Provider>
     </AuthContext.Provider>
