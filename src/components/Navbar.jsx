@@ -24,7 +24,9 @@ const NavBar = () => {
           height="30"
           className="mr-1"
         />
-        <h6>Cocktail Me!</h6>
+        <h6 className="noselect">
+          Cocktail<span style={{ fontWeight: 500 }}>Me</span>
+        </h6>
       </div>
       <button
         className="navbar-toggler"
