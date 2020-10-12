@@ -1,10 +1,11 @@
-# Cocktail Me!
+# Cocktail Me
 
 Web App for making your own homemade cocktails.
 
 ## Getting Started
 
-Try the Web App [here](https://cocktailme.yanivgoldfrid.com)
+- Try the Web App [here](https://cocktailme.yanivgoldfrid.com)
+- Try the Mobile App [here](https://play.google.com/store/apps/details?id=com.yanivgoldfrid.cocktailme)
 
 ## Built With
 
