@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "body-scroll-lock": "^3.0.3",
     "bootstrap": "^4.5.0",
     "font-awesome": "^4.7.0",
@@ -28,8 +28,8 @@
     "styled-components": "^4.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -48,5 +48,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
