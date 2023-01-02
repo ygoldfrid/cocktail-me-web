@@ -174,7 +174,7 @@ class Home extends Component {
             }
           </Media>
 
-          <div className="col">
+          <div className="col-10">
             <Media queries={{ mobile: "(max-width: 575px)" }}>
               {(matches) =>
                 matches.mobile && (
